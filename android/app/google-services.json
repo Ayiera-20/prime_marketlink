@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "799984183169",
+    "project_id": "prime-market-link",
+    "storage_bucket": "prime-market-link.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:799984183169:android:16fb460c7c6a6e7363ea80",
+        "android_client_info": {
+          "package_name": "com.example.prime_marketlink"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEe9KVLCyTA6dxuUut4RykUyRXvZgkGto"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
