@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:prime_marketlink/screens/home_screen.dart';
+import 'package:prime_marketlink/screens/profile.dart';
 
 
 class MyBottomNavigationBar extends StatelessWidget {
@@ -10,32 +12,64 @@ class MyBottomNavigationBar extends StatelessWidget {
   @override
  Widget build(BuildContext context) {
     return BottomNavigationBar(
-        items:  const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home', 
-            backgroundColor: Colors.black
+        items:  [
+           BottomNavigationBarItem(
+            icon: IconButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => HomeScreen(),
+                ));
+              },
+              icon: Icon(Icons.home),
             ),
-            BottomNavigationBarItem(
-            icon: Icon(Icons.network_cell_rounded),
-            label: 'My Network', 
-            backgroundColor: Colors.black
-            ),
-            BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search', 
-            backgroundColor: Colors.black
-            ),
-            BottomNavigationBarItem(
-            icon: Icon(Icons.subscriptions_rounded),
-            label: 'Subscribe', 
-            backgroundColor: Colors.black
-            ),
-            BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile', 
+            label: 'Home',
             backgroundColor: Colors.black,
-            ),   
+            ),
+             BottomNavigationBarItem(
+            icon: IconButton(
+              onPressed: () {
+                // Navigator.of(context).push(MaterialPageRoute(
+                //   builder: (context) => Profile(),
+                // ));
+              },
+              icon: Icon(Icons.connect_without_contact),
+            ),
+            label: 'connect'
+            ),
+             BottomNavigationBarItem(
+            icon: IconButton(
+              onPressed: () {
+                // Navigator.of(context).push(MaterialPageRoute(
+                //   builder: (context) => Profile(),
+                // ));
+              },
+              icon: Icon(Icons.search),
+            ),
+            label: 'search'
+            ),
+            BottomNavigationBarItem(
+            icon: IconButton(
+              onPressed: () {
+                // Navigator.of(context).push(MaterialPageRoute(
+                //   builder: (context) => Profile(),
+                // ));
+              },
+              icon: Icon(Icons.subscriptions_sharp),
+            ),
+            label: 'Subscribe'
+            ),
+   
+           BottomNavigationBarItem(
+            icon: IconButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => Profile(),
+                ));
+              },
+              icon: Icon(Icons.person),
+            ),
+            label: 'Profile'
+            ),
         ],
         // onTap: (index) {
         //   setState(() {

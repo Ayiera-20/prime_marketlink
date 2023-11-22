@@ -8,7 +8,7 @@ import 'package:prime_marketlink/screens/signup.dart';
 class Login extends StatelessWidget {
   static const mySnackBar = SnackBar(content:Text('Logged in successfully!'));
   @override
-  List<user> users = [];
+  // List<user> users = [];
    Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
@@ -105,7 +105,7 @@ class Login extends StatelessWidget {
                       Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => HomeScreen(),
                     ));
-                    addUserDialog(context);
+                    // addUserDialog(context);
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
@@ -140,16 +140,16 @@ class Login extends StatelessWidget {
   }
 }
 
-void addUserDialog(BuildContext context){
-  TextEditingController _nameController = new TextEditingController();
-  TextEditingController _EmailController = new TextEditingController();
-  TextEditingController _PasswordController = new TextEditingController();
-  TextEditingController _PhonenumberController = new TextEditingController();
-  showDialog(context: context, builder: (context){
-    return AlertDialog(
-      title: Text('Add user'),
-    );
-  });
-}
+// void addUserDialog(BuildContext context){
+//   TextEditingController _nameController = new TextEditingController();
+//   TextEditingController _EmailController = new TextEditingController();
+//   TextEditingController _PasswordController = new TextEditingController();
+//   TextEditingController _PhonenumberController = new TextEditingController();
+//   showDialog(context: context, builder: (context){
+//     return AlertDialog(
+//       title: Text('Add user'),
+//     );
+//   });
+// }
 
       

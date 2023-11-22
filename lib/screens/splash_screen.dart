@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:prime_marketlink/screens/login.dart";
-import "package:prime_marketlink/screens/profile.dart";
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key); 
@@ -18,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
      Future.delayed(const Duration(seconds: 5), () {
       return Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => Profile(),         
+        builder: (context) => Login(),         
       ));
     });
   }
@@ -33,18 +32,12 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Container( 
-        width: double.infinity,        
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("images/background.jpg"),
-            fit: BoxFit.cover,
-          ),
-        ),
         child: const Column(
           mainAxisAlignment:MainAxisAlignment.center,
           children: [
-            Icon(Icons.business_center_rounded, size: 80, color: Colors.white,
+            Icon(Icons.business_center_rounded, size: 80, color: Colors.amber,
             ),
             SizedBox(height: 20,),
             Text('Connecting businesses globally', style: TextStyle(
