@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:prime_marketlink/screens/home_screen.dart';
 import 'package:prime_marketlink/screens/profile.dart';
+import 'package:prime_marketlink/screens/subscription.dart';
 
 
 class MyBottomNavigationBar extends StatelessWidget {
@@ -51,9 +52,11 @@ class MyBottomNavigationBar extends StatelessWidget {
             BottomNavigationBarItem(
             icon: IconButton(
               onPressed: () {
-                // Navigator.of(context).push(MaterialPageRoute(
-                //   builder: (context) => Profile(),
-                // ));
+                 Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => Subscription(),
+                            ),
+                          );
               },
               icon: Icon(Icons.subscriptions_sharp),
             ),
