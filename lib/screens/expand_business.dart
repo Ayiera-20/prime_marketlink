@@ -23,7 +23,7 @@ class _ExpandbusinessState extends State<Expandbusiness> {
                 BoxDecoration(image: DecorationImage(image: AssetImage("images/background.jpg"),fit: BoxFit.cover), shape: BoxShape.rectangle, borderRadius: BorderRadius.circular(15.9)),
               ),
             ),
-            Text('Kenya-International Prtnerships'),
+            Text('Kenya-International Partnerships'),
             SizedBox(height: 30,),
           Card(
             child: Container(
@@ -36,6 +36,15 @@ class _ExpandbusinessState extends State<Expandbusiness> {
             Text('Market Research'),
             SizedBox(height: 30,),
           Card(
+            child: Container(
+             width: 450,
+              height: 200,
+              decoration: 
+                BoxDecoration(image: DecorationImage(image: AssetImage("images/background.jpg"),fit: BoxFit.cover), shape: BoxShape.rectangle, borderRadius: BorderRadius.circular(15.9)),
+              ),
+            ),
+            Text('Personalized Services/Consultation'),
+             Card(
             child: Container(
              width: 450,
               height: 200,
