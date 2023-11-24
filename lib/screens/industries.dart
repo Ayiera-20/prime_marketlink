@@ -38,6 +38,110 @@ class _IndustriesState extends State<Industries> {
         ),
       ],
     ),
+
+    body: Container(
+      margin: EdgeInsets.all(20),
+      child: Column(
+        children: [
+          
+          Row(
+            children: [
+              Card(
+                color: Colors.black,
+                child: Container(
+                  width: 150,
+               height: 40,
+        
+               decoration: BoxDecoration(
+                shape: BoxShape.rectangle, 
+              ),
+              
+                  child: const Text('industry', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
+                        ),
+                ),
+                 Card(
+                color: Colors.black,
+                child: Container(
+                  width: 150,
+               height: 40,
+        
+               decoration: BoxDecoration(
+                shape: BoxShape.rectangle, 
+              ),
+              
+                  child: const Text('Connect with people', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
+                        ),
+                ),
+              
+
+            ],
+          ),
+          Row(
+            children: [
+              Card(
+                color: Colors.black,
+                child: Container(
+                  width: 180,
+               height: 200,
+        
+               decoration: BoxDecoration(
+                shape: BoxShape.rectangle, borderRadius: BorderRadius.circular(9.9),
+              ),
+              
+                  child: const Text('industry', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
+                        ),
+                ),
+
+                  Card(
+                color: Colors.black,
+                child: Container(
+                  width: 180,
+               height: 200,
+        
+               decoration: BoxDecoration(
+                shape: BoxShape.rectangle, borderRadius: BorderRadius.circular(9.9),
+              ),
+              
+                  child: const Text('connect with people', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
+                        ),
+                ),
+            ],
+          ),
+          SizedBox(height: 40,),
+          Row(
+            children: [
+               Card(
+                child: Container(
+                  width: 200,
+                  height: 200,
+                  decoration:  BoxDecoration(borderRadius: BorderRadius.circular(9.9),
+                    image: DecorationImage(image: AssetImage("images/background.jpg"),fit: BoxFit.cover),
+                  shape: BoxShape.rectangle
+                  ),
+                child: Text('Events'),
+                ),
+                          
+                ),
+                Card(
+                child: Container(
+                  width: 200,
+                  height: 200,
+                  decoration:  BoxDecoration(borderRadius: BorderRadius.circular(9.9),
+                    image: DecorationImage(image: AssetImage("images/background.jpg"),fit: BoxFit.cover),
+                  shape: BoxShape.rectangle
+                  ),
+                child: Text('Events'),
+                ),
+                          
+                ),
+
+
+            ],
+          )
+        ],
+
+      ),
+    ),
     );
   }
 }

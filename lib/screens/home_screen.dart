@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:prime_marketlink/components/bottom_navbar.dart';
 import 'package:prime_marketlink/components/side_bar.dart';
 import 'package:prime_marketlink/screens/expand_business.dart';
+import 'package:prime_marketlink/screens/industries.dart';
 
 class Caseroul extends StatefulWidget {
   const Caseroul({super.key});
@@ -68,6 +69,7 @@ class HomeScreen extends StatelessWidget {
         children: [
           const Padding(padding: EdgeInsets.only(right:30, left:30)),
           const TextField(
+            clipBehavior: Clip.antiAlias,
                     cursorColor: Color.fromARGB(24, 158, 158, 158),
                     decoration: InputDecoration(
                       fillColor: Color.fromARGB(53, 158, 158, 158),
@@ -111,12 +113,32 @@ class HomeScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('industries'),
+                         TextButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => Industries(),
+                    ));
+                  },
+                  child: const Text(
+                    'See More',
+                    style: TextStyle(color: Color.fromARGB(255, 134, 10, 51), decoration: TextDecoration.underline),
+                  ),
+                ), 
+
+                      ],
+                    ),
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Card(
+                          
                           shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.elliptical(10,12))
                       ),
+                      
                       
                           child: Container(
                             child: Text('Construction', style: TextStyle(
