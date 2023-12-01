@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prime_marketlink/screens/basic_info.dart';
 import 'package:prime_marketlink/screens/company_info.dart';
+import 'package:prime_marketlink/screens/review_form.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -102,13 +103,23 @@ class _ProfileState extends State<Profile> {
               tileColor: Colors.black,
               textColor: Colors.white,
             ),
-           Card(
+            SizedBox(height: 20,),
+            GestureDetector(
+              onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => CustomerReviewsPage()),
+            );
+          },
+          child: Card(
             color: Colors.amber,
             child: Text('Rate us'),
             
-            
 
-           )
+           ) ,
+
+            ),
+          
           ],
         ),
       ),
