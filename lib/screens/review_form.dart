@@ -15,16 +15,19 @@ class _CustomerReviewsPageState extends State<CustomerReviewsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Customer Reviews Form'),
+        title: Text(' Reviews Form', style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.teal,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.only(left: 16, right: 16, top: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            Text('We value your feedback!', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),),
+            SizedBox(height: 30,),
             TextFormField(
               controller: _nameController,
-              decoration: InputDecoration(labelText: 'Your Name'),
+              decoration: InputDecoration(labelText: 'Your Name(optional)'),
             ),
             SizedBox(height: 16.0),
             Text('Rating: $_rating'),
@@ -54,8 +57,11 @@ class _CustomerReviewsPageState extends State<CustomerReviewsPage> {
               ),
               maxLines: 5,
             ),
-            SizedBox(height: 16.0),
+            SizedBox(height: 18.0),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.amber 
+              ),
               onPressed: () {
                 // TODO: Implement form submission logic
                 // Access the form data using _nameController.text, _rating, and _commentController.text
@@ -63,7 +69,7 @@ class _CustomerReviewsPageState extends State<CustomerReviewsPage> {
                 print('Rating: $_rating');
                 print('Review: ${_commentController.text}');
               },
-              child: Text('Submit'),
+              child: Text('Submit', style: TextStyle(fontWeight: FontWeight.bold),),
             ),
           ],
         ),

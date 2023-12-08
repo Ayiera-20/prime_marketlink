@@ -7,35 +7,12 @@ import 'package:prime_marketlink/components/side_bar.dart';
 import 'package:prime_marketlink/main.dart';
 import 'package:prime_marketlink/screens/about_us.dart';
 import 'package:prime_marketlink/screens/expand_business.dart';
+import 'package:prime_marketlink/screens/home_highlights.dart';
 import 'package:prime_marketlink/screens/industries.dart';
-import 'package:prime_marketlink/screens/market_insights.dart';
 import 'package:prime_marketlink/screens/review_form.dart';
-
-
-
-// class Caseroul extends StatefulWidget {
-//   const Caseroul({super.key});
-
-//   @override
-//   State<Caseroul> createState() => _CaseroulState();
-// }
-
-// class _CaseroulState extends State<Caseroul> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return const MaterialApp();
-//   }
-// }
-// final List<String> imageList = [
-//     'https://www.freepik.com/free-photo/workers-giving-ideas-new-project_899448.htm#query=businesses&position=4&from_view=search&track=sph&uuid=e096d5f6-9713-4e72-a7ad-8ce956e34ad3',
-//     'https://www.freepik.com/free-photo/businesspeople-having-discussion-office_9597592.htm#query=businesses&position=10&from_view=search&track=sph&uuid=e096d5f6-9713-4e72-a7ad-8ce956e34ad3',
-//     'https://www.freepik.com/free-vector/nairobi-kenya-skyline-white-background-flat-realistic-style-with-famous-landmarks-modern-scraper-buildings-vector-illustration-web-print-production_23307260.htm#query=Kenya&position=16&from_view=search&track=sph&uuid=7bee88eb-02c5-45bf-8c40-86dcbf782c82',
-//     // Add more image URLs as needed
-//   ];
+import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 
 class HomeScreen extends StatelessWidget {
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -65,14 +42,9 @@ class HomeScreen extends StatelessWidget {
       ],
     ),
     
-    
-
         bottomNavigationBar: MyBottomNavigationBar(),
          body: Stack(
           children: [
-  
-  
-        
          SingleChildScrollView(
         scrollDirection: Axis.vertical, 
         child: Container(
@@ -104,136 +76,141 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 30),              
+                  ImageSlideshow(
 
+                    /// Width of the [ImageSlideshow].
+                    width: double.infinity,
 
-                  Container(
-                    height: 200,
-                    
-                    child: ListView( 
-                          children: [ 
-                            CarouselSlider( 
-                                items: [ 
-                                    //1st Image of Slider 
-                                  GestureDetector(
-                                    onTap: () {
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => InsightsPage(), 
-                                    ));
-                                  },
-                                  child: Container(
-                                    width: 400,
-                                    margin: EdgeInsets.all(6.0), 
-                                          decoration: BoxDecoration( 
-                                      borderRadius: BorderRadius.circular(8.0), 
-                                      image: DecorationImage( 
-                                        image: AssetImage("images/background.jpg"), 
-                                        fit: BoxFit.cover, 
-                                      ), 
-                                    ),
-                                    padding: EdgeInsets.only(left: 20, top: 80), 
-                                    child: Text('Featured \n Businesses', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20,),
-                                    ), 
+                    /// Height of the [ImageSlideshow].
+                    height: 220,
 
-                                  ),
+                    /// The page to show when first creating the [ImageSlideshow].
+                    initialPage: 0,
 
-                                  ),
-                    
-                                
-                             
-                    
-                                  //2nd Image of Slider 
-                                  GestureDetector(
-                                    onTap: () {
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => Aboutus(), 
-                                    ));
-                                  },
-                                  child: Container( 
-                                    width: 400,
-                    margin: EdgeInsets.all(6.0), 
-                    decoration: BoxDecoration( 
-                      borderRadius: BorderRadius.circular(8.0), 
-                      image: DecorationImage( 
-                         image: AssetImage("images/background.jpg"), 
-                        fit: BoxFit.cover, 
-                      ), 
-                    ), 
-                     padding: EdgeInsets.only(left: 20, top: 80), 
-                    child: Text('About Us', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20,),
-                    ),
-                    
-                                  ), 
-                                  ),
-                    
-                                  //3rd Image of Slider 
-                                  GestureDetector(
-                                    onTap: () {
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => Aboutus(), 
-                                    ));
-                                  },
-                                  child: Container( 
-                                     width: 400,
-                    margin: EdgeInsets.all(6.0), 
-                    decoration: BoxDecoration( 
-                      borderRadius: BorderRadius.circular(8.0), 
-                      image: DecorationImage( 
-                         image: AssetImage("images/background.jpg"),  
-                        fit: BoxFit.cover, 
-                      ), 
-                    ), 
-                     padding: EdgeInsets.only(left: 20, top: 80), 
-                    child: Text('Upcoming Events', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20,),
-                    ),
-                                  ), 
-                                  ),
-                    
-                                  //4th Image of Slider 
-                                  Container( 
-                                     width: 400,
-                    margin: EdgeInsets.all(6.0), 
-                    decoration: BoxDecoration( 
-                      borderRadius: BorderRadius.circular(8.0), 
-                      image: DecorationImage( 
-                         image: AssetImage("images/background.jpg"),  
-                        fit: BoxFit.cover, 
-                      ), 
-                    ), 
-                     padding: EdgeInsets.only(left: 20, top: 80), 
-                    child: Text('Market Research \n Market Insights', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20,),
-                    ),
-                                  ), 
-                            ], 
-                                
-                              //Slider Container properties 
-                                options: CarouselOptions( 
-                                  height: 200.0, 
-                                  // enlargeCenterPage: true, 
-                                  autoPlay: true, 
-                                  aspectRatio: 16 / 9, 
-                                  autoPlayCurve: Curves.fastOutSlowIn, 
-                                  enableInfiniteScroll: true, 
-                                  autoPlayAnimationDuration: Duration(milliseconds: 800), 
-                                  viewportFraction: 0.8, 
-                                ), 
-                            ), 
-                          ], 
-                        ),
-                  ), 
-                   Row( 
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    /// The color to paint the indicator.
+                    indicatorColor: Colors.blue,
+
+                    /// The color to paint behind th indicator.
+                    indicatorBackgroundColor: Colors.grey,
+
+                    /// Called whenever the page in the center of the viewport changes.
+                    onPageChanged: (value) {
+                      print('Page changed: $value');
+                    },
+
+                    /// Auto scroll interval.
+                    /// Do not auto scroll with null or 0.
+                    autoPlayInterval: 3000,
+
+                    /// Loops back to first slide.
+                    isLoop: true,
+
+                    /// The widgets to display in the [ImageSlideshow].
+                    /// Add the sample image file into the images folder
                     children: [
-                    Container(
-                      margin: EdgeInsets.only(left: 50),
-                      child: Text('Discover more')),
-                      SizedBox(width: 24,),
-                    Icon(Icons.arrow_forward)
-                  ],),
+                      GestureDetector(
+                                              onTap: () {
+                                              Navigator.of(context).push(MaterialPageRoute(
+                                                builder: (context) => Highlights(), 
+                                              ));
+                                            },
+                                            child: Container(
+                                              width: 400,
+                                              margin: EdgeInsets.all(6.0), 
+                                                    decoration: BoxDecoration( 
+                                                borderRadius: BorderRadius.circular(8.0), 
+                                                image: const DecorationImage( 
+                                                  image: AssetImage("images/background.jpg"), 
+                                                  fit: BoxFit.cover, 
+                                                ), 
+                                              ),
+                                              padding: EdgeInsets.only(left: 20, top: 80), 
+                                              child: const Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      'Featured Businesses',
+                                                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20,),
+                                                    ),
+                                                    Text(
+                                                      'Click to dicover more',
+                                                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12,),
+                                                    ),
+                                                    // Add more Text widgets as needed
+                                                  ],
+                                                ), 
 
+                                            ),
+
+                                            ),
+
+                                            //2nd Image of Slider 
+                                            GestureDetector(
+                                              onTap: () {
+                                              Navigator.of(context).push(MaterialPageRoute(
+                                                builder: (context) => Aboutus(), 
+                                              ));
+                                            },
+                                            child: Container( 
+                                              width: 400,
+                              margin: EdgeInsets.all(6.0), 
+                              decoration: BoxDecoration( 
+                                borderRadius: BorderRadius.circular(8.0), 
+                                image: DecorationImage( 
+                                  image: AssetImage("images/background.jpg"), 
+                                  fit: BoxFit.cover, 
+                                ), 
+                              ), 
+                              padding: EdgeInsets.only(left: 20, top: 80), 
+                              child: const Text('About Us', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20,),
+                              ),
+                              
+                                            ), 
+                                            ),
+                              
+                                            //3rd Image of Slider 
+                                            GestureDetector(
+                                              onTap: () {
+                                              Navigator.of(context).push(MaterialPageRoute(
+                                                builder: (context) => Aboutus(), 
+                                              ));
+                                            },
+                                            child: Container( 
+                                              width: 400,
+                              margin: EdgeInsets.all(6.0), 
+                              decoration: BoxDecoration( 
+                                borderRadius: BorderRadius.circular(8.0), 
+                                image: DecorationImage( 
+                                  image: AssetImage("images/background.jpg"),  
+                                  fit: BoxFit.cover, 
+                                ), 
+                              ), 
+                              padding: EdgeInsets.only(left: 20, top: 80), 
+                              child: const Text('Upcoming Events', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20,),
+                              ),
+                                            ), 
+                                            ),
+                              
+                                            //4th Image of Slider 
+                                            Container( 
+                                              width: 400,
+                              margin: EdgeInsets.all(6.0), 
+                              decoration: BoxDecoration( 
+                                borderRadius: BorderRadius.circular(8.0), 
+                                image: DecorationImage( 
+                                  image: AssetImage("images/background.jpg"),  
+                                  fit: BoxFit.cover, 
+                                ), 
+                              ), 
+                              padding: EdgeInsets.only(left: 20, top: 80), 
+                              child: Text('Market Research \n Market Insights', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20,),
+                              ),
+                              ),
+                    ],
+                  ),
                   SizedBox(height: 20,),
-                  
-                
+           
             Container(
               // child:  SingleChildScrollView(
               // scrollDirection: Axis.horizontal, 
@@ -358,7 +335,7 @@ class HomeScreen extends StatelessWidget {
               ),
               ),
             // ),
-             SizedBox(height: 10,),
+             SizedBox(height: 30,),
             Container(
               child: Column(
                 children: [
@@ -391,7 +368,7 @@ class HomeScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       Container(
-                      height: 150, 
+                      height: 160, 
                       width: 180,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(9.9),
@@ -420,7 +397,7 @@ class HomeScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       Container(
-                      height: 150, 
+                      height: 160, 
                       width: 190,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(9.9),
@@ -449,19 +426,6 @@ class HomeScreen extends StatelessWidget {
           ),
              
                 ),
-
-                  SizedBox(height:20),
-                  Card(
-                        child: Container(
-                          width: 450,
-                          height: 200,
-                          decoration:  BoxDecoration(image: DecorationImage(image: AssetImage("images/background.jpg"),fit: BoxFit.cover),
-                          shape: BoxShape.rectangle
-                          ),
-                          child: Text('Events'),
-                          ),
-                          
-                        ),
                 ],
                 
               ),

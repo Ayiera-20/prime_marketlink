@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prime_marketlink/screens/home_screen.dart';
 
 class Payment extends StatefulWidget {
   const Payment({super.key});
@@ -8,17 +9,26 @@ class Payment extends StatefulWidget {
 }
 
 class _PaymentState extends State<Payment> {
+  static const mySnackBar = SnackBar(behavior: SnackBarBehavior.floating,
+  margin: EdgeInsets.only(bottom: 700.0), 
+  duration: Duration( seconds: 8),
+   backgroundColor: Colors.red,
+   showCloseIcon: true,
+      closeIconColor: Colors.white,
+   dismissDirection: DismissDirection.up,
+    content:Text('Payment successfull!'));
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Container(
         margin: EdgeInsets.all(40),
         child: Column(
-          children: [
+          children: <Widget>[
             Text('Payment', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
             SizedBox(height: 20,),
             Card(
-            color: Colors.blue,
+            color: Colors.teal,
             child: Container(
               margin: EdgeInsets.all(40),
               width: 300,
@@ -26,9 +36,9 @@ class _PaymentState extends State<Payment> {
               decoration: BoxDecoration(
                 shape: BoxShape.rectangle, borderRadius: BorderRadius.circular(9.9)
               ),
-              child: Column(
+              child: const Column(
                 children: [
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('Monthly Plans', style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),),
@@ -36,7 +46,7 @@ class _PaymentState extends State<Payment> {
                     ],
                   ),
                    SizedBox(height: 30.0),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('GYM ONLY', style: TextStyle(color: Colors.white, fontSize: 12),),
@@ -44,7 +54,7 @@ class _PaymentState extends State<Payment> {
                     ],
                   ),
                   SizedBox(height: 20.0),
-                  const Row(
+                  Row(
                     children: [
                       Text('No discount', style: TextStyle(color: Colors.white, fontSize: 12, )),
                     ],
@@ -53,24 +63,7 @@ class _PaymentState extends State<Payment> {
                   Row(
                     mainAxisAlignment:MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('15 Group Classes', style: TextStyle(color: Colors.white, fontSize: 12)),
-                      Container(
-                        height: 20,
-                        width: 80,
-                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), shape: BoxShape.rectangle,border: Border.all(color: Colors.white)),
-                        child:  TextButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const Payment(),
-                            ),
-                          );
-                         
-                        },
-                        child: const Text('Subscribe', style: TextStyle(color: Colors.white, fontSize: 12)),
-                      ),
-                      )
-
+                      Text('15 Group Classes', style: TextStyle(color: Colors.white, fontSize: 12)),
                     ],
                   ),
                   SizedBox(height: 50,),
@@ -84,45 +77,92 @@ class _PaymentState extends State<Payment> {
           SizedBox(height: 30,),
           
              Card(
+              color: Colors.white,
               child: Container(
                width: 300,
-               height: 50,
+               height: 60,
         
                decoration: BoxDecoration(
                 shape: BoxShape.rectangle, borderRadius: BorderRadius.circular(9.9),
               ),
               
-                  child: const Text('visa payment'),
+              child: Row(
+              children: [
+                Image.asset("images/mastercard.webp", height: 50 , width: 120,),
+                Text('Visa Payment'),
+
+              ],
+            ),
                         ),
               
           ),
           SizedBox(height: 20,),
+
+          
           Card(
+              color: Colors.white,
               child: Container(
                width: 300,
-               height: 50,
+               height: 60,
         
                decoration: BoxDecoration(
                 shape: BoxShape.rectangle, borderRadius: BorderRadius.circular(9.9),
               ),
-              
-                  child: const Text('Add new card'),
-                        ),),
-
-          SizedBox(height: 30,),
-          Card(
-              child: Container(
-               width: 200,
-               height: 40,
-        
-               decoration: BoxDecoration(
-                shape: BoxShape.rectangle, borderRadius: BorderRadius.circular(9.9),
+              child: Row(
+                children: [
+                  Padding(padding: EdgeInsets.only(left: 8, right: 20),
+                  child: Transform.scale(
+                  scale: 2,
+                       
+                        child:  IconButton(onPressed: () {}, 
+                 icon: const Icon (Icons.add_card_sharp)) ,
+                        ),
+                  
+                  ),
+                  Text('Add New Card', style: TextStyle( fontSize: 16, fontWeight: FontWeight.bold),),
+                
+             
+                ],
               ),
               
-                  child: const Text('PAY NOW'),
+              
+                 
              )),
+
+             SizedBox(height: 35,),
+             Container(
+              margin: EdgeInsets.only(left: 10, right: 10),
+              width: 150, 
+               height: 50,
+              child:  ElevatedButton(
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(mySnackBar);
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => HomeScreen(),
+                      ));
+                      // addUserDialog(context);
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                        Colors.amber,
+                      ),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0), // Set the circular radius
+                        ),
+                      ),
+                    ),
+                    child: const Text('PAY NOW', style: TextStyle( fontWeight: FontWeight.bold, fontSize: 18, color: Colors.black),),
+                  ),
+             ),
+
+            
+            
+
+           
           ],
         ),
+        
 
       ),
     );

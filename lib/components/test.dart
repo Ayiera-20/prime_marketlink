@@ -254,3 +254,61 @@
 
 
     
+
+
+
+
+
+    //     body: Container(
+//       child: Stack(
+//         children: [
+//           Opacity(opacity: 0.5,
+//           child: ClipPath(
+//             clipper: WaveClipper(),
+//             child: Container(
+//               color: Colors.amber,
+//               height: 200,
+//             ),
+//           ),)
+
+//         ],
+
+//       ),
+//     ),
+//     );
+//   }
+// }
+
+// class WaveClipper extends CustomClipper<Path> {
+//   @override
+  // Path getClip(Size size) {
+  //   debugPrint(size.width.toString());
+  //   var path = new Path();
+  //   path.lineTo(0, size.height);
+  //   var firstStart = Offset(size.width / 1, size.height - 1);
+  //   var firstEnd = Offset(size.width / 1, size.height / -1.0);
+  //   path.quadraticBezierTo(firstStart.dx, firstStart.dy, firstEnd.dx, firstEnd.dy);
+
+  //   var secondStart = Offset((size.width / 2), size.height - 2);
+  //   var secondEnd = Offset(size.width /2, size.height - 2);
+  //   path.quadraticBezierTo(secondStart.dx, secondStart.dy, secondEnd.dx, secondEnd.dy);
+  //   path.lineTo(size.width, 0);
+  //   path.close();
+  //   return path;
+//   Path getClip(Size size) {
+//     var path = Path();
+//     path.moveTo(0.0, size.height * 0.34);
+//     path.quadraticBezierTo(
+//         3 / 4 * size.width, size.height * 0.18, size.width, size.height * 0.05);
+//     path.lineTo(size.width, size.height);
+//     path.lineTo(0.0, size.height);
+//     return path;
+  
+//   }
+  
+//   @override
+//   bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+//     // TODO: implement shouldReclip
+//     throw UnimplementedError();
+//   }
+// }

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:prime_marketlink/screens/payment.dart';
 
@@ -13,11 +15,41 @@ class _SubscriptionState extends State<Subscription> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Column(
+      
+      body: Stack(
+        children: [
+             Container(
+            height: 200,
+            
+                decoration:  BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("images/background.jpg"),
+                  
+                  fit: BoxFit.contain, 
+                ),
+                
+              ),
+
+            child: AppBar(
+              toolbarHeight: 80,
+      centerTitle: true,
+      title: const Text(
+        'Subscription Plan',
+        style: TextStyle( fontStyle: FontStyle.normal, fontSize: 20),
+      ),
+      iconTheme: const IconThemeData(color: Colors.black),
+
+            ),
+          ),
+
+       
+      Container(
+        margin: EdgeInsets.only(left: 40, right: 40),
+        child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Card(
-            color: Colors.blue,
+            color: const Color.fromARGB(255, 171, 4, 4),
             child: Container(
               margin: EdgeInsets.all(20),
               width: 300,
@@ -83,7 +115,7 @@ class _SubscriptionState extends State<Subscription> {
 
 
            Card(
-            color: Colors.blue,
+            color: Colors.amber,
             child: Container(
               margin: EdgeInsets.all(20),
               width: 300,
@@ -149,7 +181,7 @@ class _SubscriptionState extends State<Subscription> {
 
 
            Card(
-            color: Colors.blue,
+            color: Colors.brown,
             child: Container(
               margin: EdgeInsets.all(20),
               width: 300,
@@ -212,6 +244,13 @@ class _SubscriptionState extends State<Subscription> {
 
         ],
       ),
+      ),
+
+      ],
+      ), 
     );
   }
 }
+
+
+

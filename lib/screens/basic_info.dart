@@ -11,21 +11,11 @@ class PersonalDetails extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextField(
               decoration: InputDecoration(
-                labelText: 'First Name',
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                ),
-              ),
-            ),
-            SizedBox(height: 16.0),
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Last Name',
+                labelText: 'Name',
                 filled: true,
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
@@ -71,7 +61,7 @@ class PersonalDetails extends StatelessWidget {
                   
                 ),
                 clipBehavior: Clip.antiAlias,
-                child: const Text('Save'),
+                child: const Text('Update'),
               ),
            ),
           ],
