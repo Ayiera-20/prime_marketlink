@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:prime_marketlink/models/user.dart';
-import 'package:prime_marketlink/screens/home_screen.dart';
-import 'package:prime_marketlink/screens/signup.dart';
+
 
 
 
@@ -331,12 +328,13 @@ import 'package:prime_marketlink/screens/signup.dart';
 //     );
 //   }
 // }
+
       
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'home_screen.dart'; // Import your HomeScreen or whatever the next screen is
-import 'signup.dart'; // Import your Signup screen
+import 'home_screen.dart'; 
+import 'signup.dart'; 
 
 class Login extends StatefulWidget {
   @override
@@ -344,6 +342,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  bool _obscureText = true;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -351,6 +350,8 @@ class _LoginState extends State<Login> {
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  
 
   Future<void> _handleLogin(BuildContext context) async {
     try {
@@ -363,26 +364,31 @@ class _LoginState extends State<Login> {
 
       // Fetch additional user data from Firestore
       DocumentSnapshot<Map<String, dynamic>> userData =
-          await _firestore.collection('Users').doc(user?.uid).get();
+          await _firestore.collection('users').doc(user?.uid).get();
 
       // Access user data like this
       String userName = userData.data()?['name'] ?? 'Default Name';
 
-
       ScaffoldMessenger.of(context).showSnackBar(mySnackBar);
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => HomeScreen(), // Replace HomeScreen with your next screen
-      ));
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => HomeScreen(
+            userName: userName,
+            userEmail: user?.email ?? 'yourUserEmail',
+          ),
+        ),
+      );
 
       print('Login successful: ${user?.email}');
       print('User name: $userName');
     } catch (error) {
       print('Login failed: $error');
-      // Handle the error, show an error message, etc.
-      // For example, you could show an error snackbar:
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Login failed: $error')));
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Login failed: $error')));
     }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -399,7 +405,7 @@ class _LoginState extends State<Login> {
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage("images/background.jpg"),
+                  image: const AssetImage("images/background.jpg"),
                   fit: BoxFit.cover,
                   colorFilter: ColorFilter.mode(
                     Colors.black.withOpacity(0.4),
@@ -414,15 +420,15 @@ class _LoginState extends State<Login> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Padding(
+                 Padding(
                   padding: EdgeInsets.only(left: 20, right: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CircleAvatar(
-                        child: Text('AH'),
-                      ),
-                      SizedBox(width: 20,),
+                      // CircleAvatar(
+                      //   child: Text(''),
+                      // ),
+                      // SizedBox(width: 20,),
                       Text(
                         'Welcome Back!',
                         style: TextStyle(
@@ -437,7 +443,7 @@ class _LoginState extends State<Login> {
                 TextField(
                   controller: _emailController,
                   textAlign: TextAlign.center,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     filled: true,
                     fillColor: Colors.white,
                     prefixIcon: Icon(Icons.email),
@@ -449,23 +455,30 @@ class _LoginState extends State<Login> {
                 ),
                 const SizedBox(height: 30),
                 TextField(
-                  controller: _passwordController,
-                  textAlign: TextAlign.center,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    prefixIcon: Icon(Icons.lock),
-                    hintText: "Enter Password",
-                    suffixIcon: Icon(Icons.remove_red_eye,),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    ),
+                controller: _passwordController,
+                textAlign: TextAlign.center,
+                obscureText: _obscureText, // Use a variable to toggle password visibility
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  prefixIcon: Icon(Icons.lock),
+                  hintText: "Enter Password",
+                  suffixIcon: IconButton(
+                    icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
+                    onPressed: () {
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    },
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   ),
                 ),
+              ),
                 const SizedBox(height: 60),
                 Container(
-                  margin: EdgeInsets.only(left: 10, right: 10),
+                  margin: const EdgeInsets.only(left: 10, right: 10),
                   width: 365,
                   height: 50,
                   child: ElevatedButton(
@@ -509,3 +522,5 @@ class _LoginState extends State<Login> {
     );
   }
 }
+
+

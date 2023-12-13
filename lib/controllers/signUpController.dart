@@ -20,6 +20,8 @@ class SignupController {
   final TextEditingController websiteController = TextEditingController();
   final TextEditingController companySizeController = TextEditingController();
   final TextEditingController industryController = TextEditingController();
+  final TextEditingController selectedCompanySize = TextEditingController();
+  final TextEditingController selectedBusinessType = TextEditingController();
 
   static const mySnackBar = SnackBar(content: Text('You are now Signed up!'));
 
@@ -40,15 +42,18 @@ class SignupController {
         'profession':professionController.text,
         'companyName': companyNameController.text,
         'location': locationController.text,
-        'businessType': businessTypeController.text,
-        'companySize': companySizeController.text,
+        'businessType': selectedBusinessType.text,  
+      'companySize': selectedCompanySize.text,
         'industry': industryController.text,
         'companyWebsite': websiteController.text,
     });
 
       ScaffoldMessenger.of(context).showSnackBar(mySnackBar);
       Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => HomeScreen(),
+        builder: (context) => HomeScreen(
+          userName: nameController.text,
+          userEmail: emailController.text,
+        ),
       ));
     } catch (e) {
       print('Error during sign-up: $e');
@@ -72,8 +77,9 @@ class SignupController {
     locationController.dispose();
     industryController.dispose();
     websiteController.dispose();
-    businessTypeController.dispose();
-    companySizeController.dispose();
+    selectedBusinessType.dispose();
+    selectedCompanySize.dispose();
     passwordController.dispose();
   }
+
 }

@@ -6,14 +6,14 @@ class PersonalDetails extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text('Personal Details'),
+        title: const Text('Personal Details'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextField(
+            const TextField(
               decoration: InputDecoration(
                 labelText: 'Name',
                 filled: true,
@@ -23,8 +23,8 @@ class PersonalDetails extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 16.0),
-            TextField(
+            const SizedBox(height: 16.0),
+            const TextField(
               decoration: InputDecoration(
                 labelText: 'Email',
                 filled: true,
@@ -34,8 +34,8 @@ class PersonalDetails extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 16.0),
-            TextField(
+            const SizedBox(height: 16.0),
+            const TextField(
               decoration: InputDecoration(
                 labelText: 'Phone Number',
                 filled: true,
@@ -45,7 +45,7 @@ class PersonalDetails extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
            SizedBox(
               width: 200,
               height: 50,
@@ -56,7 +56,7 @@ class PersonalDetails extends StatelessWidget {
       //             shape: RoundedRectangleBorder(
       // borderRadius: BorderRadius.circular(20.0),
                   
-                  backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 221, 181, 49)),
+                  backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 221, 181, 49)),
                   textStyle: const MaterialStatePropertyAll(TextStyle(color: Colors.black)),
                   
                 ),

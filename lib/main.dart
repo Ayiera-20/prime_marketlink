@@ -1,31 +1,43 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:prime_marketlink/firebase_options.dart';
-import 'package:prime_marketlink/screens/profile.dart';
+import 'package:prime_marketlink/screens/post_screen.dart';
 import 'package:prime_marketlink/screens/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart'; 
+import 'package:prime_marketlink/services/messaging_service.dart';
 import 'services/firebase_service.dart';
+import 'package:provider/provider.dart';
 
 
 
 
-
-Future <void> main() async { 
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform, );
-    runApp( MyApp());
-
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => PostProvider()),
+        // Add other providers as needed
+      ],
+      child: MyApp(),
+    ),
+  );
 }
+
+// Future <void> main() async { 
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform, );
+//     runApp( MyApp());
+
+// }
 Future<void> initializeFirestore() async{
   CollectionReference users = FirebaseFirestore.instance.collection('users');
-  CollectionReference company = FirebaseFirestore.instance.collection('company');
+  CollectionReference messages = FirebaseFirestore.instance.collection('messages');
+  CollectionReference posts = FirebaseFirestore.instance.collection('posts');
 
 }
-// async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   await Firebase.initializeApp();
- 
-// }
+
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 

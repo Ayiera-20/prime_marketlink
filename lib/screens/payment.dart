@@ -11,7 +11,7 @@ class Payment extends StatefulWidget {
 class _PaymentState extends State<Payment> {
   static const mySnackBar = SnackBar(behavior: SnackBarBehavior.floating,
   margin: EdgeInsets.only(bottom: 700.0), 
-  duration: Duration( seconds: 8),
+  duration: Duration( seconds: 4),
    backgroundColor: Colors.red,
    showCloseIcon: true,
       closeIconColor: Colors.white,
@@ -20,17 +20,31 @@ class _PaymentState extends State<Payment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        centerTitle: true,
+        title: const Text(
+          'Payment',
+          style: TextStyle(fontStyle: FontStyle.normal, fontSize: 20),
+        ),
+        backgroundColor: Colors.white,
+      ),
       backgroundColor: Colors.black,
       body: Container(
-        margin: EdgeInsets.all(40),
+        margin: const EdgeInsets.all(40),
         child: Column(
           children: <Widget>[
-            Text('Payment', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
-            SizedBox(height: 20,),
+            // const Text('Payment', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+            // const SizedBox(height: 20,),
             Card(
             color: Colors.teal,
             child: Container(
-              margin: EdgeInsets.all(40),
+              margin: const EdgeInsets.all(40),
               width: 300,
               height: 300,
               decoration: BoxDecoration(
@@ -74,7 +88,7 @@ class _PaymentState extends State<Payment> {
             ),
           ),
 
-          SizedBox(height: 30,),
+          const SizedBox(height: 30,),
           
              Card(
               color: Colors.white,
@@ -89,14 +103,14 @@ class _PaymentState extends State<Payment> {
               child: Row(
               children: [
                 Image.asset("images/mastercard.webp", height: 50 , width: 120,),
-                Text('Visa Payment'),
+                const Text('Visa Payment'),
 
               ],
             ),
                         ),
               
           ),
-          SizedBox(height: 20,),
+          const SizedBox(height: 20,),
 
           
           Card(
@@ -110,7 +124,7 @@ class _PaymentState extends State<Payment> {
               ),
               child: Row(
                 children: [
-                  Padding(padding: EdgeInsets.only(left: 8, right: 20),
+                  Padding(padding: const EdgeInsets.only(left: 8, right: 20),
                   child: Transform.scale(
                   scale: 2,
                        
@@ -119,7 +133,7 @@ class _PaymentState extends State<Payment> {
                         ),
                   
                   ),
-                  Text('Add New Card', style: TextStyle( fontSize: 16, fontWeight: FontWeight.bold),),
+                  const Text('Add New Card', style: TextStyle( fontSize: 16, fontWeight: FontWeight.bold),),
                 
              
                 ],
@@ -129,19 +143,22 @@ class _PaymentState extends State<Payment> {
                  
              )),
 
-             SizedBox(height: 35,),
+             const SizedBox(height: 35,),
              Container(
-              margin: EdgeInsets.only(left: 10, right: 10),
+              margin: const EdgeInsets.only(left: 10, right: 10),
               width: 150, 
                height: 50,
               child:  ElevatedButton(
                     onPressed: () {
                       ScaffoldMessenger.of(context).showSnackBar(mySnackBar);
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => HomeScreen(),
-                      ));
-                      // addUserDialog(context);
-                    },
+                      Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => HomeScreen(
+                          userName: 'yourUserName', // Replace with the actual user name
+                          userEmail: 'yourUserEmail', // Replace with the actual user email
+                        ),
+                      ),
+                    );},
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
                         Colors.amber,

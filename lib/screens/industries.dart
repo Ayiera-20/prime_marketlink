@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:prime_marketlink/components/bottom_navbar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:prime_marketlink/screens/connect_users.dart';
+import 'package:prime_marketlink/screens/post_screen.dart';
 
 class Industries extends StatefulWidget {
   const Industries({super.key});
@@ -8,140 +12,179 @@ class Industries extends StatefulWidget {
 }
 
 class _IndustriesState extends State<Industries> {
+  TextEditingController searchController = TextEditingController();
 
-//  final double appBarHeight = 100.0;
-//   final double spaceAroundRoundButton = 4.0;
-//   final double roundedButtonSize = 64.0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        toolbarHeight: 100,
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(bottomRight: Radius.circular(20.0), bottomLeft: Radius.circular(20))),
-      centerTitle: true,
-      title: const Text(
-        'Connecting businesses',
-        style: TextStyle(color: Colors.white, fontStyle: FontStyle.normal, fontSize: 20),
-      ),
-      backgroundColor: Colors.teal,
-      iconTheme: const IconThemeData(color: Colors.black),
-      actions: [
-        IconButton(
-           icon: const Icon(Icons.notification_add_rounded),
-              onPressed: () {
-              },
+        title: Text('Industries', style: TextStyle(color: Colors.white),),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        IconButton(
-           icon: const Icon(Icons.star),
-              onPressed: () {
-              },
+        backgroundColor: Colors.teal,
+      ),
+       bottomNavigationBar: MyBottomNavigationBar(
+  user: FirebaseAuth.instance.currentUser!,
+  onTabSelected: (index) {
+    // Handle tab selection if needed
+  },
+  userProfile: UserProfile(
+    uid: FirebaseAuth.instance.currentUser!.uid,
+    displayName: FirebaseAuth.instance.currentUser!.displayName ?? 'Anonymous',
+  ),
+),
+      body: Column(
+        children: [
+          buildSearchBar(),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  buildTopRow(),
+                  buildIndustryRow('Construction', [
+                    'BuildMaster Inc.',
+                    'Concrete Creations',
+                    'Steel Structures Ltd.',
+                  ]),
+                  buildIndustryRow('Technology', [
+                    'Tech Innovators Co.',
+                    'Digital Solutions Inc.',
+                    'CodeCrafters Ltd.',
+                  ]),
+                  buildIndustryRow('Agriculture', [
+                    'Green Fields Farming',
+                    'Agro Harvest Corp.',
+                    'CropCare Industries',
+                  ]),
+                  buildIndustryRow('Tourism', [
+                    'TravelWonders Ltd.',
+                    'ExploreMore Adventures',
+                    'Vacation Bliss Inc.',
+                  ]),
+                  buildIndustryRow('Finance', [
+                    'BankElite One',
+                    'Investment Wizards Ltd.',
+                    'MoneyTrust Financials',
+                  ]),
+                  buildIndustryRow('Engineering', [
+                    'Company XYZ',
+                    'Global Ventures Inc.',
+                    'Infinite Innovations',
+                  ]),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildSearchBar() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextField(
+        controller: searchController,
+        decoration: InputDecoration(
+          hintText: 'Search...',
+          prefixIcon: Icon(Icons.search),
+        ),
+        onChanged: (value) {
+          // Handle search
+        },
+      ),
+    );
+  }
+
+  Widget buildTopRow() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        buildTopCard('Connect with Community', Icons.people, () {
+           Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => ProfileListPage(),
+              ));
+        }),
+        buildTopCard("What's Happening", Icons.info, () {
+          Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => PostScreen()
+              ));
+        }),
+      ],
+    );
+  }
+
+  Widget buildTopCard(String title, IconData icon, VoidCallback onPressed) {
+    return Card(
+      child: InkWell(
+        onTap: onPressed,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Icon(icon),
+              SizedBox(height: 4),
+              Text(title),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildIndustryRow(String industry, List<String> companies) {
+    return Row(
+      children: [
+        Expanded(
+          child: buildIndustrySection(industry, companies),
         ),
       ],
-    ),
+    );
+  }
 
-    body: Container(
-      margin: EdgeInsets.all(20),
-      child: Column(
-        children: [
-          
-          Row(
-            children: [
-              Card(
-                color: Colors.black,
-                child: Container(
-                  width: 150,
-               height: 40,
-        
-               decoration: BoxDecoration(
-                shape: BoxShape.rectangle, 
-              ),
-              
-                  child: const Text('industry', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
-                        ),
-                ),
-                 Card(
-                color: Colors.black,
-                child: Container(
-                  width: 150,
-               height: 40,
-        
-               decoration: BoxDecoration(
-                shape: BoxShape.rectangle, 
-              ),
-              
-                  child: const Text('Connect with people', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
-                        ),
-                ),
-              
-
-            ],
+  Widget buildIndustrySection(String industry, List<String> companies) {
+    return GestureDetector(
+      onTap: () {
+        _showCompanyList(context, industry, companies);
+      },
+      child: Card(
+        margin: const EdgeInsets.all(8.0),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            industry,
+            style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          Row(
-            children: [
-              Card(
-                color: Colors.black,
-                child: Container(
-                  width: 180,
-               height: 200,
-        
-               decoration: BoxDecoration(
-                shape: BoxShape.rectangle, borderRadius: BorderRadius.circular(9.9),
-              ),
-              
-                  child: const Text('industry', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
-                        ),
-                ),
-
-                  Card(
-                color: Colors.black,
-                child: Container(
-                  width: 180,
-               height: 200,
-        
-               decoration: BoxDecoration(
-                shape: BoxShape.rectangle, borderRadius: BorderRadius.circular(9.9),
-              ),
-              
-                  child: const Text('connect with people', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
-                        ),
-                ),
-            ],
-          ),
-          SizedBox(height: 40,),
-          Row(
-            children: [
-               Card(
-                child: Container(
-                  width: 200,
-                  height: 200,
-                  decoration:  BoxDecoration(borderRadius: BorderRadius.circular(9.9),
-                    image: DecorationImage(image: AssetImage("images/background.jpg"),fit: BoxFit.cover),
-                  shape: BoxShape.rectangle
-                  ),
-                child: Text('Events'),
-                ),
-                          
-                ),
-                Card(
-                child: Container(
-                  width: 200,
-                  height: 200,
-                  decoration:  BoxDecoration(borderRadius: BorderRadius.circular(9.9),
-                    image: DecorationImage(image: AssetImage("images/background.jpg"),fit: BoxFit.cover),
-                  shape: BoxShape.rectangle
-                  ),
-                child: Text('Events'),
-                ),
-                          
-                ),
-
-
-            ],
-          )
-        ],
-
+        ),
       ),
-    ),
+    );
+  }
+
+  void _showCompanyList(BuildContext context, String industry, List<String> companies) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          color: Colors.black,
+          child: ListView(
+            children: companies.map((company) {
+              return ListTile(
+                title: Text(company, style: TextStyle(color:Colors.white, fontWeight: FontWeight.bold, fontSize: 16),),
+                // Add onTap functionality for each company if needed
+                onTap: () {
+                  // Handle company tap
+                },
+              );
+            }).toList(),
+          ),
+        );
+      },
     );
   }
 }

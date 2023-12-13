@@ -1,4 +1,4 @@
-import 'dart:ui';
+
 
 import 'package:flutter/material.dart';
 import 'package:prime_marketlink/screens/payment.dart';
@@ -21,7 +21,7 @@ class _SubscriptionState extends State<Subscription> {
              Container(
             height: 200,
             
-                decoration:  BoxDecoration(
+                decoration:  const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("images/background.jpg"),
                   
@@ -34,7 +34,7 @@ class _SubscriptionState extends State<Subscription> {
               toolbarHeight: 80,
       centerTitle: true,
       title: const Text(
-        'Subscription Plan',
+        'Receive Real Time Analytics',
         style: TextStyle( fontStyle: FontStyle.normal, fontSize: 20),
       ),
       iconTheme: const IconThemeData(color: Colors.black),
@@ -44,14 +44,14 @@ class _SubscriptionState extends State<Subscription> {
 
        
       Container(
-        margin: EdgeInsets.only(left: 40, right: 40),
+        margin: const EdgeInsets.only(left: 40, right: 40),
         child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Card(
             color: const Color.fromARGB(255, 171, 4, 4),
             child: Container(
-              margin: EdgeInsets.all(20),
+              margin: const EdgeInsets.all(20),
               width: 300,
               height: 150,
               decoration: BoxDecoration(
@@ -66,25 +66,25 @@ class _SubscriptionState extends State<Subscription> {
                       Text('ksh 2,000', style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),)
                     ],
                   ),
-                   SizedBox(height: 30.0),
+                   const SizedBox(height: 30.0),
                   const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('GYM ONLY', style: TextStyle(color: Colors.white, fontSize: 12),),
+                      Text('MARKET RESEARCH', style: TextStyle(color: Colors.white, fontSize: 12),),
                       Text('Billed Monthly', style: TextStyle(color: Colors.white, fontSize: 12))
                     ],
                   ),
-                  SizedBox(height: 20.0),
+                  const SizedBox(height: 20.0),
                   const Row(
                     children: [
-                      Text('No discount', style: TextStyle(color: Colors.white, fontSize: 12, )),
+                      Text('Kenyan Market research analytics', style: TextStyle(color: Colors.white, fontSize: 12, )),
                     ],
                   ),
-                  SizedBox(height: 20.0),
+                  const SizedBox(height: 20.0),
                   Row(
                     mainAxisAlignment:MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('15 Group Classes', style: TextStyle(color: Colors.white, fontSize: 12)),
+                      const Text('Kenyan Market tips', style: TextStyle(color: Colors.white, fontSize: 12)),
                       Container(
                         height: 20,
                         width: 80,
@@ -110,14 +110,14 @@ class _SubscriptionState extends State<Subscription> {
           ),
 
 
-          SizedBox(height:50),
+          const SizedBox(height:50),
 
 
 
            Card(
-            color: Colors.amber,
+            color: const Color.fromARGB(255, 183, 138, 1),
             child: Container(
-              margin: EdgeInsets.all(20),
+              margin: const EdgeInsets.all(20),
               width: 300,
               height: 150,
               decoration: BoxDecoration(
@@ -132,25 +132,25 @@ class _SubscriptionState extends State<Subscription> {
                       Text('ksh 2,000', style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),)
                     ],
                   ),
-                   SizedBox(height: 30.0),
+                   const SizedBox(height: 30.0),
                   const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('GYM ONLY', style: TextStyle(color: Colors.white, fontSize: 12),),
+                      Text('MARKET RESEARCH', style: TextStyle(color: Colors.white, fontSize: 12),),
                       Text('Billed Monthly', style: TextStyle(color: Colors.white, fontSize: 12))
                     ],
                   ),
-                  SizedBox(height: 20.0),
+                  const SizedBox(height: 20.0),
                   const Row(
                     children: [
-                      Text('No discount', style: TextStyle(color: Colors.white, fontSize: 12, )),
+                      Text('Africa market research analytics', style: TextStyle(color: Colors.white, fontSize: 12, )),
                     ],
                   ),
-                  SizedBox(height: 20.0),
+                  const SizedBox(height: 20.0),
                   Row(
                     mainAxisAlignment:MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('15 Group Classes', style: TextStyle(color: Colors.white, fontSize: 12)),
+                      const Text('Africa market tips', style: TextStyle(color: Colors.white, fontSize: 12)),
                       Container(
                         height: 20,
                         width: 80,
@@ -176,14 +176,14 @@ class _SubscriptionState extends State<Subscription> {
           ),
 
 
-          SizedBox(height: 50,),
+          const SizedBox(height: 50,),
           
 
 
            Card(
             color: Colors.brown,
             child: Container(
-              margin: EdgeInsets.all(20),
+              margin: const EdgeInsets.all(20),
               width: 300,
               height: 150,
               decoration: BoxDecoration(
@@ -198,25 +198,25 @@ class _SubscriptionState extends State<Subscription> {
                       Text('ksh 2,000', style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),)
                     ],
                   ),
-                   SizedBox(height: 30.0),
+                   const SizedBox(height: 30.0),
                   const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('GYM ONLY', style: TextStyle(color: Colors.white, fontSize: 12),),
+                      Text('MARKET RESEARCH', style: TextStyle(color: Colors.white, fontSize: 12),),
                       Text('Billed Monthly', style: TextStyle(color: Colors.white, fontSize: 12))
                     ],
                   ),
-                  SizedBox(height: 20.0),
+                  const SizedBox(height: 20.0),
                   const Row(
                     children: [
-                      Text('No discount', style: TextStyle(color: Colors.white, fontSize: 12, )),
+                      Text('Europe market research analytics', style: TextStyle(color: Colors.white, fontSize: 12, )),
                     ],
                   ),
-                  SizedBox(height: 20.0),
+                  const SizedBox(height: 20.0),
                   Row(
                     mainAxisAlignment:MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('15 Group Classes', style: TextStyle(color: Colors.white, fontSize: 12)),
+                      const Text('Europe market tips', style: TextStyle(color: Colors.white, fontSize: 12)),
                       Container(
                         height: 20,
                         width: 80,

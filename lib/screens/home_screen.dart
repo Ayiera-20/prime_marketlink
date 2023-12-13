@@ -1,23 +1,47 @@
-import 'dart:math';
 
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:prime_marketlink/components/bottom_navbar.dart';
-import 'package:prime_marketlink/components/side_bar.dart';
-import 'package:prime_marketlink/main.dart';
+import 'package:prime_marketlink/components/sidebar.dart';
 import 'package:prime_marketlink/screens/about_us.dart';
-import 'package:prime_marketlink/screens/expand_business.dart';
 import 'package:prime_marketlink/screens/home_highlights.dart';
 import 'package:prime_marketlink/screens/industries.dart';
-import 'package:prime_marketlink/screens/review_form.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:prime_marketlink/screens/connect_users.dart';
+import 'package:prime_marketlink/screens/market_tips.dart';
 
-class HomeScreen extends StatelessWidget {
+
+
+
+
+class HomeScreen extends StatefulWidget {
+  final String userName;
+  final String userEmail;
+  
+
+  HomeScreen({required this.userName, required this.userEmail});
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  TextEditingController searchController = TextEditingController();
+  
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Sidebar(),
+      drawer: CustomSidebar(
+  userName: widget.userName,
+ userEmail: widget.userEmail,
+  userProfile: UserProfile(
+    uid: FirebaseAuth.instance.currentUser!.uid,
+    displayName: FirebaseAuth.instance.currentUser!.displayName ?? 'Anonymous',
+  ),
+),
+
+
       appBar: AppBar(
         toolbarHeight: 60,
         // shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(bottomRight: Radius.circular(20.0), bottomLeft: Radius.circular(20))),
@@ -42,48 +66,62 @@ class HomeScreen extends StatelessWidget {
       ],
     ),
     
-        bottomNavigationBar: MyBottomNavigationBar(),
+        bottomNavigationBar: MyBottomNavigationBar(
+  user: FirebaseAuth.instance.currentUser!,
+  onTabSelected: (index) {
+    // Handle tab selection if needed
+  },
+  userProfile: UserProfile(
+    uid: FirebaseAuth.instance.currentUser!.uid,
+    displayName: FirebaseAuth.instance.currentUser!.displayName ?? 'Anonymous',
+  ),
+),
+
+
          body: Stack(
           children: [
          SingleChildScrollView(
         scrollDirection: Axis.vertical, 
         child: Container(
-          margin: EdgeInsets.only(top: 20, right: 15, left: 15),
+          margin: const EdgeInsets.only(top: 20, right: 15, left: 15),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
         children: [
           const Padding(padding: EdgeInsets.only(right:30, left:30)),
-          const TextField(
-                    cursorColor: Color.fromARGB(24, 158, 158, 158),
-                    decoration: InputDecoration(
-                      fillColor: Color.fromARGB(53, 158, 158, 158),
-                      filled: true,
-                      contentPadding: EdgeInsets.symmetric(vertical:10),
-                      prefixIcon: Padding(padding: EdgeInsets.only( bottom: 30, right: 15, left: 0.2),
-                      child: Align(
-                        widthFactor: 1.0,
-                        heightFactor: 1.0,
-                        child: Icon(
-                          Icons.search,
-                        ),
-                      ),),
-                      border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.elliptical(12, 10)),
-                      ),
-                      hintText: 'Search',
-                      hintStyle: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 12
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 30),              
+          TextField(
+            controller: searchController,
+            onChanged: (value) {
+              // Handle onChanged event
+            },
+            cursorColor: Colors.grey[400],
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.grey[200],
+              contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+              prefixIcon: Icon(
+                Icons.search,
+                color: Colors.grey[600],
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20.0),
+                borderSide: BorderSide.none,
+              ),
+              hintText: 'Search',
+              hintStyle: TextStyle(
+                color: Colors.grey[500],
+                fontSize: 14,
+              ),
+            ),
+          ),
+
+                  const SizedBox(height: 20),              
                   ImageSlideshow(
 
                     /// Width of the [ImageSlideshow].
                     width: double.infinity,
 
                     /// Height of the [ImageSlideshow].
-                    height: 220,
+                    height: 230,
 
                     /// The page to show when first creating the [ImageSlideshow].
                     initialPage: 0,
@@ -117,15 +155,19 @@ class HomeScreen extends StatelessWidget {
                                             },
                                             child: Container(
                                               width: 400,
-                                              margin: EdgeInsets.all(6.0), 
+                                              margin: const EdgeInsets.all(6.0), 
                                                     decoration: BoxDecoration( 
                                                 borderRadius: BorderRadius.circular(8.0), 
-                                                image: const DecorationImage( 
-                                                  image: AssetImage("images/background.jpg"), 
-                                                  fit: BoxFit.cover, 
+                                                image:  DecorationImage( 
+                                                  image: AssetImage("images/construction.jpg"), 
+                                                  fit: BoxFit.cover,
+                                                  colorFilter: ColorFilter.mode(
+                                                    Colors.black.withOpacity(0.4),
+                                                    BlendMode.darken,
+                                                  ),
                                                 ), 
                                               ),
-                                              padding: EdgeInsets.only(left: 20, top: 80), 
+                                              padding: const EdgeInsets.only(left: 20, top: 80), 
                                               child: const Column(
                                                   crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
@@ -149,21 +191,25 @@ class HomeScreen extends StatelessWidget {
                                             GestureDetector(
                                               onTap: () {
                                               Navigator.of(context).push(MaterialPageRoute(
-                                                builder: (context) => Aboutus(), 
+                                                builder: (context) => const Aboutus(), 
                                               ));
                                             },
                                             child: Container( 
                                               width: 400,
-                              margin: EdgeInsets.all(6.0), 
+                              margin: const EdgeInsets.all(6.0), 
                               decoration: BoxDecoration( 
                                 borderRadius: BorderRadius.circular(8.0), 
-                                image: DecorationImage( 
-                                  image: AssetImage("images/background.jpg"), 
+                                image:  DecorationImage( 
+                                  image: AssetImage("images/business.jpg"), 
                                   fit: BoxFit.cover, 
+                                  colorFilter: ColorFilter.mode(
+                                    Colors.black.withOpacity(0.6),
+                                       BlendMode.darken,
+                                  ),
                                 ), 
                               ), 
-                              padding: EdgeInsets.only(left: 20, top: 80), 
-                              child: const Text('About Us', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20,),
+                              padding: const EdgeInsets.only(left: 20, top: 80), 
+                              child: const Text('About Prime Market Link', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20,),
                               ),
                               
                                             ), 
@@ -173,43 +219,58 @@ class HomeScreen extends StatelessWidget {
                                             GestureDetector(
                                               onTap: () {
                                               Navigator.of(context).push(MaterialPageRoute(
-                                                builder: (context) => Aboutus(), 
+                                                builder: (context) =>  Highlights(), 
                                               ));
                                             },
                                             child: Container( 
                                               width: 400,
-                              margin: EdgeInsets.all(6.0), 
+                              margin: const EdgeInsets.all(6.0), 
                               decoration: BoxDecoration( 
                                 borderRadius: BorderRadius.circular(8.0), 
                                 image: DecorationImage( 
-                                  image: AssetImage("images/background.jpg"),  
+                                  image: AssetImage("images/events.jpg"),  
                                   fit: BoxFit.cover, 
+                                  colorFilter: ColorFilter.mode(
+                                    Colors.black.withOpacity(0.6),
+                                    BlendMode.darken,
+                                   ),
                                 ), 
                               ), 
-                              padding: EdgeInsets.only(left: 20, top: 80), 
+                              padding: const EdgeInsets.only(left: 20, top: 80), 
                               child: const Text('Upcoming Events', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20,),
                               ),
                                             ), 
                                             ),
                               
                                             //4th Image of Slider 
-                                            Container( 
+                                            GestureDetector(
+                                              onTap: () {
+                                              Navigator.of(context).push(MaterialPageRoute(
+                                                builder: (context) =>  MarketTips(), 
+                                              ));
+                                            },
+                                            child: Container( 
                                               width: 400,
-                              margin: EdgeInsets.all(6.0), 
+                              margin: const EdgeInsets.all(6.0), 
                               decoration: BoxDecoration( 
                                 borderRadius: BorderRadius.circular(8.0), 
                                 image: DecorationImage( 
-                                  image: AssetImage("images/background.jpg"),  
+                                  image: AssetImage("images/insights.jpg"),  
                                   fit: BoxFit.cover, 
+                                  colorFilter: ColorFilter.mode(
+                                    Colors.black.withOpacity(0.6),
+                                    BlendMode.darken,
+                                     ),
                                 ), 
                               ), 
-                              padding: EdgeInsets.only(left: 20, top: 80), 
-                              child: Text('Market Research \n Market Insights', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20,),
+                              padding: const EdgeInsets.only(left: 20, top: 80), 
+                              child: const Text('Market Research \n Market Insights', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20,),
                               ),
-                              ),
+                              ),)
+                              
                     ],
                   ),
-                  SizedBox(height: 20,),
+                  const SizedBox(height: 20,),
            
             Container(
               // child:  SingleChildScrollView(
@@ -217,24 +278,26 @@ class HomeScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 5),
-                          child: Text('industries'),
+                        const Padding(
+                          padding: EdgeInsets.only(left: 5),
+                          child: Text('Industries'),
                         ),
-                        SizedBox(width: 240,),
-                         TextButton(
+                        const SizedBox(width: 120,),
+                        Padding(
+                          padding: EdgeInsets.only(right: 0, left: 0),
+                         child: TextButton(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => Industries(),
+                      builder: (context) => const Industries(),
                     ));
                   },
                   child: const Text(
                     'View all',
                     style: TextStyle(color: Color.fromARGB(255, 134, 10, 51), decoration: TextDecoration.underline),
                   ),
-                ), 
+                ), )
 
                       ],
                     ),
@@ -250,8 +313,8 @@ class HomeScreen extends StatelessWidget {
                decoration: BoxDecoration(
                 shape: BoxShape.rectangle, borderRadius: BorderRadius.circular(9.9),
               ),
-              child: Padding(padding: EdgeInsets.only(left: 20, top: 10, right: 20,),
-                child: const Text('Construction', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
+              child: const Padding(padding: EdgeInsets.only(left: 20, top: 10, right: 20,),
+                child: Text('Construction', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
               ),
                         ),
                 ),
@@ -263,8 +326,8 @@ class HomeScreen extends StatelessWidget {
                decoration: BoxDecoration(
                 shape: BoxShape.rectangle, borderRadius: BorderRadius.circular(9.9),
               ),
-              child: Padding(padding: EdgeInsets.only(left: 20, top: 10, right: 20),
-                child: const Text('Technology', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
+              child: const Padding(padding: EdgeInsets.only(left: 20, top: 10, right: 20),
+                child: Text('Technology', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
               ),
                         ),
                 ),
@@ -276,15 +339,16 @@ class HomeScreen extends StatelessWidget {
                decoration: BoxDecoration(
                 shape: BoxShape.rectangle, borderRadius: BorderRadius.circular(9.9),
               ),
-              child: Padding(padding: EdgeInsets.only(left: 20, top: 10, right: 20),
-                child: const Text('Agriculture', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
+              child: const Padding(padding: EdgeInsets.only(left: 20, top: 10, right: 20),
+                child: Text('Agriculture', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
               ),
                         ),
                 ),
                       ],
                     ),
 
-                    SizedBox(height:4),
+                    const SizedBox(height:4),
+                    
 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -297,8 +361,8 @@ class HomeScreen extends StatelessWidget {
                decoration: BoxDecoration(
                 shape: BoxShape.rectangle, borderRadius: BorderRadius.circular(9.9),
               ),
-              child: Padding(padding: EdgeInsets.only(left: 20, top: 10, right: 20,),
-                child: const Text('Tourism', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
+              child: const Padding(padding: EdgeInsets.only(left: 20, top: 10, right: 20,),
+                child: Text('Tourism', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
               ),
                         ),
                 ),
@@ -310,12 +374,18 @@ class HomeScreen extends StatelessWidget {
                decoration: BoxDecoration(
                 shape: BoxShape.rectangle, borderRadius: BorderRadius.circular(9.9),
               ),
-              child: Padding(padding: EdgeInsets.only(left: 20, top: 10, right: 20),
-                child: const Text('Finance', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
+              child: const Padding(padding: EdgeInsets.only(left: 20, top: 10, right: 20),
+                child: Text('Finance', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
               ),
                         ),
                 ),
-                  Card(
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const Industries(),
+                    ));
+                  },
+                  child: Card(
                 color: Colors.black,
                 child: Container(
                   width: 100,
@@ -323,11 +393,11 @@ class HomeScreen extends StatelessWidget {
                decoration: BoxDecoration(
                 shape: BoxShape.rectangle, borderRadius: BorderRadius.circular(9.9),
               ),
-              child: Padding(padding: EdgeInsets.only(left: 20, top: 10, right: 20),
-                child: const Text('More...', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
+              child: const Padding(padding: EdgeInsets.only(left: 20, top: 10, right: 20),
+                child: Text('More...', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
               ),
                         ),
-                ),
+                ),)
                       ],
                     ),
             
@@ -335,18 +405,18 @@ class HomeScreen extends StatelessWidget {
               ),
               ),
             // ),
-             SizedBox(height: 30,),
+             const SizedBox(height: 30,),
             Container(
               child: Column(
                 children: [
                    Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                      const Text('Expand your business', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
+                      const Text('Expand your business', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
                       TextButton(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const Expandbusiness(),
+                      builder: (context) => const Aboutus(),
                     ));
                   },
                   child: const Text(
@@ -372,17 +442,17 @@ class HomeScreen extends StatelessWidget {
                       width: 180,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(9.9),
-                        image: DecorationImage(
-                          image: AssetImage("images/background.jpg"), 
+                        image: const DecorationImage(
+                          image: AssetImage("images/global.jpg"), 
                           fit: BoxFit.cover,
                         ),
                       ),
                     ),
-                      Divider(height: 10),
+                      const Divider(height: 10),
                       Container(
                         
-                        padding: EdgeInsets.all(16.0),
-                  child: Text('Business Partnership'),
+                        padding: const EdgeInsets.all(16.0),
+                  child: const Text('Business Expansion \n Consultation', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
                       )
                     ],
                   ),
@@ -401,17 +471,46 @@ class HomeScreen extends StatelessWidget {
                       width: 190,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(9.9),
-                        image: DecorationImage(
-                          image: AssetImage("images/background.jpg"), 
+                        image: const DecorationImage(
+                          image: AssetImage("images/connected.png"), 
                           fit: BoxFit.cover,
                         ),
                       ),
                     ),
-                      Divider(height: 10),
+                      const Divider(height: 10),
                       Container(
                         
-                        padding: EdgeInsets.all(16.0),
-                  child: Text('One on One Consultation'),
+                        padding: const EdgeInsets.all(16.0),
+                  child: const Text('International Trade \n Facilitation', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                      )
+                    ],
+                  ),
+
+
+                ),
+                
+                
+                ),
+                 Padding(padding: const EdgeInsets.only(bottom: 16, right: 5),
+                child: Card(
+                  child: Column(
+                    children: [
+                      Container(
+                      height: 160, 
+                      width: 190,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(9.9),
+                        image: const DecorationImage(
+                          image: AssetImage("images/Market.jpg"), 
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                      const Divider(height: 10),
+                      Container(
+                        
+                        padding: const EdgeInsets.all(16.0),
+                  child: const Text('Market Research', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
                       )
                     ],
                   ),

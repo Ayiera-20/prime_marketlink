@@ -59,7 +59,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:prime_marketlink/screens/login.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 
 class SplashScreen extends StatefulWidget {
@@ -80,7 +79,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
     _controller = AnimationController(
       // Adjust the duration for the split transition
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: 2),
       vsync: this,
     );
 
@@ -95,7 +94,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     _controller.forward();
 
     // Delayed navigation to the next screen
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 2), () {
       return Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => Login(),
       ));
