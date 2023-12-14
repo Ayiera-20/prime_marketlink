@@ -94,7 +94,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     _controller.forward();
 
     // Delayed navigation to the next screen
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 3), () {
       return Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => Login(),
       ));
@@ -158,7 +158,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                     Icon(
                       Icons.business_center_rounded,
                       size: 80,
-                      color: Colors.amber,
+                      color: Colors.teal,
                     ),
                   //   SvgPicture.asset(
                   //   'assets/images/connected.svg',
@@ -176,7 +176,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                         fontWeight: FontWeight.bold,
                         // Adjust the text color as needed
                         color: Colors.black,
-                        fontSize: 25,
+                        fontSize: 22,
                       ),
                     ),
                   ),

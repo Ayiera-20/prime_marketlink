@@ -200,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               decoration: BoxDecoration( 
                                 borderRadius: BorderRadius.circular(8.0), 
                                 image:  DecorationImage( 
-                                  image: AssetImage("images/business.jpg"), 
+                                  image: AssetImage("images/yes.jpg"), 
                                   fit: BoxFit.cover, 
                                   colorFilter: ColorFilter.mode(
                                     Colors.black.withOpacity(0.6),

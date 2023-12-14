@@ -694,11 +694,16 @@ class _PostScreenState extends State<PostScreen> {
           const SizedBox(height: 20),
           ListTile(
             contentPadding: EdgeInsets.zero,
-            leading: CircleAvatar(
-              backgroundImage: NetworkImage(
-                'https://upload.wikimedia.org/wikipedia/commons/4/44/Facebook_Logo.png',
-              ),
-            ),
+            leading: Icon(
+                      Icons.business_center_rounded,
+                      size: 50,
+                      color: Colors.teal,
+                    ),
+            // CircleAvatar(
+            //   backgroundImage: NetworkImage(
+            //     'https://upload.wikimedia.org/wikipedia/commons/4/44/Facebook_Logo.png',
+            //   ),
+            // ),
             title: Text(
               _username.isNotEmpty ? _username : "Username Here",
               style: TextStyle(

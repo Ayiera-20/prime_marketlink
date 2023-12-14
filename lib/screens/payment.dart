@@ -63,7 +63,7 @@ class _PaymentState extends State<Payment> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('GYM ONLY', style: TextStyle(color: Colors.white, fontSize: 12),),
+                      Text('MARKET RESEARCH', style: TextStyle(color: Colors.white, fontSize: 12),),
                       Text('Billed Monthly', style: TextStyle(color: Colors.white, fontSize: 12))
                     ],
                   ),
@@ -77,7 +77,7 @@ class _PaymentState extends State<Payment> {
                   Row(
                     mainAxisAlignment:MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('15 Group Classes', style: TextStyle(color: Colors.white, fontSize: 12)),
+                      Text('15 Market Insights & analytics', style: TextStyle(color: Colors.white, fontSize: 12)),
                     ],
                   ),
                   SizedBox(height: 50,),
