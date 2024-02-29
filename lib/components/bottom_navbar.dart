@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart'; 
 import 'package:prime_marketlink/screens/home_screen.dart';
 import 'package:prime_marketlink/screens/profile.dart';
-import 'package:prime_marketlink/screens/subscription.dart';
 import 'package:prime_marketlink/services/messaging_service.dart';
 import 'package:prime_marketlink/screens/connect_users.dart';
 import 'package:prime_marketlink/screens/post_screen.dart';
