@@ -484,7 +484,7 @@ class Profile extends StatefulWidget {
 
 
 
-  const Profile({Key? key, required this.userProfile, }) : super(key: key);
+  const Profile({super.key, required this.userProfile, });
 
   @override
   State<Profile> createState() => _ProfileState();
@@ -577,6 +577,8 @@ File? _image;
 
   
                     Positioned(
+                      bottom: -10,
+                        left: 80,
                       child: IconButton(
                         onPressed: () async {
                         await pickImage();
@@ -591,8 +593,6 @@ File? _image;
                       },
                         icon: const Icon(Icons.add_a_photo)
                         ),
-                        bottom: -10,
-                        left: 80,
                         ),
                     // Container(
                     //   margin: EdgeInsets.only(left: 10),
@@ -679,7 +679,7 @@ File? _image;
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => EditProfile()),
+                          MaterialPageRoute(builder: (context) => const EditProfile()),
                         );
                       },
                     ),
@@ -694,7 +694,7 @@ File? _image;
                           borderRadius: BorderRadius.zero,
                         ),
                         color: Colors.teal,
-                        child: Container(
+                        child: SizedBox(
                           width: 180,
                           height: 50,
                           child: Padding(
@@ -711,7 +711,7 @@ File? _image;
                           borderRadius: BorderRadius.zero,
                         ),
                         color: Colors.teal,
-                        child: Container(
+                        child: SizedBox(
                           width: 180,
                           height: 50,
                           child: Padding(
@@ -732,7 +732,7 @@ File? _image;
                           borderRadius: BorderRadius.zero,
                         ),
                         color: Colors.teal,
-                        child: Container(
+                        child: SizedBox(
                           width: 180,
                           height: 50,
                           child: Padding(
@@ -749,7 +749,7 @@ File? _image;
                           borderRadius: BorderRadius.zero,
                         ),
                         color: Colors.teal,
-                        child: Container(
+                        child: SizedBox(
                           width: 180,
                           height: 50,
                           child: Padding(
@@ -769,7 +769,7 @@ File? _image;
                       borderRadius: BorderRadius.zero,
                     ),
                     color: Colors.teal,
-                    child: Container(
+                    child: SizedBox(
                       width: 400,
                       height: 100,
                       child: Padding(
@@ -789,7 +789,7 @@ File? _image;
                           borderRadius: BorderRadius.zero,
                         ),
                         color: Colors.teal,
-                        child: Container(
+                        child: SizedBox(
                           width: 180,
                           height: 50,
                           child: Padding(
@@ -806,7 +806,7 @@ File? _image;
                           borderRadius: BorderRadius.zero,
                         ),
                         color: Colors.teal,
-                        child: Container(
+                        child: SizedBox(
                           width: 180,
                           height: 50,
                           child: Padding(
@@ -828,7 +828,7 @@ File? _image;
                           borderRadius: BorderRadius.zero,
                         ),
                         color: Colors.teal,
-                        child: Container(
+                        child: SizedBox(
                           width: 180,
                           height: 50,
                           child: Padding(
@@ -845,7 +845,7 @@ File? _image;
                           borderRadius: BorderRadius.zero,
                         ),
                         color: Colors.teal,
-                        child: Container(
+                        child: SizedBox(
                           width: 180,
                           height: 50,
                           child: Padding(
@@ -867,7 +867,7 @@ File? _image;
                           borderRadius: BorderRadius.zero,
                         ),
                         color: Colors.teal,
-                        child: Container(
+                        child: SizedBox(
                           width: 180,
                           height: 50,
                           child: Padding(
@@ -884,7 +884,7 @@ File? _image;
                           borderRadius: BorderRadius.zero,
                         ),
                         color: Colors.teal,
-                        child: Container(
+                        child: SizedBox(
                           width: 180,
                           height: 50,
                           child: Padding(
@@ -932,10 +932,12 @@ File? _image;
 }
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -943,7 +945,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: ProfileListPage()
+      home: const ProfileListPage()
     );
   }
 }

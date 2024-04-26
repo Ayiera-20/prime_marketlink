@@ -448,7 +448,7 @@ class _AboutusState extends State<Aboutus> {
         borderRadius: BorderRadius.circular(9.9),
       ),
       child:  Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Row(
           children: [
             Expanded(
@@ -458,41 +458,41 @@ class _AboutusState extends State<Aboutus> {
                 onTap: () {
                   launch('tel:+254 791757883'); // Replace with your phone number
                 },
-                child: Icon(
+                child: const Icon(
                   Icons.phone,
                   size: 16,
                   color: Colors.white,
                 ),
               ),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               GestureDetector(
                 onTap: () {
                   launch('https://wa.me/0791757883'); // Replace with your WhatsApp link
                 },
-                child: Icon(
+                child: const Icon(
                   FontAwesomeIcons.whatsapp, // You can use Icons.message for a messaging icon
                   size: 16,
                   color: Colors.amber,
                 ),
               ),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               GestureDetector(
                 onTap: () {
                   launch('https://www.linkedin.com/in/miriam-ayiera-295145146/'); // Replace with your LinkedIn profile link
                 },
-                child: Icon(
+                child: const Icon(
                  FontAwesomeIcons.linkedin,
                   size: 16,
                   color: Color.fromARGB(148, 33, 229, 243),
                 ),
               ),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               GestureDetector(
                 onTap: () {
                   launch('+254 791757883',
                   ); // Replace with your phone number
                 },
-                child: Text(
+                child: const Text(
                   'Contact Us: 0791757883',
                   style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white, decoration: TextDecoration.underline),
                 ),

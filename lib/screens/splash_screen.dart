@@ -62,7 +62,7 @@ import 'package:prime_marketlink/screens/login.dart';
 
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -96,7 +96,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     // Delayed navigation to the next screen
     Future.delayed(const Duration(seconds: 3), () {
       return Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => Login(),
+        builder: (context) => const Login(),
       ));
     });
   }

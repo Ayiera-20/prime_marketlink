@@ -135,7 +135,7 @@ class FirebaseService {
     QuerySnapshot querySnapshot = await _firestore
         .collection('users')
         .where('displayName', isGreaterThanOrEqualTo: query)
-        .where('displayName', isLessThanOrEqualTo: query + '\uf8ff')
+        .where('displayName', isLessThanOrEqualTo: '$query\uf8ff')
         .get();
 
     return querySnapshot.docs
@@ -145,6 +145,8 @@ class FirebaseService {
 }
 
 class ProfileListPage extends StatefulWidget {
+  const ProfileListPage({super.key});
+
    
 
   @override
@@ -196,7 +198,7 @@ class _ProfileListPageState extends State<ProfileListPage> {
       appBar: AppBar(
         title: TextField(
           controller: _searchController,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             hintText: 'Search for users...',
           ),
           onChanged: (query) {

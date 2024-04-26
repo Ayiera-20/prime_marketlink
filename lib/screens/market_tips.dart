@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 
 class MarketTips extends StatelessWidget {
+  const MarketTips({super.key});
+
   
 
 
@@ -11,16 +13,16 @@ class MarketTips extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         backgroundColor: Colors.teal,
-        title: Text('Market Entry Tips', style: TextStyle(color: Colors.white),),
+        title: const Text('Market Entry Tips', style: TextStyle(color: Colors.white),),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -36,7 +38,7 @@ class MarketTips extends StatelessWidget {
               '5. Understand Regulatory Environment:',
               '   - Familiarize yourself with Kenyan regulations and legal requirements. This includes business registration, taxation, and compliance with local laws.',
             ]),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             _buildSection('Tips for Entering Foreign Markets', [
               'Africa:',
               '   - Diversity Matters: Africa is a continent with diverse cultures and languages. Tailor your approach based on the specific region you\'re targeting.',
@@ -51,7 +53,7 @@ class MarketTips extends StatelessWidget {
               'Oceania:',
               '   - Digital Integration: Oceania has a high level of digital adoption. Leverage digital platforms for marketing and sales, and be aware of the tech-savvy consumer base.',
             ]),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             _buildSection('General Tips for Global Expansion', [
               '1. Market Research:',
               '   - Conduct thorough market research before entering any foreign market. Understand consumer behavior, competition, and market trends.',
@@ -76,13 +78,13 @@ class MarketTips extends StatelessWidget {
       children: [
         Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 18.0,
             fontWeight: FontWeight.bold,
             color: Colors.teal,
           ),
         ),
-        SizedBox(height: 8.0),
+        const SizedBox(height: 8.0),
         ...content.map((item) => Text(item)),
       ],
     );

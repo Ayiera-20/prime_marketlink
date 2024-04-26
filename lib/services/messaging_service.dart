@@ -249,10 +249,12 @@ import 'package:prime_marketlink/components/bottom_navbar.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -260,26 +262,28 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: AuthenticationWrapper(),
+      home: const AuthenticationWrapper(),
     );
   }
 }
 
 class AuthenticationWrapper extends StatelessWidget {
+  const AuthenticationWrapper({super.key});
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
-          var user = snapshot.data as User?;
+          var user = snapshot.data;
           if (user == null) {
-            return SignInScreen();
+            return  SignInScreen();
           } else {
-            return ChatScreen();
+            return const ChatScreen();
           }
         }
-        return Scaffold(
+        return const Scaffold(
           body: Center(
             child: CircularProgressIndicator(),
           ),
@@ -291,6 +295,8 @@ class AuthenticationWrapper extends StatelessWidget {
 
 class SignInScreen extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+   SignInScreen({super.key});
 
   Future<void> _signInAnonymously() async {
     try {
@@ -304,12 +310,12 @@ class SignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sign In'),
+        title: const Text('Sign In'),
       ),
       body: Center(
         child: ElevatedButton(
           onPressed: _signInAnonymously,
-          child: Text('Sign In Anonymously'),
+          child: const Text('Sign In Anonymously'),
         ),
       ),
     );
@@ -317,6 +323,8 @@ class SignInScreen extends StatelessWidget {
 }
 
 class ChatScreen extends StatefulWidget {
+  const ChatScreen({super.key});
+
  
 
   @override
@@ -324,10 +332,10 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  TextEditingController _messageController = TextEditingController();
-  List<Message> _messages = [
-    Message(isMe: true, text: 'Hello!', time: DateTime.now().subtract(Duration(minutes: 5))),
-    Message(isMe: false, text: 'Hi there!', time: DateTime.now().subtract(Duration(minutes: 3))),
+  final TextEditingController _messageController = TextEditingController();
+  final List<Message> _messages = [
+    Message(isMe: true, text: 'Hello!', time: DateTime.now().subtract(const Duration(minutes: 5))),
+    Message(isMe: false, text: 'Hi there!', time: DateTime.now().subtract(const Duration(minutes: 3))),
   ];
 
   final MessagingService _messagingService = MessagingService();
@@ -353,11 +361,11 @@ class _ChatScreenState extends State<ChatScreen> {
   ),
 ),
       appBar: AppBar(
-        title: Text('Messaging App', style: TextStyle(color: Colors.white),),
+        title: const Text('Messaging App', style: TextStyle(color: Colors.white),),
         backgroundColor: Colors.teal,
         actions: [
           IconButton(
-            icon: Icon(Icons.exit_to_app),
+            icon: const Icon(Icons.exit_to_app),
             onPressed: () {
               FirebaseAuth.instance.signOut();
             },
@@ -368,7 +376,7 @@ class _ChatScreenState extends State<ChatScreen> {
         children: [
           Expanded(
             child: Container(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               child: ListView.builder(
                 reverse: true,
                 itemCount: _messages.length,
@@ -386,25 +394,25 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Widget _buildMessageInput() {
     return Container(
-      padding: EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0),
       child: Row(
         children: [
           Expanded(
             child: TextField(
               controller: _messageController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Type your message...',
               ),
             ),
           ),
           IconButton(
-            icon: Icon(Icons.send),
+            icon: const Icon(Icons.send),
             onPressed: () {
               _sendMessage();
             },
           ),
           IconButton(
-            icon: Icon(Icons.image),
+            icon: const Icon(Icons.image),
             onPressed: () {
               // Implement image picking logic
             },
@@ -428,15 +436,15 @@ class _ChatScreenState extends State<ChatScreen> {
 class MessageWidget extends StatelessWidget {
   final Message message;
 
-  const MessageWidget({Key? key, required this.message}) : super(key: key);
+  const MessageWidget({super.key, required this.message});
 
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: message.isMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
-        padding: EdgeInsets.all(8.0),
+        margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+        padding: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
           color: message.isMe ? Colors.blue : Colors.grey,
           borderRadius: BorderRadius.circular(12.0),
@@ -449,21 +457,21 @@ class MessageWidget extends StatelessWidget {
               children: [
                 Text(
                   message.isMe ? 'You' : 'Sender Name',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
                 ),
                 Text(
                   _formatTimestamp(message.time),
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 12.0,
                     color: Colors.white,
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 4.0),
+            const SizedBox(height: 4.0),
             if (message.imageUrl != null)
               Image.network(
                 message.imageUrl!,
@@ -474,7 +482,7 @@ class MessageWidget extends StatelessWidget {
             else
               Text(
                 message.text,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                 ),
               ),

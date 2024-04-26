@@ -7,8 +7,8 @@ class FirebaseService {
     QuerySnapshot querySnapshot =
         await FirebaseFirestore.instance.collection('users').get();
 
-    querySnapshot.docs.forEach((doc) {
+    for (var doc in querySnapshot.docs) {
       print('User ID: ${doc.id}, Name: ${doc['name']}, Email: ${doc['email']}, phoneNumber: ${doc['phoneNumber']}, Password: ${doc['Password']},');
-    });
+    }
   }
 }

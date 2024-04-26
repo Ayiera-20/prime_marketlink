@@ -4,8 +4,6 @@ import 'package:prime_marketlink/screens/post_screen.dart';
 import 'package:prime_marketlink/screens/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart'; 
-import 'package:prime_marketlink/services/messaging_service.dart';
-import 'services/firebase_service.dart';
 import 'package:provider/provider.dart';
 
 
@@ -20,7 +18,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => PostProvider()),
         // Add other providers as needed
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
@@ -56,7 +54,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(  
       title: 'Prime Market Link',
-      home: SplashScreen(),
+      home: const SplashScreen(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.
@@ -74,7 +72,7 @@ class _MyAppState extends State<MyApp> {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(178, 149, 229, 233)),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(178, 149, 229, 233)),
         useMaterial3: true,
       ),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),

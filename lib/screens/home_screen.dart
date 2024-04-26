@@ -19,7 +19,7 @@ class HomeScreen extends StatefulWidget {
   final String userEmail;
   
 
-  HomeScreen({required this.userName, required this.userEmail});
+  const HomeScreen({super.key, required this.userName, required this.userEmail});
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -97,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
             decoration: InputDecoration(
               filled: true,
               fillColor: Colors.grey[200],
-              contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+              contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
               prefixIcon: Icon(
                 Icons.search,
                 color: Colors.grey[600],
@@ -159,7 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     decoration: BoxDecoration( 
                                                 borderRadius: BorderRadius.circular(8.0), 
                                                 image:  DecorationImage( 
-                                                  image: AssetImage("images/construction.jpg"), 
+                                                  image: const AssetImage("images/construction.jpg"), 
                                                   fit: BoxFit.cover,
                                                   colorFilter: ColorFilter.mode(
                                                     Colors.black.withOpacity(0.4),
@@ -200,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               decoration: BoxDecoration( 
                                 borderRadius: BorderRadius.circular(8.0), 
                                 image:  DecorationImage( 
-                                  image: AssetImage("images/yes.jpg"), 
+                                  image: const AssetImage("images/yes.jpg"), 
                                   fit: BoxFit.cover, 
                                   colorFilter: ColorFilter.mode(
                                     Colors.black.withOpacity(0.6),
@@ -228,7 +228,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               decoration: BoxDecoration( 
                                 borderRadius: BorderRadius.circular(8.0), 
                                 image: DecorationImage( 
-                                  image: AssetImage("images/events.jpg"),  
+                                  image: const AssetImage("images/events.jpg"),  
                                   fit: BoxFit.cover, 
                                   colorFilter: ColorFilter.mode(
                                     Colors.black.withOpacity(0.6),
@@ -246,7 +246,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             GestureDetector(
                                               onTap: () {
                                               Navigator.of(context).push(MaterialPageRoute(
-                                                builder: (context) =>  MarketTips(), 
+                                                builder: (context) =>  const MarketTips(), 
                                               ));
                                             },
                                             child: Container( 
@@ -255,7 +255,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               decoration: BoxDecoration( 
                                 borderRadius: BorderRadius.circular(8.0), 
                                 image: DecorationImage( 
-                                  image: AssetImage("images/insights.jpg"),  
+                                  image: const AssetImage("images/insights.jpg"),  
                                   fit: BoxFit.cover, 
                                   colorFilter: ColorFilter.mode(
                                     Colors.black.withOpacity(0.6),
@@ -286,7 +286,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         const SizedBox(width: 120,),
                         Padding(
-                          padding: EdgeInsets.only(right: 0, left: 0),
+                          padding: const EdgeInsets.only(right: 0, left: 0),
                          child: TextButton(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(

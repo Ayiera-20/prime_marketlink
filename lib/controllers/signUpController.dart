@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:prime_marketlink/screens/home_screen.dart';
 import 'package:prime_marketlink/screens/login.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SignupController {
@@ -62,7 +61,7 @@ class SignupController {
 
   void navigateToLogin(BuildContext context) {
     Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => Login(),
+      builder: (context) => const Login(),
     ));
   }
 

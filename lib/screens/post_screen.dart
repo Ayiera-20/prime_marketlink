@@ -531,7 +531,6 @@
 // }
 import 'package:flutter/material.dart';
 import 'package:prime_marketlink/components/bottom_navbar.dart';
-import 'package:prime_marketlink/firebase_options.dart';
 import 'package:prime_marketlink/screens/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -591,7 +590,7 @@ class PostProvider extends ChangeNotifier {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -604,10 +603,10 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Prime Market Link',
-      home: SplashScreen(),
+      home: const SplashScreen(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(178, 149, 229, 233)),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(178, 149, 229, 233)),
         useMaterial3: true,
       ),
     );
@@ -637,7 +636,7 @@ class FirebaseService {
 }
 
 class PostScreen extends StatefulWidget {
-  const PostScreen({Key? key}) : super(key: key);
+  const PostScreen({super.key});
   
 
   @override
@@ -694,7 +693,7 @@ class _PostScreenState extends State<PostScreen> {
           const SizedBox(height: 20),
           ListTile(
             contentPadding: EdgeInsets.zero,
-            leading: Icon(
+            leading: const Icon(
                       Icons.business_center_rounded,
                       size: 50,
                       color: Colors.teal,
@@ -706,18 +705,18 @@ class _PostScreenState extends State<PostScreen> {
             // ),
             title: Text(
               _username.isNotEmpty ? _username : "Username Here",
-              style: TextStyle(
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
-          Divider(
+          const Divider(
             thickness: 1,
             color: Colors.grey,
           ),
           const SizedBox(height: 20),
           _buildPostInput(),
-          Expanded(
+          const Expanded(
             child: PostListWidget(),
           ),
         ],
@@ -733,13 +732,13 @@ class _PostScreenState extends State<PostScreen> {
           Expanded(
             child: TextField(
               controller: _postController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'What\'s on your mind?',
               ),
             ),
           ),
           IconButton(
-            icon: Icon(Icons.photo),
+            icon: const Icon(Icons.photo),
             onPressed: _pickImage,
           ),
           ElevatedButton(
@@ -748,7 +747,7 @@ class _PostScreenState extends State<PostScreen> {
             onPressed: () {
               _addPost(context);
             },
-            child: Text('Post', style: TextStyle(color: Colors.white),),
+            child: const Text('Post', style: TextStyle(color: Colors.white),),
           ),
         ],
       ),
@@ -785,6 +784,8 @@ class _PostScreenState extends State<PostScreen> {
 }
 
 class PostListWidget extends StatelessWidget {
+  const PostListWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Consumer<PostProvider>(
@@ -802,7 +803,7 @@ class PostListWidget extends StatelessWidget {
                   Text(post.text),
                   Text(
                     'Posted at: ${post.timestamp}',
-                    style: TextStyle(fontSize: 12, color: Colors.grey),
+                    style: const TextStyle(fontSize: 12, color: Colors.grey),
                   ),
                 ],
               ),
@@ -822,7 +823,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => PostProvider()),
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         home: PostScreen(),
       ),
     ),
