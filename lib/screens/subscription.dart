@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:prime_marketlink/screens/payment.dart';
 
@@ -18,7 +16,7 @@ class _SubscriptionState extends State<Subscription> {
       
       body: Stack(
         children: [
-             Container(
+            Container(
             height: 200,
             
                 decoration:  const BoxDecoration(
@@ -66,7 +64,7 @@ class _SubscriptionState extends State<Subscription> {
                       Text('ksh 2,000', style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),)
                     ],
                   ),
-                   const SizedBox(height: 30.0),
+                  const SizedBox(height: 30.0),
                   const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -85,36 +83,43 @@ class _SubscriptionState extends State<Subscription> {
                     mainAxisAlignment:MainAxisAlignment.spaceBetween,
                     children: [
                       const Text('Kenyan Market tips', style: TextStyle(color: Colors.white, fontSize: 12)),
-                      Container(
-                        height: 20,
-                        width: 80,
-                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), shape: BoxShape.rectangle,border: Border.all(color: Colors.white)),
-                        child:  TextButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const Payment(),
-                            ),
-                          );
-                         
-                        },
-                        child: const Text('Subscribe', style: TextStyle(color: Colors.white, fontSize: 12)),
+                    Container(
+                    height: 20,
+                    width: 80,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: Colors.white),
+                    ),
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const Payment(),
+                          ),
+                        );
+                      },
+                      style: TextButton.styleFrom(
+                        padding: EdgeInsets.zero, 
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
                       ),
-                      )
-
-                    ],
+                      child: const Text(
+                        'Subscribe',
+                        style: TextStyle(color: Colors.white, fontSize: 12),
+                      ),
+                    ),
+                  )
+                  ],
                   )
                 ],
               ),
             ),
           ),
 
-
           const SizedBox(height:50),
 
-
-
-           Card(
+          Card(
             color: const Color.fromARGB(255, 183, 138, 1),
             child: Container(
               margin: const EdgeInsets.all(20),
@@ -152,23 +157,33 @@ class _SubscriptionState extends State<Subscription> {
                     children: [
                       const Text('Africa market tips', style: TextStyle(color: Colors.white, fontSize: 12)),
                       Container(
-                        height: 20,
-                        width: 80,
-                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), shape: BoxShape.rectangle,border: Border.all(color: Colors.white)),
-                        child:  TextButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const Payment(),
-                            ),
-                          );
-                         
-                        },
-                        child: const Text('Subscribe', style: TextStyle(color: Colors.white, fontSize: 12)),
+                    height: 20,
+                    width: 80,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: Colors.white),
+                    ),
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const Payment(),
+                          ),
+                        );
+                      },
+                      style: TextButton.styleFrom(
+                        padding: EdgeInsets.zero, 
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
                       ),
-                      )
-
-                    ],
+                      child: const Text(
+                        'Subscribe',
+                        style: TextStyle(color: Colors.white, fontSize: 12),
+                      ),
+                    ),
+                  ),
+                  ],
                   )
                 ],
               ),
@@ -218,23 +233,33 @@ class _SubscriptionState extends State<Subscription> {
                     children: [
                       const Text('Europe market tips', style: TextStyle(color: Colors.white, fontSize: 12)),
                       Container(
-                        height: 20,
-                        width: 80,
-                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), shape: BoxShape.rectangle,border: Border.all(color: Colors.white)),
-                        child:  TextButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const Payment(),
-                            ),
-                          );
-                         
-                        },
-                        child: const Text('Subscribe', style: TextStyle(color: Colors.white, fontSize: 12)),
+                    height: 20,
+                    width: 80,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: Colors.white),
+                    ),
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const Payment(),
+                          ),
+                        );
+                      },
+                      style: TextButton.styleFrom(
+                        padding: EdgeInsets.zero, 
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),
                       ),
-                      )
-
-                    ],
+                      child: const Text(
+                        'Subscribe',
+                        style: TextStyle(color: Colors.white, fontSize: 12),
+                      ),
+                    ),
+                  ),
+                  ],
                   )
                 ],
               ),
