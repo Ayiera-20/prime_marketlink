@@ -337,6 +337,8 @@ import 'home_screen.dart';
 import 'signup.dart'; 
 
 class Login extends StatefulWidget {
+  const Login({super.key});
+
   @override
   _LoginState createState() => _LoginState();
 }
@@ -420,7 +422,7 @@ class _LoginState extends State<Login> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                 Padding(
+                 const Padding(
                   padding: EdgeInsets.only(left: 20, right: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -461,7 +463,7 @@ class _LoginState extends State<Login> {
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
-                  prefixIcon: Icon(Icons.lock),
+                  prefixIcon: const Icon(Icons.lock),
                   hintText: "Enter Password",
                   suffixIcon: IconButton(
                     icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
@@ -471,7 +473,7 @@ class _LoginState extends State<Login> {
                       });
                     },
                   ),
-                  border: OutlineInputBorder(
+                  border: const OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   ),
                 ),
@@ -506,7 +508,7 @@ class _LoginState extends State<Login> {
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => Signup(),
+                      builder: (context) => const Signup(),
                     ));
                   },
                   child: const Text(

@@ -26,8 +26,8 @@ class CustomSidebar extends StatefulWidget {
     required this.userEmail,
     required this.userProfile,
     // this.userImage,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<CustomSidebar> createState() => _CustomSidebarState();
@@ -45,7 +45,7 @@ class _CustomSidebarState extends State<CustomSidebar> {
           UserAccountsDrawerHeader(
             accountName: Text(widget.userName),
             accountEmail: Text(widget.userEmail),
-            currentAccountPicture: CircleAvatar(
+            currentAccountPicture: const CircleAvatar(
               // backgroundImage: userImage != null
               //     ? FileImage(userImage!) // Use Image.file for FileImage
               //     : AssetImage('images/avatar.png') as ImageProvider, // Cast to ImageProvider
@@ -93,7 +93,7 @@ class _CustomSidebarState extends State<CustomSidebar> {
             title: const Text('Connect with the community'),
             onTap: () {
                Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ProfileListPage(),
+                      builder: (context) => const ProfileListPage(),
                     ));
             },
           ),
@@ -102,7 +102,7 @@ class _CustomSidebarState extends State<CustomSidebar> {
             title: const Text('Messages'),
             onTap: () {
                Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ChatScreen(),
+                      builder: (context) => const ChatScreen(),
                     ));
             },
           ),
@@ -136,7 +136,7 @@ class _CustomSidebarState extends State<CustomSidebar> {
             title: const Text('Log Out'),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => Login(),
+                      builder: (context) => const Login(),
                     ));
             },
           ),

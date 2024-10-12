@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart'; 
 import 'package:prime_marketlink/screens/home_screen.dart';
 import 'package:prime_marketlink/screens/profile.dart';
-import 'package:prime_marketlink/screens/subscription.dart';
 import 'package:prime_marketlink/services/messaging_service.dart';
 import 'package:prime_marketlink/screens/connect_users.dart';
 import 'package:prime_marketlink/screens/post_screen.dart';
@@ -13,23 +12,23 @@ class MyBottomNavigationBar extends StatelessWidget {
   final Function(int) onTabSelected;
   final UserProfile userProfile; // Add this line
 
-  MyBottomNavigationBar({
+  const MyBottomNavigationBar({super.key, 
     required this.user,
     required this.onTabSelected,
     required this.userProfile, // Add this line
   });
 
-  int _currentIndex = 0;
+  final int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Theme(
   data: Theme.of(context).copyWith(
-    canvasColor: Color.fromARGB(255, 217, 217, 217),
+    canvasColor: const Color.fromARGB(255, 217, 217, 217),
     primaryColor: Colors.white,
     bottomNavigationBarTheme: Theme.of(context).bottomNavigationBarTheme.copyWith(
-      selectedLabelStyle: TextStyle(color: Colors.teal),
-      unselectedLabelStyle: TextStyle(color: Colors.black),
+      selectedLabelStyle: const TextStyle(color: Colors.teal),
+      unselectedLabelStyle: const TextStyle(color: Colors.black),
     ),
       
       ),
@@ -37,7 +36,7 @@ class MyBottomNavigationBar extends StatelessWidget {
         selectedItemColor: Colors.teal,
         unselectedItemColor: Colors.black,
         currentIndex: _currentIndex,
-        items: [
+        items: const [
           BottomNavigationBarItem(
         icon: Icon(Icons.home),
         label: 'Home',
@@ -63,7 +62,7 @@ class MyBottomNavigationBar extends StatelessWidget {
           if (index == 0) {
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
-                builder: (context) => HomeScreen(
+                builder: (context) => const HomeScreen(
                   userName: 'yourUserName',
                   userEmail: 'yourUserEmail',
                 ),
@@ -71,15 +70,15 @@ class MyBottomNavigationBar extends StatelessWidget {
             );
             } else if (index == 1) {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => ProfileListPage(),
+                builder: (context) => const ProfileListPage(),
               ));
           } else if (index == 2) {
              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => PostScreen()
+                builder: (context) => const PostScreen()
               ));
           } else if (index == 3) {
             Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => ChatScreen(),
+              builder: (context) => const ChatScreen(),
             ));
           } else if (index == 4) {
              Navigator.of(context).push(MaterialPageRoute(

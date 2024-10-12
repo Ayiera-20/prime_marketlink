@@ -83,7 +83,7 @@ class _EditProfilState extends State<EditProfile> {
                     ),
                   ],
                 ),
-                SizedBox(height: 30,),
+                const SizedBox(height: 30,),
                 const Row(
                   children: [
                     Flexible(child:
@@ -151,11 +151,11 @@ class _EditProfilState extends State<EditProfile> {
                                       groupValue: selectedCompanySize,
                                       onChanged: (value) {
                                         setState(() {
-                                          selectedCompanySize = value as String?;
+                                          selectedCompanySize = value;
                                         });
                                       },
                                     ),
-                                    Text("<50"),
+                                    const Text("<50"),
                                   ],
                                 ),
                               ),
@@ -167,11 +167,11 @@ class _EditProfilState extends State<EditProfile> {
                                       groupValue: selectedCompanySize,
                                       onChanged: (value) {
                                         setState(() {
-                                          selectedCompanySize = value as String?;
+                                          selectedCompanySize = value;
                                         });
                                       },
                                     ),
-                                    Text("50-100"),
+                                    const Text("50-100"),
                                   ],
                                 ),
                               ),
@@ -187,11 +187,11 @@ class _EditProfilState extends State<EditProfile> {
                                       groupValue: selectedCompanySize,
                                       onChanged: (value) {
                                         setState(() {
-                                          selectedCompanySize = value as String?;
+                                          selectedCompanySize = value;
                                         });
                                       },
                                     ),
-                                    Text("100-500"),
+                                    const Text("100-500"),
                                   ],
                                 ),
                               ),
@@ -203,11 +203,11 @@ class _EditProfilState extends State<EditProfile> {
                                       groupValue: selectedCompanySize,
                                       onChanged: (value) {
                                         setState(() {
-                                          selectedCompanySize = value as String?;
+                                          selectedCompanySize = value;
                                         });
                                       },
                                     ),
-                                    Text("500-1000+"),
+                                    const Text("500-1000+"),
                                   ],
                                 ),
                               ),
@@ -226,7 +226,7 @@ class _EditProfilState extends State<EditProfile> {
                       ),
                       child: Column(
                         children: [
-                          Text(
+                          const Text(
                             'Business Type',
                             style: TextStyle(
                               fontSize: 16,
@@ -243,7 +243,7 @@ class _EditProfilState extends State<EditProfile> {
                                       groupValue: selectedBusinessType,
                                       onChanged: (value) {
                                         setState(() {
-                                          selectedBusinessType = value as String?;
+                                          selectedBusinessType = value;
                                         });
                                       },
                                     ),
@@ -302,12 +302,12 @@ class _EditProfilState extends State<EditProfile> {
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
-    Key? key,
+    super.key,
     required this.hintText,
     required this.prefixIcon,
     this.height = 50,
     this.isPassword = false,
-  }) : super(key: key);
+  });
 
   final String hintText;
   final IconData prefixIcon;
@@ -316,7 +316,7 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: height,
       child: TextField(
         textAlign: TextAlign.center,

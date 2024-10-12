@@ -95,7 +95,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:prime_marketlink/screens/home_screen.dart';
 
 class CustomerReviewsPage extends StatefulWidget {
-  CustomerReviewsPage({Key? key}) : super(key: key);
+  CustomerReviewsPage({super.key});
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -189,14 +189,14 @@ class _CustomerReviewsPageState extends State<CustomerReviewsPage> {
 
                   Navigator.of(context).pushReplacement(
               MaterialPageRoute(
-                builder: (context) => HomeScreen(
+                builder: (context) => const HomeScreen(
                   userName: 'yourUserName',
                   userEmail: 'yourUserEmail',
                 ),
                   ));
 
                           ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
+                const SnackBar(
                   content: Text('Review submitted successfully!'),
                   duration: Duration(seconds: 2),
                 ),

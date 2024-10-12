@@ -332,18 +332,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:prime_marketlink/controllers/signUpController.dart';
-import 'package:prime_marketlink/screens/home_screen.dart';
-import 'package:prime_marketlink/screens/login.dart';
 
 class Signup extends StatefulWidget {
-  const Signup({Key? key}) : super(key: key);
+  const Signup({super.key});
 
   @override
   _SignupState createState() => _SignupState();
 }
 
 class _SignupState extends State<Signup> {
-  bool _obscureText = true;
+  final bool _obscureText = true;
   final SignupController _controller = SignupController();
 
   List<String> businessTypes = ['Foreign Business', 'Kenyan Business'];
@@ -442,7 +440,7 @@ class _SignupState extends State<Signup> {
                     ),
                   ],
                 ),
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
                 Row(
                   children: [
                      Flexible(child: 
@@ -497,7 +495,7 @@ class _SignupState extends State<Signup> {
       ),
       child: Column(
         children: [
-          Text(
+          const Text(
             'Company Size',
             style: TextStyle(
               fontSize: 16,
@@ -514,11 +512,11 @@ class _SignupState extends State<Signup> {
                       groupValue: selectedCompanySize,
                       onChanged: (value) {
                         setState(() {
-                          selectedCompanySize = value as String?;
+                          selectedCompanySize = value;
                         });
                       },
                     ),
-                    Text("<50"),
+                    const Text("<50"),
                   ],
                 ),
               ),
@@ -530,11 +528,11 @@ class _SignupState extends State<Signup> {
                       groupValue: selectedCompanySize,
                       onChanged: (value) {
                         setState(() {
-                          selectedCompanySize = value as String?;
+                          selectedCompanySize = value;
                         });
                       },
                     ),
-                    Text("50-100"),
+                    const Text("50-100"),
                   ],
                 ),
               ),
@@ -550,11 +548,11 @@ class _SignupState extends State<Signup> {
                       groupValue: selectedCompanySize,
                       onChanged: (value) {
                         setState(() {
-                          selectedCompanySize = value as String?;
+                          selectedCompanySize = value;
                         });
                       },
                     ),
-                    Text("100-500"),
+                    const Text("100-500"),
                   ],
                 ),
               ),
@@ -566,11 +564,11 @@ class _SignupState extends State<Signup> {
                       groupValue: selectedCompanySize,
                       onChanged: (value) {
                         setState(() {
-                          selectedCompanySize = value as String?;
+                          selectedCompanySize = value;
                         });
                       },
                     ),
-                    Text("500-1000+"),
+                    const Text("500-1000+"),
                   ],
                 ),
               ),
@@ -589,7 +587,7 @@ class _SignupState extends State<Signup> {
       ),
       child: Column(
         children: [
-          Text(
+          const Text(
             'Business Type',
             style: TextStyle(
               fontSize: 16,
@@ -606,7 +604,7 @@ class _SignupState extends State<Signup> {
                       groupValue: selectedBusinessType,
                       onChanged: (value) {
                         setState(() {
-                          selectedBusinessType = value as String?;
+                          selectedBusinessType = value;
                         });
                       },
                     ),
@@ -682,13 +680,13 @@ class _SignupState extends State<Signup> {
 
 class CustomTextField extends StatefulWidget {
   const CustomTextField({
-    Key? key,
+    super.key,
     required this.controller,
     required this.hintText,
     required this.prefixIcon,
     this.height = 50,
     this.isPassword = false, // New property to indicate if it's a password field
-  }) : super(key: key);
+  });
 
   final TextEditingController controller;
   final String hintText;
@@ -705,7 +703,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: widget.height,
       child: TextField(
         controller: widget.controller,

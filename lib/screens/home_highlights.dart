@@ -3,10 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:prime_marketlink/components/bottom_navbar.dart';
 import 'package:prime_marketlink/screens/connect_users.dart';
 import 'package:prime_marketlink/screens/market_tips.dart';
-import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 class Highlights extends StatelessWidget {
-  Highlights({Key? key});
+  Highlights({super.key});
 
   final List<String> eventImages = [
     "images/yes.jpg",
@@ -33,7 +32,7 @@ class Highlights extends StatelessWidget {
 
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -88,8 +87,8 @@ class Highlights extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  child: const Padding(
+                                  padding: EdgeInsets.all(8.0),
                                   child: Center(child: Text('Unilink', style: TextStyle(color: Colors.white),)),
                                 ),
                                 ),
@@ -115,8 +114,8 @@ class Highlights extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  child: const Padding(
+                                  padding: EdgeInsets.all(8.0),
                                   child: Center(child: Text('Unilink', style: TextStyle(color: Colors.white),)),
                                 ),
                                 ),
@@ -170,15 +169,15 @@ class Highlights extends StatelessWidget {
             InkWell(
               onTap: (){
                 Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => MarketTips(),
+                builder: (context) => const MarketTips(),
               ));
               },
-            child: Card(
+            child: const Card(
               color: Color.fromARGB(178, 149, 229, 233),
-              child: Container(
+              child: SizedBox(
                 height: 70,
                 width: double.infinity,
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.only(top: 20, left: 70),
                   child: Text('Tips for Entering the Kenyan Market', style: TextStyle( fontSize: 14, fontWeight: FontWeight.bold),),
                 ),
@@ -188,15 +187,15 @@ class Highlights extends StatelessWidget {
             InkWell(
               onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => MarketTips(),
+                builder: (context) => const MarketTips(),
               ));
               },
-            child: Card(
+            child: const Card(
               color: Color.fromARGB(178, 149, 229, 233),
-              child: Container(
+              child: SizedBox(
                 height: 70,
                 width: double.infinity,
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.only(top: 20, left: 70),
                   child: Text('Tips for Entering Foreign Markets', style: TextStyle( fontSize: 14, fontWeight: FontWeight.bold)),
                 ),
@@ -206,15 +205,15 @@ class Highlights extends StatelessWidget {
             InkWell(
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => MarketTips(),
+                builder: (context) => const MarketTips(),
               ));
               },
-            child: Card(
+            child: const Card(
               color: Color.fromARGB(178, 149, 229, 233),
-              child: Container(
+              child: SizedBox(
                 height: 70,
                 width: double.infinity,
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.only(top: 20, left: 70),
                   child: Text('General Tips for Global Expansion', style: TextStyle( fontSize: 14, fontWeight: FontWeight.bold)),
                 ),

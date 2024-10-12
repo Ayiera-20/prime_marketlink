@@ -22,7 +22,7 @@ class _PaymentState extends State<Payment> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -153,7 +153,7 @@ class _PaymentState extends State<Payment> {
                       ScaffoldMessenger.of(context).showSnackBar(mySnackBar);
                       Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
-                        builder: (context) => HomeScreen(
+                        builder: (context) => const HomeScreen(
                           userName: 'yourUserName', // Replace with the actual user name
                           userEmail: 'yourUserEmail', // Replace with the actual user email
                         ),

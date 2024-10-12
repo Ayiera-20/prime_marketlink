@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:prime_marketlink/screens/login.dart';
@@ -7,7 +6,9 @@ import 'package:prime_marketlink/screens/signup.dart';
 // ignore: must_be_immutable
 class Sidebar extends StatelessWidget {
 
-  int _currentIndex = 0;
+  final int _currentIndex = 0;
+
+  const Sidebar({super.key});
 
   
   @override
@@ -32,7 +33,7 @@ class Sidebar extends StatelessWidget {
         tileColor: Colors.white,
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => Signup(),
+                  builder: (context) => const Signup(),
                 ));
         },
       ),
@@ -41,7 +42,7 @@ class Sidebar extends StatelessWidget {
         tileColor: Colors.white,
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => Login(),
+                  builder: (context) => const Login(),
                 ));
         },
       ),

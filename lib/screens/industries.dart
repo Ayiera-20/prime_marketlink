@@ -19,9 +19,9 @@ class _IndustriesState extends State<Industries> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Industries', style: TextStyle(color: Colors.white),),
+        title: const Text('Industries', style: TextStyle(color: Colors.white),),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -91,7 +91,7 @@ class _IndustriesState extends State<Industries> {
       padding: const EdgeInsets.all(8.0),
       child: TextField(
         controller: searchController,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           hintText: 'Search...',
           prefixIcon: Icon(Icons.search),
         ),
@@ -108,12 +108,12 @@ class _IndustriesState extends State<Industries> {
       children: [
         buildTopCard('Connect with Community', Icons.people, () {
            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => ProfileListPage(),
+                builder: (context) => const ProfileListPage(),
               ));
         }),
         buildTopCard("What's Happening", Icons.info, () {
           Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => PostScreen()
+                builder: (context) => const PostScreen()
               ));
         }),
       ],
@@ -129,7 +129,7 @@ class _IndustriesState extends State<Industries> {
           child: Column(
             children: [
               Icon(icon),
-              SizedBox(height: 4),
+              const SizedBox(height: 4),
               Text(title),
             ],
           ),
@@ -159,7 +159,7 @@ class _IndustriesState extends State<Industries> {
           padding: const EdgeInsets.all(8.0),
           child: Text(
             industry,
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
       ),
@@ -175,7 +175,7 @@ class _IndustriesState extends State<Industries> {
           child: ListView(
             children: companies.map((company) {
               return ListTile(
-                title: Text(company, style: TextStyle(color:Colors.white, fontWeight: FontWeight.bold, fontSize: 16),),
+                title: Text(company, style: const TextStyle(color:Colors.white, fontWeight: FontWeight.bold, fontSize: 16),),
                 // Add onTap functionality for each company if needed
                 onTap: () {
                   // Handle company tap
