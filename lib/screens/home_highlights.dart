@@ -1,4 +1,4 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:prime_marketlink/components/bottom_navbar.dart';
 import 'package:prime_marketlink/screens/connect_users.dart';
@@ -8,217 +8,323 @@ class Highlights extends StatelessWidget {
   Highlights({super.key});
 
   final List<String> eventImages = [
-    "images/yes.jpg",
-    "images/webinar.jpg",
-    "images/events.jpg",
-    // Add more image paths as needed
+    "assets/images/yes.jpg",
+    "assets/images/webinar.jpg",
+    "assets/images/events.jpg",
+  ];
+
+  final List<Map<String, String>> featuredBusinesses = [
+    {"name": "Unilink", "category": "Technology"},
+    {"name": "Safaricom", "category": "Telecom"},
+    {"name": "KCB Bank", "category": "Finance"},
+    {"name": "Equity Bank", "category": "Finance"},
+    {"name": "East Africa", "category": "Brewery"},
+    {"name": "Nakumatt", "category": "Retail"},
   ];
 
   @override
   Widget build(BuildContext context) {
-    final currentUser = FirebaseAuth.instance.currentUser;
-
     return Scaffold(
+      backgroundColor: Colors.grey[50],
       bottomNavigationBar: MyBottomNavigationBar(
-  user: FirebaseAuth.instance.currentUser!,
-  onTabSelected: (index) {
-    // Handle tab selection if needed
-  },
-  userProfile: UserProfile(
-    uid: FirebaseAuth.instance.currentUser!.uid,
-    displayName: FirebaseAuth.instance.currentUser!.displayName ?? 'Anonymous',
-  ),
-),
-
+        user: FirebaseAuth.instance.currentUser!,
+        onTabSelected: (index) {},
+        userProfile: UserProfile(
+          uid: FirebaseAuth.instance.currentUser!.uid,
+          displayName: FirebaseAuth.instance.currentUser!.displayName ?? 'Anonymous',
+        ),
+      ),
       appBar: AppBar(
+        elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.pop(context),
         ),
         centerTitle: true,
         title: const Text(
-          'Insights',
-          style: TextStyle(color: Colors.white, fontStyle: FontStyle.normal, fontSize: 20),
+          'Market Insights',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 0.5,
+          ),
         ),
         backgroundColor: Colors.teal,
       ),
       body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
         padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 40),
-            Row(
+            // Featured Businesses Section
+            _buildSectionTitle('Featured Businesses', Icons.star_rounded),
+            const SizedBox(height: 12),
+            GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
+                childAspectRatio: 1.1,
+              ),
+              itemCount: featuredBusinesses.length,
+              itemBuilder: (context, index) {
+                return _buildFeaturedBusinessCard(
+                  featuredBusinesses[index]['name']!,
+                  featuredBusinesses[index]['category']!,
+                );
+              },
+            ),
+            
+            const SizedBox(height: 32),
+            
+            // Upcoming Events Section
+            _buildSectionTitle('Upcoming Events', Icons.event_rounded),
+            const SizedBox(height: 12),
+            SizedBox(
+              height: 220,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 3,
+                itemBuilder: (context, index) {
+                  return _buildEventCard(eventImages[index], 'Business Event ${index + 1}');
+                },
+              ),
+            ),
+            
+            const SizedBox(height: 32),
+            
+            // Market Tips Section
+            _buildSectionTitle('Market Entry Tips', Icons.lightbulb_rounded),
+            const SizedBox(height: 12),
+            _buildMarketTipCard(
+              context,
+              'Kenyan Market',
+              'Essential tips for entering the Kenyan market',
+              Icons.location_on_rounded,
+              Colors.teal,
+            ),
+            const SizedBox(height: 12),
+            _buildMarketTipCard(
+              context,
+              'Foreign Markets',
+              'Strategies for international expansion',
+              Icons.public_rounded,
+              Colors.blue,
+            ),
+            const SizedBox(height: 12),
+            _buildMarketTipCard(
+              context,
+              'Global Expansion',
+              'General tips for worldwide growth',
+              Icons.explore_rounded,
+              Colors.orange,
+            ),
+            const SizedBox(height: 80),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSectionTitle(String title, IconData icon) {
+    return Row(
+      children: [
+        Icon(icon, color: Colors.teal, size: 28),
+        const SizedBox(width: 8),
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            color: Colors.black87,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFeaturedBusinessCard(String name, String category) {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Colors.teal.shade400, Colors.teal.shade700],
+        ),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.teal.withOpacity(0.3),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: const Icon(
+                Icons.business_rounded,
+                color: Colors.white,
+                size: 32,
+              ),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              name,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              category,
+              style: TextStyle(
+                color: Colors.white.withOpacity(0.9),
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildEventCard(String imagePath, String title) {
+    return Container(
+      width: 200,
+      margin: const EdgeInsets.only(right: 16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+            child: Image.asset(
+              imagePath,
+              height: 140,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  width: 120,
-                  height: 150,
-                  color:  Colors.black,
-                  child: const Center(
-                    child: Text(
-                      'Featured \n Businesses', style: TextStyle(color: Colors.white),
-                      textAlign: TextAlign.center,
-                    ),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Container(
-                    color: Colors.white,
-                    child: Column(
-                      children: [
-                        Row(
-                          children: List.generate(
-                            3,
-                            (index) => Expanded(
-                              child: Card(
-                                color: Colors.black,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: const AssetImage("images/background.jpg"),
-                                      fit: BoxFit.cover,
-                                      colorFilter: ColorFilter.mode(
-                                        Colors.black.withOpacity(0.4),
-                                        BlendMode.darken,
-                                      ),
-                                    ),
-                                  ),
-                                  child: const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Center(child: Text('Unilink', style: TextStyle(color: Colors.white),)),
-                                ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Row(
-                          children: List.generate(
-                            3,
-                            (index) => Expanded(
-                              child: Card(
-                                color: Colors.black,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image:  AssetImage(eventImages[index]),
-                                      fit: BoxFit.cover,
-                                      colorFilter: ColorFilter.mode(
-                                        Colors.black.withOpacity(0.4),
-                                        BlendMode.darken,
-                                      ),
-                                    ),
-                                  ),
-                                  child: const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Center(child: Text('Unilink', style: TextStyle(color: Colors.white),)),
-                                ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                const SizedBox(height: 4),
+                Row(
+                  children: [
+                    Icon(Icons.calendar_today, size: 12, color: Colors.grey[600]),
+                    const SizedBox(width: 4),
+                    Text(
+                      'Coming Soon',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey[600],
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ],
             ),
-            const SizedBox(height: 30),
-            const Text(
-              'Upcoming Events',
-              style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMarketTipCard(
+    BuildContext context,
+    String title,
+    String description,
+    IconData icon,
+    Color color,
+  ) {
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const MarketTips()),
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
             ),
-            const SizedBox(height: 5),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: List.generate(
-                  3,
-                  (index) => Card(
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 140,
-                          width: 140,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(9.9),
-                            image:  DecorationImage(
-                              image: AssetImage(eventImages[index]),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        const Divider(height: 10),
-                        Container(
-                          padding: const EdgeInsets.all(16.0),
-                          child: const Text('Event 1',style: TextStyle( fontSize: 12, fontWeight: FontWeight.bold)),
-                        ),
-                      ],
+          ],
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: color.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(icon, color: color, size: 28),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
+                  const SizedBox(height: 4),
+                  Text(
+                    description,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey[600],
+                    ),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 30),
-            InkWell(
-              onTap: (){
-                Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const MarketTips(),
-              ));
-              },
-            child: const Card(
-              color: Color.fromARGB(178, 149, 229, 233),
-              child: SizedBox(
-                height: 70,
-                width: double.infinity,
-                child: Padding(
-                  padding: EdgeInsets.only(top: 20, left: 70),
-                  child: Text('Tips for Entering the Kenyan Market', style: TextStyle( fontSize: 14, fontWeight: FontWeight.bold),),
-                ),
-              ),
-            ),),
-            const SizedBox(height: 30),
-            InkWell(
-              onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const MarketTips(),
-              ));
-              },
-            child: const Card(
-              color: Color.fromARGB(178, 149, 229, 233),
-              child: SizedBox(
-                height: 70,
-                width: double.infinity,
-                child: Padding(
-                  padding: EdgeInsets.only(top: 20, left: 70),
-                  child: Text('Tips for Entering Foreign Markets', style: TextStyle( fontSize: 14, fontWeight: FontWeight.bold)),
-                ),
-              ),
-            ),),
-            const SizedBox(height: 20),
-            InkWell(
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const MarketTips(),
-              ));
-              },
-            child: const Card(
-              color: Color.fromARGB(178, 149, 229, 233),
-              child: SizedBox(
-                height: 70,
-                width: double.infinity,
-                child: Padding(
-                  padding: EdgeInsets.only(top: 20, left: 70),
-                  child: Text('General Tips for Global Expansion', style: TextStyle( fontSize: 14, fontWeight: FontWeight.bold)),
-                ),
-              ),
-            ),)
+            Icon(Icons.arrow_forward_ios, color: color, size: 18),
           ],
         ),
       ),

@@ -102,7 +102,7 @@ class _PaymentState extends State<Payment> {
               
               child: Row(
               children: [
-                Image.asset("images/mastercard.webp", height: 50 , width: 120,),
+                Image.asset("assets/images/mastercard.webp", height: 50 , width: 120,),
                 const Text('Visa Payment'),
 
               ],
@@ -160,10 +160,10 @@ class _PaymentState extends State<Payment> {
                       ),
                     );},
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
+                      backgroundColor: WidgetStateProperty.all(
                         Colors.amber,
                       ),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0), // Set the circular radius
                         ),

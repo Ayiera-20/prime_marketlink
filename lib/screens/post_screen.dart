@@ -673,48 +673,85 @@ class _PostScreenState extends State<PostScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: MyBottomNavigationBar(
-  user: FirebaseAuth.instance.currentUser!,
-  onTabSelected: (index) {
-    // Handle tab selection if needed
-  },
-  userProfile: UserProfile(
-    uid: FirebaseAuth.instance.currentUser!.uid,
-    displayName: FirebaseAuth.instance.currentUser!.displayName ?? 'Anonymous',
-  ),
-),
+        user: FirebaseAuth.instance.currentUser!,
+        currentIndex: 2,
+        onTabSelected: (index) {},
+        userProfile: UserProfile(
+          uid: FirebaseAuth.instance.currentUser!.uid,
+          displayName: FirebaseAuth.instance.currentUser!.displayName ?? 'Anonymous',
+        ),
+      ),
       appBar: AppBar(
+        elevation: 0,
         centerTitle: true,
-        title: const Text("What's Happening", style: TextStyle(color: Colors.white),),
+        title: const Text(
+          "What's Happening",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 0.5,
+          ),
+        ),
         backgroundColor: Colors.teal,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 20),
-          ListTile(
-            contentPadding: EdgeInsets.zero,
-            leading: const Icon(
-                      Icons.business_center_rounded,
-                      size: 50,
-                      color: Colors.teal,
-                    ),
-            // CircleAvatar(
-            //   backgroundImage: NetworkImage(
-            //     'https://upload.wikimedia.org/wikipedia/commons/4/44/Facebook_Logo.png',
-            //   ),
-            // ),
-            title: Text(
-              _username.isNotEmpty ? _username : "Username Here",
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
+          Container(
+            padding: const EdgeInsets.all(16.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.1),
+                  spreadRadius: 1,
+                  blurRadius: 3,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.teal.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: const Icon(
+                    Icons.business_center_rounded,
+                    size: 32,
+                    color: Colors.teal,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        _username.isNotEmpty ? _username : "Username",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        "Share your business updates",
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          fontSize: 13,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
-          const Divider(
-            thickness: 1,
-            color: Colors.grey,
-          ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 8),
           _buildPostInput(),
           const Expanded(
             child: PostListWidget(),
@@ -725,29 +762,82 @@ class _PostScreenState extends State<PostScreen> {
   }
 
   Widget _buildPostInput() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Row(
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.1),
+            spreadRadius: 1,
+            blurRadius: 6,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            child: TextField(
-              controller: _postController,
-              decoration: const InputDecoration(
-                hintText: 'What\'s on your mind?',
+          TextField(
+            controller: _postController,
+            maxLines: 4,
+            decoration: InputDecoration(
+              hintText: 'Share your thoughts, updates, or opportunities...',
+              hintStyle: TextStyle(
+                color: Colors.grey[400],
+                fontSize: 15,
               ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(color: Colors.grey[300]!),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: BorderSide(color: Colors.grey[300]!),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+                borderSide: const BorderSide(color: Colors.teal, width: 2),
+              ),
+              contentPadding: const EdgeInsets.all(16),
             ),
           ),
-          IconButton(
-            icon: const Icon(Icons.photo),
-            onPressed: _pickImage,
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.teal,),
-            onPressed: () {
-              _addPost(context);
-            },
-            child: const Text('Post', style: TextStyle(color: Colors.white),),
+          const SizedBox(height: 12),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              OutlinedButton.icon(
+                onPressed: _pickImage,
+                icon: const Icon(Icons.photo_library_outlined, size: 20),
+                label: const Text('Photo'),
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: Colors.grey[700],
+                  side: BorderSide(color: Colors.grey[300]!),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                ),
+              ),
+              ElevatedButton.icon(
+                onPressed: () {
+                  _addPost(context);
+                },
+                icon: const Icon(Icons.send, size: 18),
+                label: const Text('Post'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.teal,
+                  foregroundColor: Colors.white,
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -790,28 +880,161 @@ class PostListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<PostProvider>(
       builder: (context, postProvider, _) {
+        if (postProvider.posts.isEmpty) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.forum_outlined,
+                  size: 80,
+                  color: Colors.grey[300],
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'No posts yet',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey[600],
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Be the first to share something!',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey[500],
+                  ),
+                ),
+              ],
+            ),
+          );
+        }
+
         return ListView.builder(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           itemCount: postProvider.posts.length,
           itemBuilder: (context, index) {
             Post post = postProvider.posts[index];
 
-            return ListTile(
-              title: Text(post.userName),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(post.text),
-                  Text(
-                    'Posted at: ${post.timestamp}',
-                    style: const TextStyle(fontSize: 12, color: Colors.grey),
+            return Container(
+              margin: const EdgeInsets.only(bottom: 12),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.1),
+                    spreadRadius: 1,
+                    blurRadius: 6,
+                    offset: const Offset(0, 2),
                   ),
                 ],
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: Colors.teal.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: const Icon(
+                            Icons.business_center,
+                            size: 20,
+                            color: Colors.teal,
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                post.userName,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 15,
+                                ),
+                              ),
+                              const SizedBox(height: 2),
+                              Text(
+                                _formatTimestamp(post.timestamp),
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey[600],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      post.text,
+                      style: const TextStyle(
+                        fontSize: 15,
+                        height: 1.4,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Divider(height: 1, color: Colors.grey[200]),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.thumb_up_outlined, size: 20),
+                          onPressed: () {},
+                          color: Colors.grey[600],
+                        ),
+                        Text(
+                          'Like',
+                          style: TextStyle(color: Colors.grey[600], fontSize: 13),
+                        ),
+                        const SizedBox(width: 16),
+                        IconButton(
+                          icon: const Icon(Icons.comment_outlined, size: 20),
+                          onPressed: () {},
+                          color: Colors.grey[600],
+                        ),
+                        Text(
+                          'Comment',
+                          style: TextStyle(color: Colors.grey[600], fontSize: 13),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             );
           },
         );
       },
     );
+  }
+
+  String _formatTimestamp(DateTime timestamp) {
+    final now = DateTime.now();
+    final difference = now.difference(timestamp);
+
+    if (difference.inMinutes < 1) {
+      return 'Just now';
+    } else if (difference.inHours < 1) {
+      return '${difference.inMinutes}m ago';
+    } else if (difference.inDays < 1) {
+      return '${difference.inHours}h ago';
+    } else if (difference.inDays < 7) {
+      return '${difference.inDays}d ago';
+    } else {
+      return '${timestamp.day}/${timestamp.month}/${timestamp.year}';
+    }
   }
 }
 

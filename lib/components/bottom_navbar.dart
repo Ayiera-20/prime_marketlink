@@ -7,86 +7,128 @@ import 'package:prime_marketlink/screens/connect_users.dart';
 import 'package:prime_marketlink/screens/post_screen.dart';
 
 
-class MyBottomNavigationBar extends StatelessWidget {
+class MyBottomNavigationBar extends StatefulWidget {
   final User user;
   final Function(int) onTabSelected;
-  final UserProfile userProfile; // Add this line
+  final UserProfile userProfile;
+  final int currentIndex;
 
-  const MyBottomNavigationBar({super.key, 
+  const MyBottomNavigationBar({
+    super.key, 
     required this.user,
     required this.onTabSelected,
-    required this.userProfile, // Add this line
+    required this.userProfile,
+    this.currentIndex = 0,
   });
 
-  final int _currentIndex = 0;
+  @override
+  State<MyBottomNavigationBar> createState() => _MyBottomNavigationBarState();
+}
+
+class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
+  late int _currentIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentIndex = widget.currentIndex;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-  data: Theme.of(context).copyWith(
-    canvasColor: const Color.fromARGB(255, 217, 217, 217),
-    primaryColor: Colors.white,
-    bottomNavigationBarTheme: Theme.of(context).bottomNavigationBarTheme.copyWith(
-      selectedLabelStyle: const TextStyle(color: Colors.teal),
-      unselectedLabelStyle: const TextStyle(color: Colors.black),
-    ),
-      
-      ),
-      child: BottomNavigationBar(
-        selectedItemColor: Colors.teal,
-        unselectedItemColor: Colors.black,
-        currentIndex: _currentIndex,
-        items: const [
-          BottomNavigationBarItem(
-        icon: Icon(Icons.home),
-        label: 'Home',
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.connect_without_contact),
-        label: 'Connect',
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.whatshot),
-        label: 'What\'s Happening',
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.message),
-        label: 'Messages',
-      ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.person),
-        label: 'Profile',
-      ),
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            spreadRadius: 1,
+            blurRadius: 10,
+            offset: const Offset(0, -3),
+          ),
         ],
-        onTap: (index) {
-          if (index == 0) {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => const HomeScreen(
-                  userName: 'yourUserName',
-                  userEmail: 'yourUserEmail',
-                ),
-              ),
-            );
-            } else if (index == 1) {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const ProfileListPage(),
-              ));
-          } else if (index == 2) {
-             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const PostScreen()
-              ));
-          } else if (index == 3) {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const ChatScreen(),
-            ));
-          } else if (index == 4) {
-             Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => Profile(userProfile: userProfile)
-            ));
-          }
-        },
       ),
+      child: Theme(
+        data: Theme.of(context).copyWith(
+          canvasColor: Colors.white,
+        ),
+        child: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: Colors.teal,
+          unselectedItemColor: Colors.grey[600],
+          selectedFontSize: 12,
+          unselectedFontSize: 12,
+          currentIndex: _currentIndex,
+          elevation: 0,
+          selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home_outlined),
+              activeIcon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.connect_without_contact_outlined),
+              activeIcon: Icon(Icons.connect_without_contact),
+              label: 'Connect',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.whatshot_outlined),
+              activeIcon: Icon(Icons.whatshot),
+              label: 'Happening',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.message_outlined),
+              activeIcon: Icon(Icons.message),
+              label: 'Messages',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person_outline),
+              activeIcon: Icon(Icons.person),
+              label: 'Profile',
+            ),
+          ],
+          onTap: (index) {
+            if (_currentIndex != index) {
+              setState(() {
+                _currentIndex = index;
+              });
+              widget.onTabSelected(index);
+              _navigateToPage(context, index);
+            }
+          },
+        ),
+      ),
+    );
+  }
+
+  void _navigateToPage(BuildContext context, int index) {
+    Widget page;
+    
+    switch (index) {
+      case 0:
+        page = const HomeScreen(
+          userName: 'yourUserName',
+          userEmail: 'yourUserEmail',
+        );
+        break;
+      case 1:
+        page = const ProfileListPage();
+        break;
+      case 2:
+        page = const PostScreen();
+        break;
+      case 3:
+        page = const ChatScreen();
+        break;
+      case 4:
+        page = Profile(userProfile: widget.userProfile);
+        break;
+      default:
+        return;
+    }
+
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => page),
     );
   }
 }

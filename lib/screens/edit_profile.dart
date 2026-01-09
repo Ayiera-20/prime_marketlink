@@ -1,496 +1,465 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
 
   @override
-  State<EditProfile> createState() => _EditProfilState();
+  State<EditProfile> createState() => _EditProfileState();
 }
 
-class _EditProfilState extends State<EditProfile> {
-  List<String> businessTypes = ['Foreign Business', 'Kenyan Business'];
-  String? selectedBusinessType = 'Foreign Business';
+class _EditProfileState extends State<EditProfile> {
+  final _formKey = GlobalKey<FormState>();
+  
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _professionController = TextEditingController();
+  final TextEditingController _locationController = TextEditingController();
+  final TextEditingController _companyNameController = TextEditingController();
+  final TextEditingController _industryController = TextEditingController();
+  final TextEditingController _websiteController = TextEditingController();
+  final TextEditingController _aboutMeController = TextEditingController();
 
-  List<String> companySizes = ['Company Size', 'less than 50', '50-100', '100-500', '500-1000+'];
-  String? selectedCompanySize = 'Company Size';
+  String? selectedBusinessType = 'Foreign Business';
+  String? selectedCompanySize;
+
+  final List<String> businessTypes = ['Foreign Business', 'Kenyan Business'];
+  final List<String> companySizes = ['<50', '50-100', '100-500', '500-1000+'];
+
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        final doc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .get();
+        
+        if (doc.exists) {
+          final data = doc.data()!;
+          setState(() {
+            _nameController.text = data['name'] ?? '';
+            _phoneController.text = data['phone'] ?? '';
+            _emailController.text = data['email'] ?? '';
+            _professionController.text = data['profession'] ?? '';
+            _locationController.text = data['location'] ?? '';
+            _companyNameController.text = data['companyName'] ?? '';
+            _industryController.text = data['industry'] ?? '';
+            _websiteController.text = data['website'] ?? '';
+            _aboutMeController.text = data['aboutMe'] ?? '';
+            selectedBusinessType = data['businessType'] ?? 'Foreign Business';
+            selectedCompanySize = data['companySize'];
+            _isLoading = false;
+          });
+        }
+      }
+    } catch (e) {
+      setState(() => _isLoading = false);
+    }
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _phoneController.dispose();
+    _emailController.dispose();
+    _professionController.dispose();
+    _locationController.dispose();
+    _companyNameController.dispose();
+    _industryController.dispose();
+    _websiteController.dispose();
+    _aboutMeController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _saveProfile() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        final user = FirebaseAuth.instance.currentUser;
+        if (user != null) {
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(user.uid)
+              .update({
+            'name': _nameController.text,
+            'phone': _phoneController.text,
+            'email': _emailController.text,
+            'profession': _professionController.text,
+            'location': _locationController.text,
+            'companyName': _companyNameController.text,
+            'industry': _industryController.text,
+            'website': _websiteController.text,
+            'aboutMe': _aboutMeController.text,
+            'businessType': selectedBusinessType,
+            'companySize': selectedCompanySize,
+          });
+
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Profile updated successfully')),
+            );
+            Navigator.pop(context);
+          }
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Error: $e')),
+          );
+        }
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        title: const Text("Edit Profile"),
-        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: const Text(
+          "Edit Profile",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 0.5,
+          ),
+        ),
+        backgroundColor: Colors.teal,
       ),
-      body: Stack(
-        fit: StackFit.expand,
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : Form(
+              key: _formKey,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    _buildHeaderSection(),
+                    const SizedBox(height: 16),
+                    _buildPersonalInfoSection(),
+                    const SizedBox(height: 16),
+                    _buildCompanyInfoSection(),
+                    const SizedBox(height: 16),
+                    _buildAboutSection(),
+                    const SizedBox(height: 24),
+                    _buildSaveButton(),
+                    const SizedBox(height: 80),
+                  ],
+                ),
+              ),
+            ),
+    );
+  }
+
+  Widget _buildHeaderSection() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [Colors.teal, Colors.teal.shade700],
+        ),
+      ),
+      child: Column(
         children: [
-          // Positioned.fill(
-          //   child: Container(
-          //     decoration: BoxDecoration(
-          //       image: DecorationImage(
-          //         image: const AssetImage("images/background.jpg"),
-          //         fit: BoxFit.cover,
-          //         colorFilter: ColorFilter.mode(
-          //           Colors.black.withOpacity(0.4),
-          //           BlendMode.darken,
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          // ),
-          Container(
-            margin: const EdgeInsets.all(15.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Row(
-                  children: [
-                    Flexible(
-                      child: CustomTextField(
-                        hintText: "Enter your Name",
-                        prefixIcon: Icons.person,
-                        height: 45,
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                    Flexible(
-                      child: CustomTextField(
-                        hintText: "Phone Number",
-                        prefixIcon: Icons.phone,
-                        height: 45,
-                      ),
-                    ),
-                  ],
+          Stack(
+            children: [
+              CircleAvatar(
+                radius: 50,
+                backgroundColor: Colors.white,
+                child: Icon(
+                  Icons.person,
+                  size: 50,
+                  color: Colors.teal.shade700,
                 ),
-                const SizedBox(height: 30),
-                const Row(
-                  children: [
-                    Flexible(
-                      child: CustomTextField(
-                        hintText: "Enter Email",
-                        prefixIcon: Icons.email,
-                        height: 45,
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                    Flexible(
-                      child: CustomTextField(
-                        hintText: "Profession",
-                        prefixIcon: Icons.work,
-                        height: 45,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 30,),
-                const Row(
-                  children: [
-                    Flexible(child:
-                    CustomTextField(
-                      height: 45,
-                      hintText: "Enter Location",
-                      prefixIcon: Icons.location_pin,
-                    ),
-                    ),
-                    SizedBox(width: 10),
-                    Flexible(child:
-                    CustomTextField(
-                      height: 45,
-                      hintText: "Company Name",
-                      prefixIcon: Icons.business,
-                    ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 30),
-                const Row(
-                  children: [
-                    Flexible(
-                      child: CustomTextField(
-                        hintText: "Industry",
-                        prefixIcon: Icons.business,
-                        height: 45,
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                    Flexible(
-                      child: CustomTextField(
-                        hintText: "Company Website",
-                        prefixIcon: Icons.public,
-                        height: 45,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 30),
-                Column(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: Column(
-                        children: [
-                          const Text(
-                            'Company Size',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Row(
-                                  children: [
-                                    Radio(
-                                      value: "<50",
-                                      groupValue: selectedCompanySize,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          selectedCompanySize = value;
-                                        });
-                                      },
-                                    ),
-                                    const Text("<50"),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                child: Row(
-                                  children: [
-                                    Radio(
-                                      value: "50-100",
-                                      groupValue: selectedCompanySize,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          selectedCompanySize = value;
-                                        });
-                                      },
-                                    ),
-                                    const Text("50-100"),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Row(
-                                  children: [
-                                    Radio(
-                                      value: "100-500",
-                                      groupValue: selectedCompanySize,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          selectedCompanySize = value;
-                                        });
-                                      },
-                                    ),
-                                    const Text("100-500"),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                child: Row(
-                                  children: [
-                                    Radio(
-                                      value: "500-1000",
-                                      groupValue: selectedCompanySize,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          selectedCompanySize = value;
-                                        });
-                                      },
-                                    ),
-                                    const Text("500-1000+"),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    const SizedBox(height: 30),
-                    Container(
-                      padding: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      child: Column(
-                        children: [
-                          const Text(
-                            'Business Type',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Row(
-                            children: businessTypes.map((type) {
-                              return Expanded(
-                                child: Row(
-                                  children: [
-                                    Radio(
-                                      value: type,
-                                      groupValue: selectedBusinessType,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          selectedBusinessType = value;
-                                        });
-                                      },
-                                    ),
-                                    Text(type),
-                                  ],
-                                ),
-                              );
-                            }).toList(),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 40, width: 365,),
-                // CustomTextField(
-                //   hintText: "Enter Password",
-                //   prefixIcon: Icons.lock,
-                //   height: 45,
-                //   isPassword: true,
-                // ),
-
-                const SizedBox(height: 35),
-                Container(
-                  margin: const EdgeInsets.only(left: 10, right: 10),
-                  width: 205,
-                  height: 40,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Handle sign-up logic
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.teal,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                    ),
-                    child: const Text(
-                      'Save changes',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    ),
+              ),
+              Positioned(
+                bottom: 0,
+                right: 0,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.teal.shade700,
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.white, width: 2),
+                  ),
+                  child: const Icon(
+                    Icons.camera_alt,
+                    size: 20,
+                    color: Colors.white,
                   ),
                 ),
-              ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          const Text(
+            'Tap to change profile photo',
+            style: TextStyle(
+              color: Colors.white70,
+              fontSize: 14,
             ),
           ),
         ],
       ),
     );
   }
-}
 
-class CustomTextField extends StatelessWidget {
-  const CustomTextField({
-    super.key,
-    required this.hintText,
-    required this.prefixIcon,
-    this.height = 50,
-    this.isPassword = false,
-  });
+  Widget _buildPersonalInfoSection() {
+    return _buildSection(
+      'Personal Information',
+      [
+        _buildTextField(
+          controller: _nameController,
+          label: 'Full Name',
+          icon: Icons.person_outline,
+          validator: (value) =>
+              value?.isEmpty ?? true ? 'Please enter your name' : null,
+        ),
+        const SizedBox(height: 16),
+        _buildTextField(
+          controller: _phoneController,
+          label: 'Phone Number',
+          icon: Icons.phone_outlined,
+          keyboardType: TextInputType.phone,
+        ),
+        const SizedBox(height: 16),
+        _buildTextField(
+          controller: _emailController,
+          label: 'Email',
+          icon: Icons.email_outlined,
+          keyboardType: TextInputType.emailAddress,
+          validator: (value) {
+            if (value?.isEmpty ?? true) return 'Please enter your email';
+            if (!value!.contains('@')) return 'Please enter a valid email';
+            return null;
+          },
+        ),
+        const SizedBox(height: 16),
+        _buildTextField(
+          controller: _professionController,
+          label: 'Profession',
+          icon: Icons.work_outline,
+        ),
+        const SizedBox(height: 16),
+        _buildTextField(
+          controller: _locationController,
+          label: 'Location',
+          icon: Icons.location_on_outlined,
+        ),
+      ],
+    );
+  }
 
-  final String hintText;
-  final IconData prefixIcon;
-  final double height;
-  final bool isPassword;
+  Widget _buildCompanyInfoSection() {
+    return _buildSection(
+      'Company Information',
+      [
+        _buildTextField(
+          controller: _companyNameController,
+          label: 'Company Name',
+          icon: Icons.business_outlined,
+        ),
+        const SizedBox(height: 16),
+        _buildTextField(
+          controller: _industryController,
+          label: 'Industry',
+          icon: Icons.category_outlined,
+        ),
+        const SizedBox(height: 16),
+        _buildTextField(
+          controller: _websiteController,
+          label: 'Website',
+          icon: Icons.language_outlined,
+          keyboardType: TextInputType.url,
+        ),
+        const SizedBox(height: 16),
+        _buildDropdown(
+          label: 'Business Type',
+          value: selectedBusinessType,
+          items: businessTypes,
+          icon: Icons.business_center_outlined,
+          onChanged: (value) => setState(() => selectedBusinessType = value),
+        ),
+        const SizedBox(height: 16),
+        _buildDropdown(
+          label: 'Company Size',
+          value: selectedCompanySize,
+          items: companySizes,
+          icon: Icons.people_outline,
+          onChanged: (value) => setState(() => selectedCompanySize = value),
+        ),
+      ],
+    );
+  }
 
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: height,
-      child: TextField(
-        textAlign: TextAlign.center,
-        obscureText: isPassword,
-        decoration: InputDecoration(
-          prefixIcon: Icon(prefixIcon),
-          suffixIcon: isPassword
-              ? IconButton(
-                  icon: Icon(isPassword ? Icons.visibility : Icons.visibility_off),
-                  onPressed: () {
-                    // Toggle password visibility
-                  },
-                )
-              : null,
-          hintText: hintText,
-          filled: true,
-          fillColor: Colors.white,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
+  Widget _buildAboutSection() {
+    return _buildSection(
+      'About Me',
+      [
+        _buildTextField(
+          controller: _aboutMeController,
+          label: 'Tell us about yourself',
+          icon: Icons.info_outline,
+          maxLines: 4,
+          keyboardType: TextInputType.multiline,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSection(String title, List<Widget> children) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
           ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Text(
+              title,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.teal,
+              ),
+            ),
+          ),
+          const Divider(height: 1),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: children,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String label,
+    required IconData icon,
+    String? Function(String?)? validator,
+    TextInputType? keyboardType,
+    int maxLines = 1,
+  }) {
+    return TextFormField(
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: label,
+        prefixIcon: Icon(icon, color: Colors.teal),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: Colors.grey.shade300),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: Colors.grey.shade300),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(color: Colors.teal, width: 2),
+        ),
+        filled: true,
+        fillColor: Colors.grey.shade50,
+      ),
+      validator: validator,
+      keyboardType: keyboardType,
+      maxLines: maxLines,
+    );
+  }
+
+  Widget _buildDropdown({
+    required String label,
+    required String? value,
+    required List<String> items,
+    required IconData icon,
+    required void Function(String?) onChanged,
+  }) {
+    return DropdownButtonFormField<String>(
+      value: value,
+      decoration: InputDecoration(
+        labelText: label,
+        prefixIcon: Icon(icon, color: Colors.teal),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: Colors.grey.shade300),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: Colors.grey.shade300),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(color: Colors.teal, width: 2),
+        ),
+        filled: true,
+        fillColor: Colors.grey.shade50,
+      ),
+      items: items.map((String item) {
+        return DropdownMenuItem<String>(
+          value: item,
+          child: Text(item),
+        );
+      }).toList(),
+      onChanged: onChanged,
+    );
+  }
+
+  Widget _buildSaveButton() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      width: double.infinity,
+      height: 56,
+      child: ElevatedButton.icon(
+        onPressed: _saveProfile,
+        icon: const Icon(Icons.save, color: Colors.white),
+        label: const Text(
+          'Save Changes',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.teal,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          elevation: 2,
         ),
       ),
     );
   }
 }
 
-
-
-
-
-
-// import 'package:flutter/material.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
-
-// class UserModel {
-//   final String name;
-//   final String phone;
-//   final String email;
-//   final String profession;
-//   final String location;
-//   final String companyName;
-//   final String industry;
-//   final String companyWebsite;
-//   final String businessType;
-//   final String companySize;
-
-//   UserModel({
-//     required this.name,
-//     required this.phone,
-//     required this.email,
-//     required this.profession,
-//     required this.location,
-//     required this.companyName,
-//     required this.industry,
-//     required this.companyWebsite,
-//     required this.businessType,
-//     required this.companySize,
-//   });
-// }
-
-// class EditProfile extends StatefulWidget {
-//   const EditProfile({Key? key}) : super(key: key);
-
-//   @override
-//   _EditProfileState createState() => _EditProfileState();
-// }
-
-// class _EditProfileState extends State<EditProfile> {
-//   final FirebaseAuth _auth = FirebaseAuth.instance;
-//   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
-//   final TextEditingController nameController = TextEditingController();
-//   final TextEditingController phoneController = TextEditingController();
-//   final TextEditingController emailController = TextEditingController();
-//   final TextEditingController professionController = TextEditingController();
-//   final TextEditingController locationController = TextEditingController();
-//   final TextEditingController companyNameController = TextEditingController();
-//   final TextEditingController industryController = TextEditingController();
-//   final TextEditingController websiteController = TextEditingController();
-  
-//   String selectedBusinessType = 'Foreign Business';
-//   String selectedCompanySize = 'Company Size';
-
-//   List<String> businessTypes = ['Foreign Business', 'Kenyan Business'];
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return FutureBuilder(
-//       future: _getUserData(),
-//       builder: (context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
-//         if (snapshot.connectionState == ConnectionState.waiting) {
-//           return CircularProgressIndicator();
-//         }
-
-//         if (snapshot.hasError) {
-//           return Text('Error: ${snapshot.error}');
-//         }
-
-//         Map<String, dynamic> userData = snapshot.data ?? {};
-
-//         nameController.text = userData['name'];
-//         phoneController.text = userData['phone'];
-//         emailController.text = userData['email'];
-//         professionController.text = userData['profession'];
-//         locationController.text = userData['location'];
-//         companyNameController.text = userData['companyName'];
-//         industryController.text = userData['industry'];
-//         websiteController.text = userData['companyWebsite'];
-//         selectedBusinessType = userData['businessType'];
-//         selectedCompanySize = userData['companySize'];
-
-//         return Scaffold(
-//           appBar: AppBar(
-//             title: Text('Edit Profile'),
-//           ),
-//           body: Padding(
-//             padding: const EdgeInsets.all(16.0),
-//             child: SingleChildScrollView(
-//               child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.stretch,
-//                 children: [
-//                   // Your TextFormField widgets here...
-
-//                   SizedBox(height: 16),
-//                   ElevatedButton(
-//                     onPressed: () {
-//                       updateProfile();
-//                     },
-//                     child: Text('Save Changes'),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ),
-//         );
-//       },
-//     );
-//   }
-
-//   Future<Map<String, dynamic>> _getUserData() async {
-//     User? user = _auth.currentUser;
-//     if (user != null) {
-//       DocumentSnapshot<Map<String, dynamic>> snapshot =
-//           await _firestore.collection('users').doc(user.uid).get();
-//       return snapshot.data() ?? {};
-//     } else {
-//       throw Exception("User not authenticated");
-//     }
-//   }
-
-//   Future<void> updateProfile() async {
-//     try {
-//       User? user = _auth.currentUser;
-//       if (user != null) {
-//         await _firestore.collection('users').doc(user.uid).update({
-//           'name': nameController.text,
-//           'phone': phoneController.text,
-//           'email': emailController.text,
-//           'profession': professionController.text,
-//           'location': locationController.text,
-//           'companyName': companyNameController.text,
-//           'industry': industryController.text,
-//           'companyWebsite': websiteController.text,
-//           'businessType': selectedBusinessType,
-//           'companySize': selectedCompanySize,
-//         });
-
-//         ScaffoldMessenger.of(context).showSnackBar(
-//           SnackBar(content: Text('Profile updated successfully')),
-//         );
-//       }
-//     } catch (e) {
-//       print('Error updating profile: $e');
-//     }
-//   }
-// }

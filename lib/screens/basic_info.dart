@@ -58,8 +58,8 @@ class PersonalDetails extends StatelessWidget {
       //             shape: RoundedRectangleBorder(
       // borderRadius: BorderRadius.circular(20.0),
                   
-                  backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 221, 181, 49)),
-                  textStyle: const MaterialStatePropertyAll(TextStyle(color: Colors.black)),
+                  backgroundColor: WidgetStateProperty.all(const Color.fromARGB(255, 221, 181, 49)),
+                  textStyle: const WidgetStatePropertyAll(TextStyle(color: Colors.black)),
                   
                 ),
                 clipBehavior: Clip.antiAlias,

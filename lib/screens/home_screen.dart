@@ -44,13 +44,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
       appBar: AppBar(
         toolbarHeight: 60,
-        // shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(bottomRight: Radius.circular(20.0), bottomLeft: Radius.circular(20))),
-      centerTitle: true,
-      title: const Text(
-        'Connecting businesses',
-        style: TextStyle(color: Colors.white, fontStyle: FontStyle.normal, fontSize: 20),
-      ),
-      backgroundColor: Colors.teal,
+        centerTitle: true,
+        title: const Text(
+          'Prime Market Link',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 0.5,
+          ),
+        ),
+        backgroundColor: Colors.teal,
       iconTheme: const IconThemeData(color: Colors.black),
       actions: [
         IconButton(
@@ -66,18 +70,15 @@ class _HomeScreenState extends State<HomeScreen> {
       ],
     ),
     
-        bottomNavigationBar: MyBottomNavigationBar(
-  user: FirebaseAuth.instance.currentUser!,
-  onTabSelected: (index) {
-    // Handle tab selection if needed
-  },
-  userProfile: UserProfile(
-    uid: FirebaseAuth.instance.currentUser!.uid,
-    displayName: FirebaseAuth.instance.currentUser!.displayName ?? 'Anonymous',
-  ),
-),
-
-
+         bottomNavigationBar: MyBottomNavigationBar(
+          user: FirebaseAuth.instance.currentUser!,
+          currentIndex: 0,
+          onTabSelected: (index) {},
+          userProfile: UserProfile(
+            uid: FirebaseAuth.instance.currentUser!.uid,
+            displayName: FirebaseAuth.instance.currentUser!.displayName ?? 'Anonymous',
+          ),
+        ),
          body: Stack(
           children: [
          SingleChildScrollView(
@@ -91,25 +92,25 @@ class _HomeScreenState extends State<HomeScreen> {
           TextField(
             controller: searchController,
             onChanged: (value) {
-              // Handle onChanged event
             },
-            cursorColor: Colors.grey[400],
+            cursorColor: Colors.teal,
             decoration: InputDecoration(
               filled: true,
-              fillColor: Colors.grey[200],
-              contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+              fillColor: Colors.grey[100],
+              contentPadding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
               prefixIcon: Icon(
                 Icons.search,
                 color: Colors.grey[600],
+                size: 22,
               ),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20.0),
+                borderRadius: BorderRadius.circular(16.0),
                 borderSide: BorderSide.none,
               ),
-              hintText: 'Search',
+              hintText: 'Search businesses...',
               hintStyle: TextStyle(
                 color: Colors.grey[500],
-                fontSize: 14,
+                fontSize: 15,
               ),
             ),
           ),
@@ -159,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     decoration: BoxDecoration( 
                                                 borderRadius: BorderRadius.circular(8.0), 
                                                 image:  DecorationImage( 
-                                                  image: const AssetImage("images/construction.jpg"), 
+                                                  image: const AssetImage("assets/images/construction.jpg"), 
                                                   fit: BoxFit.cover,
                                                   colorFilter: ColorFilter.mode(
                                                     Colors.black.withOpacity(0.4),
@@ -173,13 +174,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   children: [
                                                     Text(
                                                       'Featured Businesses',
-                                                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20,),
+                                                      style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: 22,
+                                                      ),
                                                     ),
-                                                    Text(
-                                                      'Click to dicover more',
-                                                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12,),
-                                                    ),
-                                                    // Add more Text widgets as needed
                                                   ],
                                                 ), 
 
@@ -200,19 +200,23 @@ class _HomeScreenState extends State<HomeScreen> {
                               decoration: BoxDecoration( 
                                 borderRadius: BorderRadius.circular(8.0), 
                                 image:  DecorationImage( 
-                                  image: const AssetImage("images/yes.jpg"), 
+                                  image: const AssetImage("assets/images/yes.jpg"), 
                                   fit: BoxFit.cover, 
                                   colorFilter: ColorFilter.mode(
                                     Colors.black.withOpacity(0.6),
                                        BlendMode.darken,
                                   ),
                                 ), 
-                              ), 
-                              padding: const EdgeInsets.only(left: 20, top: 80), 
-                              child: const Text('About Prime Market Link', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20,),
-                              ),
-                              
-                                            ), 
+              ), 
+              padding: const EdgeInsets.only(left: 20, top: 80), 
+              child: const Text(
+                'About Us',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22,
+                ),
+              ),                                            ), 
                                             ),
                               
                                             //3rd Image of Slider 
@@ -228,7 +232,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               decoration: BoxDecoration( 
                                 borderRadius: BorderRadius.circular(8.0), 
                                 image: DecorationImage( 
-                                  image: const AssetImage("images/events.jpg"),  
+                                  image: const AssetImage("assets/images/events.jpg"),  
                                   fit: BoxFit.cover, 
                                   colorFilter: ColorFilter.mode(
                                     Colors.black.withOpacity(0.6),
@@ -255,7 +259,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               decoration: BoxDecoration( 
                                 borderRadius: BorderRadius.circular(8.0), 
                                 image: DecorationImage( 
-                                  image: const AssetImage("images/insights.jpg"),  
+                                  image: const AssetImage("assets/images/insights.jpg"),  
                                   fit: BoxFit.cover, 
                                   colorFilter: ColorFilter.mode(
                                     Colors.black.withOpacity(0.6),
@@ -273,8 +277,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(height: 20,),
            
             Container(
-              // child:  SingleChildScrollView(
-              // scrollDirection: Axis.horizontal, 
+              child:  SingleChildScrollView(
+              scrollDirection: Axis.horizontal, 
                 child: Column(
                   children: [
                     Row(
@@ -313,7 +317,7 @@ class _HomeScreenState extends State<HomeScreen> {
                decoration: BoxDecoration(
                 shape: BoxShape.rectangle, borderRadius: BorderRadius.circular(9.9),
               ),
-              child: const Padding(padding: EdgeInsets.only(left: 20, top: 10, right: 20,),
+              child: const Padding(padding: EdgeInsets.only(left: 10, top: 10, right: 20,),
                 child: Text('Construction', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
               ),
                         ),
@@ -339,7 +343,7 @@ class _HomeScreenState extends State<HomeScreen> {
                decoration: BoxDecoration(
                 shape: BoxShape.rectangle, borderRadius: BorderRadius.circular(9.9),
               ),
-              child: const Padding(padding: EdgeInsets.only(left: 20, top: 10, right: 20),
+              child: const Padding(padding: EdgeInsets.only(left: 10, top: 10, right: 20),
                 child: Text('Agriculture', style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
               ),
                         ),
@@ -404,6 +408,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               ),
+              ),
             // ),
              const SizedBox(height: 30,),
             Container(
@@ -412,7 +417,13 @@ class _HomeScreenState extends State<HomeScreen> {
                    Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                      const Text('Expand your business', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                      const Text(
+                        'Expand Your Business',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       TextButton(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
@@ -443,7 +454,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(9.9),
                         image: const DecorationImage(
-                          image: AssetImage("images/global.jpg"), 
+                          image: AssetImage("assets/images/global.jpg"), 
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -452,7 +463,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       Container(
                         
                         padding: const EdgeInsets.all(16.0),
-                  child: const Text('Business Expansion \n Consultation', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                  child: const Text(
+                    'Business Expansion',
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
                       )
                     ],
                   ),
@@ -472,7 +490,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(9.9),
                         image: const DecorationImage(
-                          image: AssetImage("images/connected.png"), 
+                          image: AssetImage("assets/images/connected.png"), 
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -481,7 +499,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       Container(
                         
                         padding: const EdgeInsets.all(16.0),
-                  child: const Text('International Trade \n Facilitation', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                  child: const Text(
+                    'Trade Facilitation',
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
                       )
                     ],
                   ),
@@ -501,7 +526,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(9.9),
                         image: const DecorationImage(
-                          image: AssetImage("images/Market.jpg"), 
+                          image: AssetImage("assets/images/market.jpg"), 
                           fit: BoxFit.cover,
                         ),
                       ),

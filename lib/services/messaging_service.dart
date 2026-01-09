@@ -325,8 +325,6 @@ class SignInScreen extends StatelessWidget {
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
 
- 
-
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
@@ -334,8 +332,9 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _messageController = TextEditingController();
   final List<Message> _messages = [
-    Message(isMe: true, text: 'Hello!', time: DateTime.now().subtract(const Duration(minutes: 5))),
-    Message(isMe: false, text: 'Hi there!', time: DateTime.now().subtract(const Duration(minutes: 3))),
+    Message(isMe: true, text: 'Hello! How can I help you today?', time: DateTime.now().subtract(const Duration(minutes: 5))),
+    Message(isMe: false, text: 'Hi there! I have a question about market expansion.', time: DateTime.now().subtract(const Duration(minutes: 3))),
+    Message(isMe: true, text: 'Sure, I\'d be happy to help!', time: DateTime.now().subtract(const Duration(minutes: 2))),
   ];
 
   final MessagingService _messagingService = MessagingService();
@@ -350,40 +349,83 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[50],
       bottomNavigationBar: MyBottomNavigationBar(
-  user: FirebaseAuth.instance.currentUser!,
-  onTabSelected: (index) {
-    // Handle tab selection if needed
-  },
-  userProfile: UserProfile(
-    uid: FirebaseAuth.instance.currentUser!.uid,
-    displayName: FirebaseAuth.instance.currentUser!.displayName ?? 'Anonymous',
-  ),
-),
+        user: FirebaseAuth.instance.currentUser!,
+        onTabSelected: (index) {},
+        userProfile: UserProfile(
+          uid: FirebaseAuth.instance.currentUser!.uid,
+          displayName: FirebaseAuth.instance.currentUser!.displayName ?? 'Anonymous',
+        ),
+        currentIndex: 3,
+      ),
       appBar: AppBar(
-        title: const Text('Messaging App', style: TextStyle(color: Colors.white),),
+        elevation: 0,
+        title: Row(
+          children: [
+            CircleAvatar(
+              radius: 18,
+              backgroundColor: Colors.white,
+              child: Icon(
+                Icons.person,
+                color: Colors.teal,
+                size: 20,
+              ),
+            ),
+            const SizedBox(width: 12),
+            const Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Messages',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Text(
+                    'Online',
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
         backgroundColor: Colors.teal,
         actions: [
           IconButton(
-            icon: const Icon(Icons.exit_to_app),
-            onPressed: () {
-              FirebaseAuth.instance.signOut();
-            },
+            icon: const Icon(Icons.phone, color: Colors.white),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.more_vert, color: Colors.white),
+            onPressed: () {},
           ),
         ],
       ),
       body: Column(
         children: [
           Expanded(
-            child: Container(
-              padding: const EdgeInsets.all(16.0),
-              child: ListView.builder(
-                reverse: true,
-                itemCount: _messages.length,
-                itemBuilder: (context, index) {
-                  return MessageWidget(message: _messages[index]);
-                },
-              ),
+            child: ListView.builder(
+              reverse: true,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              itemCount: _messages.length,
+              itemBuilder: (context, index) {
+                final showDate = index == _messages.length - 1 ||
+                    _messages[index].time.day != _messages[index + 1].time.day;
+                return Column(
+                  children: [
+                    if (showDate) _buildDateDivider(_messages[index].time),
+                    MessageWidget(message: _messages[index]),
+                  ],
+                );
+              },
             ),
           ),
           _buildMessageInput(),
@@ -392,32 +434,101 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  Widget _buildMessageInput() {
-    return Container(
-      padding: const EdgeInsets.all(8.0),
+  Widget _buildDateDivider(DateTime date) {
+    final today = DateTime.now();
+    final yesterday = DateTime.now().subtract(const Duration(days: 1));
+    String dateText;
+    
+    if (date.year == today.year && date.month == today.month && date.day == today.day) {
+      dateText = 'Today';
+    } else if (date.year == yesterday.year && date.month == yesterday.month && date.day == yesterday.day) {
+      dateText = 'Yesterday';
+    } else {
+      dateText = '${date.day}/${date.month}/${date.year}';
+    }
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16),
       child: Row(
         children: [
-          Expanded(
-            child: TextField(
-              controller: _messageController,
-              decoration: const InputDecoration(
-                hintText: 'Type your message...',
+          Expanded(child: Divider(color: Colors.grey[300])),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: Text(
+              dateText,
+              style: TextStyle(
+                color: Colors.grey[600],
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ),
-          IconButton(
-            icon: const Icon(Icons.send),
-            onPressed: () {
-              _sendMessage();
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.image),
-            onPressed: () {
-              // Implement image picking logic
-            },
+          Expanded(child: Divider(color: Colors.grey[300])),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMessageInput() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, -3),
           ),
         ],
+      ),
+      child: SafeArea(
+        child: Row(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.grey[100],
+                shape: BoxShape.circle,
+              ),
+              child: IconButton(
+                icon: Icon(Icons.add, color: Colors.teal),
+                onPressed: () {},
+              ),
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                decoration: BoxDecoration(
+                  color: Colors.grey[100],
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                child: TextField(
+                  controller: _messageController,
+                  decoration: const InputDecoration(
+                    hintText: 'Type a message...',
+                    border: InputBorder.none,
+                    hintStyle: TextStyle(fontSize: 14),
+                  ),
+                  maxLines: null,
+                ),
+              ),
+            ),
+            const SizedBox(width: 8),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.teal,
+                shape: BoxShape.circle,
+              ),
+              child: IconButton(
+                icon: const Icon(Icons.send_rounded, color: Colors.white, size: 20),
+                onPressed: () {
+                  _sendMessage();
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -440,60 +551,90 @@ class MessageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: message.isMe ? Alignment.centerRight : Alignment.centerLeft,
-      child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
-        padding: const EdgeInsets.all(8.0),
-        decoration: BoxDecoration(
-          color: message.isMe ? Colors.blue : Colors.grey,
-          borderRadius: BorderRadius.circular(12.0),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  message.isMe ? 'You' : 'Sender Name',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-                Text(
-                  _formatTimestamp(message.time),
-                  style: const TextStyle(
-                    fontSize: 12.0,
-                    color: Colors.white,
-                  ),
-                ),
-              ],
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Row(
+        mainAxisAlignment: message.isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          if (!message.isMe) ...[
+            CircleAvatar(
+              radius: 16,
+              backgroundColor: Colors.grey[300],
+              child: Icon(Icons.person, size: 18, color: Colors.grey[600]),
             ),
-            const SizedBox(height: 4.0),
-            if (message.imageUrl != null)
-              Image.network(
-                message.imageUrl!,
-                width: 200.0,
-                height: 200.0,
-                fit: BoxFit.cover,
-              )
-            else
-              Text(
-                message.text,
-                style: const TextStyle(
-                  color: Colors.white,
-                ),
-              ),
+            const SizedBox(width: 8),
           ],
-        ),
+          Flexible(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              decoration: BoxDecoration(
+                color: message.isMe ? Colors.teal : Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: const Radius.circular(20),
+                  topRight: const Radius.circular(20),
+                  bottomLeft: Radius.circular(message.isMe ? 20 : 4),
+                  bottomRight: Radius.circular(message.isMe ? 4 : 20),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.05),
+                    blurRadius: 5,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (message.imageUrl != null)
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.network(
+                        message.imageUrl!,
+                        width: 200.0,
+                        height: 200.0,
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                  else
+                    Text(
+                      message.text,
+                      style: TextStyle(
+                        color: message.isMe ? Colors.white : Colors.black87,
+                        fontSize: 15,
+                        height: 1.4,
+                      ),
+                    ),
+                  const SizedBox(height: 4),
+                  Text(
+                    _formatTimestamp(message.time),
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: message.isMe ? Colors.white70 : Colors.grey[600],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          if (message.isMe) ...[
+            const SizedBox(width: 8),
+            CircleAvatar(
+              radius: 16,
+              backgroundColor: Colors.teal[100],
+              child: Icon(Icons.person, size: 18, color: Colors.teal),
+            ),
+          ],
+        ],
       ),
     );
   }
 
   String _formatTimestamp(DateTime time) {
-    return '${time.hour}:${time.minute}';
+    final hour = time.hour.toString().padLeft(2, '0');
+    final minute = time.minute.toString().padLeft(2, '0');
+    return '$hour:$minute';
   }
 }
 
@@ -510,7 +651,34 @@ class MessagingService {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
   Future<void> initFCM() async {
-    await _firebaseMessaging.subscribeToTopic('all');
+    try {
+      // Request permission for notifications
+      NotificationSettings settings = await _firebaseMessaging.requestPermission(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
+
+      if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+        print('User granted permission');
+        
+        // For iOS, wait for APNS token before subscribing
+        String? apnsToken = await _firebaseMessaging.getAPNSToken();
+        if (apnsToken != null) {
+          print('APNS Token available: $apnsToken');
+          await _firebaseMessaging.subscribeToTopic('all');
+          print('Subscribed to topic: all');
+        } else {
+          print('APNS Token not available yet, skipping topic subscription');
+          // You can retry later or handle this case differently
+        }
+      } else {
+        print('User declined or has not accepted permission');
+      }
+    } catch (e) {
+      print('Error initializing FCM: $e');
+      // Don't throw the error, just log it to prevent app crashes
+    }
   }
 
   void handleMessages() {

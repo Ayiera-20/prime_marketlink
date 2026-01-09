@@ -173,7 +173,7 @@ class _ProfileListPageState extends State<ProfileListPage> {
 
   void _searchUsers(String query) async {
     if (query.isEmpty) {
-      _loadProfiles(); // Show all profiles when the search query is empty
+      _loadProfiles(); 
     } else {
       List<UserProfile> searchResults = await _firebaseService.searchUsers(query);
       setState(() {
@@ -188,7 +188,6 @@ class _ProfileListPageState extends State<ProfileListPage> {
       bottomNavigationBar: MyBottomNavigationBar(
   user: FirebaseAuth.instance.currentUser!,
   onTabSelected: (index) {
-    // Handle tab selection if needed
   },
   userProfile: UserProfile(
     uid: FirebaseAuth.instance.currentUser!.uid,
@@ -212,7 +211,6 @@ class _ProfileListPageState extends State<ProfileListPage> {
           return ListTile(
             title: Text(_profiles[index].displayName),
             onTap: () {
-  // Navigate to the user's profile page
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => Profile(userProfile: _profiles[index])),
