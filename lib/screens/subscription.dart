@@ -83,9 +83,9 @@ class _SubscriptionState extends State<Subscription> {
                 ],
               ),
             ),
-            
+
             const SizedBox(height: 32),
-            
+
             // Subscription Cards
             _buildSubscriptionCard(
               context,
@@ -100,9 +100,9 @@ class _SubscriptionState extends State<Subscription> {
                 'Monthly reports',
               ],
             ),
-            
+
             const SizedBox(height: 16),
-            
+
             _buildSubscriptionCard(
               context,
               title: 'African Markets',
@@ -117,9 +117,9 @@ class _SubscriptionState extends State<Subscription> {
               ],
               isPopular: true,
             ),
-            
+
             const SizedBox(height: 16),
-            
+
             _buildSubscriptionCard(
               context,
               title: 'European Markets',
@@ -133,9 +133,9 @@ class _SubscriptionState extends State<Subscription> {
                 'Monthly reports',
               ],
             ),
-            
+
             const SizedBox(height: 32),
-            
+
             // Benefits Section
             Container(
               padding: const EdgeInsets.all(20),
@@ -161,14 +161,18 @@ class _SubscriptionState extends State<Subscription> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  _buildBenefitItem(Icons.check_circle_rounded, 'Real-time market updates'),
-                  _buildBenefitItem(Icons.check_circle_rounded, 'Expert analysis & insights'),
-                  _buildBenefitItem(Icons.check_circle_rounded, 'Industry trend reports'),
-                  _buildBenefitItem(Icons.check_circle_rounded, 'Cancel anytime'),
+                  _buildBenefitItem(
+                      Icons.check_circle_rounded, 'Real-time market updates'),
+                  _buildBenefitItem(
+                      Icons.check_circle_rounded, 'Expert analysis & insights'),
+                  _buildBenefitItem(
+                      Icons.check_circle_rounded, 'Industry trend reports'),
+                  _buildBenefitItem(
+                      Icons.check_circle_rounded, 'Cancel anytime'),
                 ],
               ),
             ),
-            
+
             const SizedBox(height: 80),
           ],
         ),
@@ -192,7 +196,9 @@ class _SubscriptionState extends State<Subscription> {
         border: isPopular ? Border.all(color: color, width: 2) : null,
         boxShadow: [
           BoxShadow(
-            color: isPopular ? color.withOpacity(0.2) : Colors.black.withOpacity(0.05),
+            color: isPopular
+                ? color.withOpacity(0.2)
+                : Colors.black.withOpacity(0.05),
             blurRadius: isPopular ? 15 : 10,
             offset: const Offset(0, 4),
           ),
@@ -209,13 +215,15 @@ class _SubscriptionState extends State<Subscription> {
                 end: Alignment.bottomRight,
                 colors: [color.withOpacity(0.8), color],
               ),
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(16)),
             ),
             child: Column(
               children: [
                 if (isPopular)
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.3),
                       borderRadius: BorderRadius.circular(20),
@@ -267,30 +275,30 @@ class _SubscriptionState extends State<Subscription> {
               ],
             ),
           ),
-          
+
           // Features
           Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
               children: [
                 ...features.map((feature) => Padding(
-                  padding: const EdgeInsets.only(bottom: 12),
-                  child: Row(
-                    children: [
-                      Icon(Icons.check_rounded, color: color, size: 20),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Text(
-                          feature,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.black87,
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: Row(
+                        children: [
+                          Icon(Icons.check_rounded, color: color, size: 20),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Text(
+                              feature,
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: Colors.black87,
+                              ),
+                            ),
                           ),
-                        ),
+                        ],
                       ),
-                    ],
-                  ),
-                )),
+                    )),
                 const SizedBox(height: 8),
                 SizedBox(
                   width: double.infinity,
@@ -298,7 +306,8 @@ class _SubscriptionState extends State<Subscription> {
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => const Payment()),
+                        MaterialPageRoute(
+                            builder: (context) => const Payment()),
                       );
                     },
                     style: ElevatedButton.styleFrom(
@@ -347,4 +356,3 @@ class _SubscriptionState extends State<Subscription> {
     );
   }
 }
-

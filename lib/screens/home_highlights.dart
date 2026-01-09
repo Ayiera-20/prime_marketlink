@@ -31,7 +31,8 @@ class Highlights extends StatelessWidget {
         onTabSelected: (index) {},
         userProfile: UserProfile(
           uid: FirebaseAuth.instance.currentUser!.uid,
-          displayName: FirebaseAuth.instance.currentUser!.displayName ?? 'Anonymous',
+          displayName:
+              FirebaseAuth.instance.currentUser!.displayName ?? 'Anonymous',
         ),
       ),
       appBar: AppBar(
@@ -77,9 +78,9 @@ class Highlights extends StatelessWidget {
                 );
               },
             ),
-            
+
             const SizedBox(height: 32),
-            
+
             // Upcoming Events Section
             _buildSectionTitle('Upcoming Events', Icons.event_rounded),
             const SizedBox(height: 12),
@@ -89,13 +90,14 @@ class Highlights extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: 3,
                 itemBuilder: (context, index) {
-                  return _buildEventCard(eventImages[index], 'Business Event ${index + 1}');
+                  return _buildEventCard(
+                      eventImages[index], 'Business Event ${index + 1}');
                 },
               ),
             ),
-            
+
             const SizedBox(height: 32),
-            
+
             // Market Tips Section
             _buildSectionTitle('Market Entry Tips', Icons.lightbulb_rounded),
             const SizedBox(height: 12),
@@ -246,7 +248,8 @@ class Highlights extends StatelessWidget {
                 const SizedBox(height: 4),
                 Row(
                   children: [
-                    Icon(Icons.calendar_today, size: 12, color: Colors.grey[600]),
+                    Icon(Icons.calendar_today,
+                        size: 12, color: Colors.grey[600]),
                     const SizedBox(width: 4),
                     Text(
                       'Coming Soon',

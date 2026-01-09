@@ -3,11 +3,8 @@ import 'package:prime_marketlink/firebase_options.dart';
 import 'package:prime_marketlink/screens/post_screen.dart';
 import 'package:prime_marketlink/screens/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart'; 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
-
-
-
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,13 +20,13 @@ Future<void> main() async {
   );
 }
 
-// Future <void> main() async { 
+// Future <void> main() async {
 //   WidgetsFlutterBinding.ensureInitialized();
 //   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform, );
 //     runApp( MyApp());
 
 // }
-Future<void> initializeFirestore() async{
+Future<void> initializeFirestore() async {
   // Initialize Firestore collections if needed
   // FirebaseFirestore.instance.collection('users');
   // FirebaseFirestore.instance.collection('messages');
@@ -44,15 +41,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
-
   // This widget is the root of your application.
 
   final FirebaseService firebaseService = FirebaseService();
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(  
+    return MaterialApp(
       title: 'Prime Market Link',
       home: const SplashScreen(),
       debugShowCheckedModeBanner: false,
@@ -98,7 +93,8 @@ class _MyAppState extends State<MyApp> {
         inputDecorationTheme: InputDecorationTheme(
           filled: true,
           fillColor: Colors.white,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
             borderSide: BorderSide.none,
@@ -114,7 +110,6 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
 
 class FirebaseService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -132,7 +127,8 @@ class FirebaseService {
   }
 
   // Update data in Firestore
-  Future<void> updateData(String collection, String documentId, Map<String, dynamic> data) async {
+  Future<void> updateData(
+      String collection, String documentId, Map<String, dynamic> data) async {
     await _firestore.collection(collection).doc(documentId).update(data);
   }
 
@@ -141,5 +137,3 @@ class FirebaseService {
     await _firestore.collection(collection).doc(documentId).delete();
   }
 }
-
-

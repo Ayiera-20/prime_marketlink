@@ -4,8 +4,6 @@
 // import 'package:firebase_messaging/firebase_messaging.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 
-
-
 // class AuthenticationWrapper extends StatelessWidget {
 //   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -238,14 +236,13 @@
 //   }
 // }
 
-
-
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:prime_marketlink/screens/connect_users.dart';
 import 'package:prime_marketlink/components/bottom_navbar.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -278,7 +275,7 @@ class AuthenticationWrapper extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.active) {
           var user = snapshot.data;
           if (user == null) {
-            return  SignInScreen();
+            return SignInScreen();
           } else {
             return const ChatScreen();
           }
@@ -296,7 +293,7 @@ class AuthenticationWrapper extends StatelessWidget {
 class SignInScreen extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-   SignInScreen({super.key});
+  SignInScreen({super.key});
 
   Future<void> _signInAnonymously() async {
     try {
@@ -332,9 +329,18 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _messageController = TextEditingController();
   final List<Message> _messages = [
-    Message(isMe: true, text: 'Hello! How can I help you today?', time: DateTime.now().subtract(const Duration(minutes: 5))),
-    Message(isMe: false, text: 'Hi there! I have a question about market expansion.', time: DateTime.now().subtract(const Duration(minutes: 3))),
-    Message(isMe: true, text: 'Sure, I\'d be happy to help!', time: DateTime.now().subtract(const Duration(minutes: 2))),
+    Message(
+        isMe: true,
+        text: 'Hello! How can I help you today?',
+        time: DateTime.now().subtract(const Duration(minutes: 5))),
+    Message(
+        isMe: false,
+        text: 'Hi there! I have a question about market expansion.',
+        time: DateTime.now().subtract(const Duration(minutes: 3))),
+    Message(
+        isMe: true,
+        text: 'Sure, I\'d be happy to help!',
+        time: DateTime.now().subtract(const Duration(minutes: 2))),
   ];
 
   final MessagingService _messagingService = MessagingService();
@@ -355,7 +361,8 @@ class _ChatScreenState extends State<ChatScreen> {
         onTabSelected: (index) {},
         userProfile: UserProfile(
           uid: FirebaseAuth.instance.currentUser!.uid,
-          displayName: FirebaseAuth.instance.currentUser!.displayName ?? 'Anonymous',
+          displayName:
+              FirebaseAuth.instance.currentUser!.displayName ?? 'Anonymous',
         ),
         currentIndex: 3,
       ),
@@ -438,10 +445,14 @@ class _ChatScreenState extends State<ChatScreen> {
     final today = DateTime.now();
     final yesterday = DateTime.now().subtract(const Duration(days: 1));
     String dateText;
-    
-    if (date.year == today.year && date.month == today.month && date.day == today.day) {
+
+    if (date.year == today.year &&
+        date.month == today.month &&
+        date.day == today.day) {
       dateText = 'Today';
-    } else if (date.year == yesterday.year && date.month == yesterday.month && date.day == yesterday.day) {
+    } else if (date.year == yesterday.year &&
+        date.month == yesterday.month &&
+        date.day == yesterday.day) {
       dateText = 'Yesterday';
     } else {
       dateText = '${date.day}/${date.month}/${date.year}';
@@ -521,7 +532,8 @@ class _ChatScreenState extends State<ChatScreen> {
                 shape: BoxShape.circle,
               ),
               child: IconButton(
-                icon: const Icon(Icons.send_rounded, color: Colors.white, size: 20),
+                icon: const Icon(Icons.send_rounded,
+                    color: Colors.white, size: 20),
                 onPressed: () {
                   _sendMessage();
                 },
@@ -537,7 +549,8 @@ class _ChatScreenState extends State<ChatScreen> {
     String text = _messageController.text.trim();
     if (text.isNotEmpty) {
       setState(() {
-        _messages.insert(0, Message(isMe: true, text: text, time: DateTime.now()));
+        _messages.insert(
+            0, Message(isMe: true, text: text, time: DateTime.now()));
       });
       _messageController.clear();
     }
@@ -554,7 +567,8 @@ class MessageWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Row(
-        mainAxisAlignment: message.isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+        mainAxisAlignment:
+            message.isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           if (!message.isMe) ...[
@@ -644,7 +658,11 @@ class Message {
   final DateTime time;
   final String? imageUrl;
 
-  Message({required this.isMe, required this.text, required this.time, this.imageUrl});
+  Message(
+      {required this.isMe,
+      required this.text,
+      required this.time,
+      this.imageUrl});
 }
 
 class MessagingService {
@@ -653,7 +671,8 @@ class MessagingService {
   Future<void> initFCM() async {
     try {
       // Request permission for notifications
-      NotificationSettings settings = await _firebaseMessaging.requestPermission(
+      NotificationSettings settings =
+          await _firebaseMessaging.requestPermission(
         alert: true,
         badge: true,
         sound: true,
@@ -661,7 +680,7 @@ class MessagingService {
 
       if (settings.authorizationStatus == AuthorizationStatus.authorized) {
         print('User granted permission');
-        
+
         // For iOS, wait for APNS token before subscribing
         String? apnsToken = await _firebaseMessaging.getAPNSToken();
         if (apnsToken != null) {

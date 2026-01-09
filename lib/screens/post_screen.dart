@@ -1,4 +1,3 @@
-
 // import 'package:flutter/material.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
@@ -606,7 +605,8 @@ class _MyAppState extends State<MyApp> {
       home: const SplashScreen(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(178, 149, 229, 233)),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(178, 149, 229, 233)),
         useMaterial3: true,
       ),
     );
@@ -626,7 +626,8 @@ class FirebaseService {
     return querySnapshot.docs.map((doc) => doc.data()).toList();
   }
 
-  Future<void> updateData(String collection, String documentId, Map<String, dynamic> data) async {
+  Future<void> updateData(
+      String collection, String documentId, Map<String, dynamic> data) async {
     await _firestore.collection(collection).doc(documentId).update(data);
   }
 
@@ -637,7 +638,6 @@ class FirebaseService {
 
 class PostScreen extends StatefulWidget {
   const PostScreen({super.key});
-  
 
   @override
   State<PostScreen> createState() => _PostScreenState();
@@ -660,8 +660,10 @@ class _PostScreenState extends State<PostScreen> {
     _user = FirebaseAuth.instance.currentUser;
 
     if (_user != null) {
-      DocumentSnapshot userData =
-          await FirebaseFirestore.instance.collection('users').doc(_user!.uid).get();
+      DocumentSnapshot userData = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(_user!.uid)
+          .get();
 
       setState(() {
         _username = userData['name'] ?? '';
@@ -678,7 +680,8 @@ class _PostScreenState extends State<PostScreen> {
         onTabSelected: (index) {},
         userProfile: UserProfile(
           uid: FirebaseAuth.instance.currentUser!.uid,
-          displayName: FirebaseAuth.instance.currentUser!.displayName ?? 'Anonymous',
+          displayName:
+              FirebaseAuth.instance.currentUser!.displayName ?? 'Anonymous',
         ),
       ),
       appBar: AppBar(
@@ -818,7 +821,8 @@ class _PostScreenState extends State<PostScreen> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                 ),
               ),
               ElevatedButton.icon(
@@ -834,7 +838,8 @@ class _PostScreenState extends State<PostScreen> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 ),
               ),
             ],
@@ -845,16 +850,15 @@ class _PostScreenState extends State<PostScreen> {
   }
 
   Future<void> _pickImage() async {
-  final picker = ImagePicker();
-  final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
-  if (pickedFile != null) {
-    setState(() {
-      _postController.text += '\n${pickedFile.path}';
-    });
+    if (pickedFile != null) {
+      setState(() {
+        _postController.text += '\n${pickedFile.path}';
+      });
+    }
   }
-}
-
 
   void _addPost(BuildContext context) {
     String postText = _postController.text.trim();
@@ -996,7 +1000,8 @@ class PostListWidget extends StatelessWidget {
                         ),
                         Text(
                           'Like',
-                          style: TextStyle(color: Colors.grey[600], fontSize: 13),
+                          style:
+                              TextStyle(color: Colors.grey[600], fontSize: 13),
                         ),
                         const SizedBox(width: 16),
                         IconButton(
@@ -1006,7 +1011,8 @@ class PostListWidget extends StatelessWidget {
                         ),
                         Text(
                           'Comment',
-                          style: TextStyle(color: Colors.grey[600], fontSize: 13),
+                          style:
+                              TextStyle(color: Colors.grey[600], fontSize: 13),
                         ),
                       ],
                     ),
@@ -1052,9 +1058,3 @@ void main() async {
     ),
   );
 }
-
-
-
-
-
-

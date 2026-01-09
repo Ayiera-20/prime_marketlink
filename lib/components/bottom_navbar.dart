@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart'; 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:prime_marketlink/screens/home_screen.dart';
 import 'package:prime_marketlink/screens/profile.dart';
 import 'package:prime_marketlink/services/messaging_service.dart';
 import 'package:prime_marketlink/screens/connect_users.dart';
 import 'package:prime_marketlink/screens/post_screen.dart';
-
 
 class MyBottomNavigationBar extends StatefulWidget {
   final User user;
@@ -14,7 +13,7 @@ class MyBottomNavigationBar extends StatefulWidget {
   final int currentIndex;
 
   const MyBottomNavigationBar({
-    super.key, 
+    super.key,
     required this.user,
     required this.onTabSelected,
     required this.userProfile,
@@ -103,7 +102,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
 
   void _navigateToPage(BuildContext context, int index) {
     Widget page;
-    
+
     switch (index) {
       case 0:
         page = const HomeScreen(
@@ -132,9 +131,6 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
     );
   }
 }
-
-
-
 
 // import 'package:flutter/material.dart';
 // import 'package:firebase_auth/firebase_auth.dart';

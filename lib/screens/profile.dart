@@ -15,9 +15,8 @@
 // }
 
 // class _ProfileState extends State<Profile> {
-  
-// final CollectionReference users = FirebaseFirestore.instance.collection('users');
 
+// final CollectionReference users = FirebaseFirestore.instance.collection('users');
 
 // File? _image;
 
@@ -46,7 +45,6 @@
 //     }
 //   }
 
-
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
@@ -73,7 +71,7 @@
 //             if (!snapshot.hasData || !snapshot.data!.exists) {
 //               return const Center(child: Text("User not found"));
 //             }
-          
+
 //             // Access user data from the snapshot
 //             Map<String, dynamic>? userData = snapshot.data!.data() as Map<String, dynamic>?;
 //             return Column(
@@ -81,7 +79,7 @@
 //                 const SizedBox(height: 10),
 //                Column(
 //                   children: [
-                    
+
 //                     CircleAvatar(
 //                     radius: 65,
 //                     backgroundImage: _image != null
@@ -89,7 +87,6 @@
 //                         : const AssetImage("images/avatar.png") as ImageProvider, // Cast to ImageProvider
 //                   ),
 
-  
 //                     Positioned(
 //                       child: IconButton(
 //                         onPressed: () async {
@@ -441,7 +438,7 @@
 //       ),
 //     ),
 //     );
-  
+
 //   }
 // }
 
@@ -462,9 +459,6 @@
 //   }
 // }
 
-
-
-
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
@@ -477,25 +471,24 @@ import 'package:prime_marketlink/screens/edit_profile.dart';
 import 'package:prime_marketlink/screens/review_form.dart';
 import 'package:prime_marketlink/components/bottom_navbar.dart';
 
-
 class Profile extends StatefulWidget {
   final UserProfile userProfile;
-   // Add this line
+  // Add this line
 
-
-
-  const Profile({super.key, required this.userProfile, });
+  const Profile({
+    super.key,
+    required this.userProfile,
+  });
 
   @override
   State<Profile> createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
-  
-final CollectionReference users = FirebaseFirestore.instance.collection('users');
+  final CollectionReference users =
+      FirebaseFirestore.instance.collection('users');
 
-
-File? _image;
+  File? _image;
 
   Future<void> pickImage() async {
     final picker = ImagePicker();
@@ -510,7 +503,9 @@ File? _image;
   Future<String?> uploadImage(File image) async {
     try {
       FirebaseStorage storage = FirebaseStorage.instance;
-      Reference storageReference = storage.ref().child('images/${DateTime.now().millisecondsSinceEpoch}');
+      Reference storageReference = storage
+          .ref()
+          .child('images/${DateTime.now().millisecondsSinceEpoch}');
       UploadTask uploadTask = storageReference.putFile(image);
       TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
 
@@ -522,7 +517,6 @@ File? _image;
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -532,7 +526,8 @@ File? _image;
         onTabSelected: (index) {},
         userProfile: UserProfile(
           uid: FirebaseAuth.instance.currentUser!.uid,
-          displayName: FirebaseAuth.instance.currentUser!.displayName ?? 'Anonymous',
+          displayName:
+              FirebaseAuth.instance.currentUser!.displayName ?? 'Anonymous',
         ),
       ),
       appBar: AppBar(
@@ -563,9 +558,12 @@ File? _image;
         scrollDirection: Axis.vertical,
         child: StreamBuilder(
           stream: users.doc(widget.userProfile.uid).snapshots(),
-          builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+          builder:
+              (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator()); // Show loading indicator while data is being fetched
+              return const Center(
+                  child:
+                      CircularProgressIndicator()); // Show loading indicator while data is being fetched
             }
 
             if (snapshot.hasError) {
@@ -575,206 +573,227 @@ File? _image;
             if (!snapshot.hasData || !snapshot.data!.exists) {
               return const Center(child: Text("User not found"));
             }
-          
+
             // Access user data from the snapshot
-            Map<String, dynamic>? userData = snapshot.data!.data() as Map<String, dynamic>?;
+            Map<String, dynamic>? userData =
+                snapshot.data!.data() as Map<String, dynamic>?;
             return SingleChildScrollView(
               child: Column(
-              children: [
-                // Profile Header Section
-                Container(
-                  padding: const EdgeInsets.all(24),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [Colors.teal, Colors.teal.shade700],
+                children: [
+                  // Profile Header Section
+                  Container(
+                    padding: const EdgeInsets.all(24),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [Colors.teal, Colors.teal.shade700],
+                      ),
                     ),
-                  ),
-                  child: Column(
-                    children: [
-                      Stack(
-                        children: [
-                          CircleAvatar(
-                            radius: 60,
-                            backgroundColor: Colors.white,
-                            child: CircleAvatar(
-                              radius: 56,
-                              backgroundImage: _image != null
-                                  ? FileImage(_image!)
-                                  : const AssetImage("assets/images/avatar.avif") as ImageProvider,
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 0,
-                            right: 0,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                shape: BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    blurRadius: 4,
-                                    offset: const Offset(0, 2),
-                                  ),
-                                ],
+                    child: Column(
+                      children: [
+                        Stack(
+                          children: [
+                            CircleAvatar(
+                              radius: 60,
+                              backgroundColor: Colors.white,
+                              child: CircleAvatar(
+                                radius: 56,
+                                backgroundImage: _image != null
+                                    ? FileImage(_image!)
+                                    : const AssetImage(
+                                            "assets/images/avatar.avif")
+                                        as ImageProvider,
                               ),
-                              child: IconButton(
-                                onPressed: () async {
-                                  await pickImage();
-                                  if (_image != null) {
-                                    String? downloadUrl = await uploadImage(_image!);
-                                    if (downloadUrl != null) {
-                                      print("Image uploaded. Download URL: $downloadUrl");
+                            ),
+                            Positioned(
+                              bottom: 0,
+                              right: 0,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  shape: BoxShape.circle,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.2),
+                                      blurRadius: 4,
+                                      offset: const Offset(0, 2),
+                                    ),
+                                  ],
+                                ),
+                                child: IconButton(
+                                  onPressed: () async {
+                                    await pickImage();
+                                    if (_image != null) {
+                                      String? downloadUrl =
+                                          await uploadImage(_image!);
+                                      if (downloadUrl != null) {
+                                        print(
+                                            "Image uploaded. Download URL: $downloadUrl");
+                                      }
                                     }
-                                  }
-                                },
-                                icon: const Icon(Icons.camera_alt, size: 20, color: Colors.teal),
+                                  },
+                                  icon: const Icon(Icons.camera_alt,
+                                      size: 20, color: Colors.teal),
+                                ),
                               ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        userData?["name"] ?? "User Name",
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        userData?["profession"] ?? "Profession",
-                        style: TextStyle(
-                          color: Colors.white.withOpacity(0.9),
-                          fontSize: 16,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                
-                // Stats Card
-                Container(
-                  margin: const EdgeInsets.all(16),
-                  padding: const EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.1),
-                        spreadRadius: 1,
-                        blurRadius: 6,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      _buildStatItem('Connections', '0', Icons.people_outline),
-                      Container(width: 1, height: 40, color: Colors.grey[300]),
-                      _buildStatItem('Posts', '0', Icons.article_outlined),
-                      Container(width: 1, height: 40, color: Colors.grey[300]),
-                      _buildStatItem('Reviews', '0', Icons.star_outline),
-                    ],
-                  ),
-                ),
-
-                // Personal Information Section
-                _buildSection(
-                  'Personal Information',
-                  [
-                    _buildInfoCard('Email', userData?["email"] ?? "", Icons.email_outlined),
-                    _buildInfoCard('Phone', userData?["phone"] ?? "", Icons.phone_outlined),
-                    _buildInfoCard('Location', userData?["location"] ?? "", Icons.location_on_outlined),
-                  ],
-                ),
-
-                // About Section
-                if (userData?["aboutMe"] != null && userData?["aboutMe"] != "")
-                  _buildSection(
-                    'About',
-                    [
-                      Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.1),
-                              spreadRadius: 1,
-                              blurRadius: 4,
-                              offset: const Offset(0, 2),
                             ),
                           ],
                         ),
-                        child: Text(
-                          userData?["aboutMe"] ?? "",
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.grey[800],
-                            height: 1.5,
+                        const SizedBox(height: 16),
+                        Text(
+                          userData?["name"] ?? "User Name",
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      ),
+                        const SizedBox(height: 4),
+                        Text(
+                          userData?["profession"] ?? "Profession",
+                          style: TextStyle(
+                            color: Colors.white.withOpacity(0.9),
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  // Stats Card
+                  Container(
+                    margin: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.1),
+                          spreadRadius: 1,
+                          blurRadius: 6,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        _buildStatItem(
+                            'Connections', '0', Icons.people_outline),
+                        Container(
+                            width: 1, height: 40, color: Colors.grey[300]),
+                        _buildStatItem('Posts', '0', Icons.article_outlined),
+                        Container(
+                            width: 1, height: 40, color: Colors.grey[300]),
+                        _buildStatItem('Reviews', '0', Icons.star_outline),
+                      ],
+                    ),
+                  ),
+
+                  // Personal Information Section
+                  _buildSection(
+                    'Personal Information',
+                    [
+                      _buildInfoCard('Email', userData?["email"] ?? "",
+                          Icons.email_outlined),
+                      _buildInfoCard('Phone', userData?["phone"] ?? "",
+                          Icons.phone_outlined),
+                      _buildInfoCard('Location', userData?["location"] ?? "",
+                          Icons.location_on_outlined),
                     ],
                   ),
 
-                // Company Information Section
-                _buildSection(
-                  'Company Information',
-                  [
-                    _buildInfoCard('Company', userData?["companyName"] ?? "", Icons.business_outlined),
-                    _buildInfoCard('Industry', userData?["industry"] ?? "", Icons.category_outlined),
-                    _buildInfoCard('Business Type', userData?["businessType"] ?? "", Icons.business_center_outlined),
-                    _buildInfoCard('Company Size', userData?["companySize"] ?? "", Icons.group_outlined),
-                    _buildInfoCard('Website', userData?["companyWebsite"] ?? "", Icons.language_outlined),
-                  ],
-                ),
+                  // About Section
+                  if (userData?["aboutMe"] != null &&
+                      userData?["aboutMe"] != "")
+                    _buildSection(
+                      'About',
+                      [
+                        Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.1),
+                                spreadRadius: 1,
+                                blurRadius: 4,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Text(
+                            userData?["aboutMe"] ?? "",
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.grey[800],
+                              height: 1.5,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
 
-                // Actions
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => CustomerReviewsPage()),
-                        );
-                      },
-                      icon: const Icon(Icons.rate_review_outlined),
-                      label: const Text('Rate & Review'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.amber,
-                        foregroundColor: Colors.black87,
-                        elevation: 0,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                  // Company Information Section
+                  _buildSection(
+                    'Company Information',
+                    [
+                      _buildInfoCard('Company', userData?["companyName"] ?? "",
+                          Icons.business_outlined),
+                      _buildInfoCard('Industry', userData?["industry"] ?? "",
+                          Icons.category_outlined),
+                      _buildInfoCard(
+                          'Business Type',
+                          userData?["businessType"] ?? "",
+                          Icons.business_center_outlined),
+                      _buildInfoCard('Company Size',
+                          userData?["companySize"] ?? "", Icons.group_outlined),
+                      _buildInfoCard(
+                          'Website',
+                          userData?["companyWebsite"] ?? "",
+                          Icons.language_outlined),
+                    ],
+                  ),
+
+                  // Actions
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CustomerReviewsPage()),
+                          );
+                        },
+                        icon: const Icon(Icons.rate_review_outlined),
+                        label: const Text('Rate & Review'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.amber,
+                          foregroundColor: Colors.black87,
+                          elevation: 0,
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 80),
-              ],
-            ),
+                  const SizedBox(height: 80),
+                ],
+              ),
             );
-        },
-
+          },
+        ),
       ),
-    ),
     );
-  
   }
 
   Widget _buildStatItem(String label, String value, IconData icon) {
@@ -825,7 +844,7 @@ File? _image;
 
   Widget _buildInfoCard(String label, String value, IconData icon) {
     if (value.isEmpty) return const SizedBox.shrink();
-    
+
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(16),
@@ -892,12 +911,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const ProfileListPage()
-    );
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const ProfileListPage());
   }
 }
-

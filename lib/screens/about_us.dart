@@ -20,7 +20,8 @@ class _AboutusState extends State<Aboutus> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Colors.white,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           title: Text(
             title,
             style: const TextStyle(
@@ -37,7 +38,8 @@ class _AboutusState extends State<Aboutus> {
               onPressed: () => Navigator.of(context).pop(),
               child: const Text(
                 'Close',
-                style: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold),
+                style:
+                    TextStyle(color: Colors.teal, fontWeight: FontWeight.bold),
               ),
             ),
           ],
@@ -55,7 +57,8 @@ class _AboutusState extends State<Aboutus> {
         onTabSelected: (index) {},
         userProfile: UserProfile(
           uid: FirebaseAuth.instance.currentUser!.uid,
-          displayName: FirebaseAuth.instance.currentUser!.displayName ?? 'Anonymous',
+          displayName:
+              FirebaseAuth.instance.currentUser!.displayName ?? 'Anonymous',
         ),
       ),
       body: CustomScrollView(
@@ -92,7 +95,7 @@ class _AboutusState extends State<Aboutus> {
               ),
             ),
           ),
-          
+
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
@@ -102,11 +105,11 @@ class _AboutusState extends State<Aboutus> {
                   // Mission Statement Card
                   _buildMissionCard(),
                   const SizedBox(height: 24),
-                  
+
                   // What We Do Card
                   _buildWhatWeDoCard(),
                   const SizedBox(height: 32),
-                  
+
                   // Services Section
                   const Text(
                     'Our Services',
@@ -117,7 +120,7 @@ class _AboutusState extends State<Aboutus> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  
+
                   _buildServiceCard(
                     'Business Expansion Consultation',
                     'Tailored advice for international expansion',
@@ -126,7 +129,7 @@ class _AboutusState extends State<Aboutus> {
                     'Our seasoned experts guide you through international expansion, providing tailored advice to ensure a triumphant venture into new markets.',
                   ),
                   const SizedBox(height: 16),
-                  
+
                   _buildServiceCard(
                     'International Trade Facilitation',
                     'Streamline cross-border transactions',
@@ -135,7 +138,7 @@ class _AboutusState extends State<Aboutus> {
                     'Navigate international trade with ease. We provide comprehensive support to streamline cross-border transactions, minimizing complexities and maximizing efficiency.',
                   ),
                   const SizedBox(height: 16),
-                  
+
                   _buildServiceCard(
                     'Market Research',
                     'In-depth insights and analytics',
@@ -144,7 +147,7 @@ class _AboutusState extends State<Aboutus> {
                     'Stay ahead of the curve with our in-depth market research services. Gain valuable insights into target demographics, industry trends, and competitive landscapes.',
                   ),
                   const SizedBox(height: 16),
-                  
+
                   _buildServiceCard(
                     'Digital E-Commerce Marketing',
                     'Elevate your online presence',
@@ -153,7 +156,7 @@ class _AboutusState extends State<Aboutus> {
                     'Harness the power of digital marketing to elevate your online presence. Our specialists craft targeted strategies to amplify visibility and drive traffic.',
                   ),
                   const SizedBox(height: 16),
-                  
+
                   _buildServiceCard(
                     'Traditional Sales & Marketing',
                     'Time-tested methods for local markets',
@@ -162,7 +165,7 @@ class _AboutusState extends State<Aboutus> {
                     'Blend modern strategies with time-tested methods. Our integrated approach combines traditional sales and marketing techniques, fine-tuned for local markets.',
                   ),
                   const SizedBox(height: 16),
-                  
+
                   _buildServiceCard(
                     'Brand Development',
                     'Build a distinctive global identity',
@@ -171,11 +174,11 @@ class _AboutusState extends State<Aboutus> {
                     'Forge a distinctive global identity with our comprehensive brand development services. From strategy to design, we help you build a brand that resonates across borders.',
                   ),
                   const SizedBox(height: 32),
-                  
+
                   // Subscription CTA
                   _buildSubscriptionCard(context),
                   const SizedBox(height: 32),
-                  
+
                   // Contact Section
                   _buildContactCard(),
                   const SizedBox(height: 80),
@@ -262,7 +265,8 @@ class _AboutusState extends State<Aboutus> {
                   color: Colors.teal.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: const Icon(Icons.wb_incandescent_rounded, color: Colors.teal, size: 24),
+                child: const Icon(Icons.wb_incandescent_rounded,
+                    color: Colors.teal, size: 24),
               ),
               const SizedBox(width: 12),
               const Text(
@@ -314,7 +318,8 @@ class _AboutusState extends State<Aboutus> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(16)),
               child: Stack(
                 children: [
                   Image.asset(
@@ -471,7 +476,8 @@ class _AboutusState extends State<Aboutus> {
               _buildContactIcon(
                 FontAwesomeIcons.linkedin,
                 Colors.blue,
-                () => launch('https://www.linkedin.com/in/miriam-ayiera-295145146/'),
+                () => launch(
+                    'https://www.linkedin.com/in/miriam-ayiera-295145146/'),
               ),
             ],
           ),

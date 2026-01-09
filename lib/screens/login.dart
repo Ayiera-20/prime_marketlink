@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'home_screen.dart'; 
-import 'signup.dart'; 
+import 'home_screen.dart';
+import 'signup.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -20,8 +20,6 @@ class _LoginState extends State<Login> {
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
-  
 
   Future<void> _handleLogin(BuildContext context) async {
     try {
@@ -53,12 +51,10 @@ class _LoginState extends State<Login> {
       print('User name: $userName');
     } catch (error) {
       print('Login failed: $error');
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Login failed: $error')));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Login failed: $error')));
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +86,7 @@ class _LoginState extends State<Login> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                  const Text(
+                const Text(
                   'Welcome Back',
                   style: TextStyle(
                     color: Colors.white,
@@ -114,29 +110,34 @@ class _LoginState extends State<Login> {
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.white.withOpacity(0.95),
-                    prefixIcon: const Icon(Icons.email_outlined, color: Colors.teal),
+                    prefixIcon:
+                        const Icon(Icons.email_outlined, color: Colors.teal),
                     hintText: "Email",
                     hintStyle: const TextStyle(color: Colors.grey),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(16.0),
                       borderSide: BorderSide.none,
                     ),
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 18),
                   ),
                 ),
                 const SizedBox(height: 20),
                 TextField(
                   controller: _passwordController,
-                  obscureText: _obscureText, 
+                  obscureText: _obscureText,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.white.withOpacity(0.95),
-                    prefixIcon: const Icon(Icons.lock_outline, color: Colors.teal),
+                    prefixIcon:
+                        const Icon(Icons.lock_outline, color: Colors.teal),
                     hintText: "Password",
                     hintStyle: const TextStyle(color: Colors.grey),
                     suffixIcon: IconButton(
                       icon: Icon(
-                        _obscureText ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                        _obscureText
+                            ? Icons.visibility_outlined
+                            : Icons.visibility_off_outlined,
                         color: Colors.grey,
                       ),
                       onPressed: () {
@@ -149,7 +150,8 @@ class _LoginState extends State<Login> {
                       borderRadius: BorderRadius.circular(16.0),
                       borderSide: BorderSide.none,
                     ),
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 18),
                   ),
                 ),
                 const SizedBox(height: 40),
@@ -219,5 +221,3 @@ class _LoginState extends State<Login> {
     );
   }
 }
-
-

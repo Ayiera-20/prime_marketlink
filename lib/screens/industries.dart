@@ -19,32 +19,56 @@ class _IndustriesState extends State<Industries> {
     'Construction': {
       'icon': Icons.construction,
       'color': Colors.orange,
-      'companies': ['BuildMaster Inc.', 'Concrete Creations', 'Steel Structures Ltd.']
+      'companies': [
+        'BuildMaster Inc.',
+        'Concrete Creations',
+        'Steel Structures Ltd.'
+      ]
     },
     'Technology': {
       'icon': Icons.computer,
       'color': Colors.blue,
-      'companies': ['Tech Innovators Co.', 'Digital Solutions Inc.', 'CodeCrafters Ltd.']
+      'companies': [
+        'Tech Innovators Co.',
+        'Digital Solutions Inc.',
+        'CodeCrafters Ltd.'
+      ]
     },
     'Agriculture': {
       'icon': Icons.eco,
       'color': Colors.green,
-      'companies': ['Green Fields Farming', 'Agro Harvest Corp.', 'CropCare Industries']
+      'companies': [
+        'Green Fields Farming',
+        'Agro Harvest Corp.',
+        'CropCare Industries'
+      ]
     },
     'Tourism': {
       'icon': Icons.flight,
       'color': Colors.purple,
-      'companies': ['TravelWonders Ltd.', 'ExploreMore Adventures', 'Vacation Bliss Inc.']
+      'companies': [
+        'TravelWonders Ltd.',
+        'ExploreMore Adventures',
+        'Vacation Bliss Inc.'
+      ]
     },
     'Finance': {
       'icon': Icons.account_balance,
       'color': Colors.teal,
-      'companies': ['BankElite One', 'Investment Wizards Ltd.', 'MoneyTrust Financials']
+      'companies': [
+        'BankElite One',
+        'Investment Wizards Ltd.',
+        'MoneyTrust Financials'
+      ]
     },
     'Engineering': {
       'icon': Icons.engineering,
       'color': Colors.red,
-      'companies': ['Company XYZ', 'Global Ventures Inc.', 'Infinite Innovations']
+      'companies': [
+        'Company XYZ',
+        'Global Ventures Inc.',
+        'Infinite Innovations'
+      ]
     },
   };
 
@@ -70,7 +94,8 @@ class _IndustriesState extends State<Industries> {
         onTabSelected: (index) {},
         userProfile: UserProfile(
           uid: FirebaseAuth.instance.currentUser!.uid,
-          displayName: FirebaseAuth.instance.currentUser!.displayName ?? 'Anonymous',
+          displayName:
+              FirebaseAuth.instance.currentUser!.displayName ?? 'Anonymous',
         ),
       ),
       body: Column(
@@ -123,7 +148,8 @@ class _IndustriesState extends State<Industries> {
             borderRadius: BorderRadius.circular(16),
             borderSide: BorderSide.none,
           ),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         ),
       ),
     );
@@ -164,7 +190,8 @@ class _IndustriesState extends State<Industries> {
     );
   }
 
-  Widget _buildActionCard(String title, IconData icon, Color color, VoidCallback onTap) {
+  Widget _buildActionCard(
+      String title, IconData icon, Color color, VoidCallback onTap) {
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -193,12 +220,14 @@ class _IndustriesState extends State<Industries> {
     );
   }
 
-  Widget _buildIndustryCard(String industry, IconData icon, Color color, List<String> companies) {
+  Widget _buildIndustryCard(
+      String industry, IconData icon, Color color, List<String> companies) {
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: InkWell(
-        onTap: () => _showCompanyList(context, industry, companies, icon, color),
+        onTap: () =>
+            _showCompanyList(context, industry, companies, icon, color),
         borderRadius: BorderRadius.circular(16),
         child: Container(
           padding: const EdgeInsets.all(16),
@@ -248,7 +277,8 @@ class _IndustriesState extends State<Industries> {
     );
   }
 
-  void _showCompanyList(BuildContext context, String industry, List<String> companies, IconData icon, Color color) {
+  void _showCompanyList(BuildContext context, String industry,
+      List<String> companies, IconData icon, Color color) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -312,7 +342,8 @@ class _IndustriesState extends State<Industries> {
                           child: ListTile(
                             leading: CircleAvatar(
                               backgroundColor: color.withOpacity(0.2),
-                              child: Icon(Icons.business, color: color, size: 20),
+                              child:
+                                  Icon(Icons.business, color: color, size: 20),
                             ),
                             title: Text(
                               companies[index],
@@ -321,7 +352,8 @@ class _IndustriesState extends State<Industries> {
                                 fontSize: 15,
                               ),
                             ),
-                            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                            trailing:
+                                const Icon(Icons.arrow_forward_ios, size: 16),
                             onTap: () {
                               // Navigate to company details
                             },

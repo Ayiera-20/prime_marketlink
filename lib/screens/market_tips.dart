@@ -56,7 +56,8 @@ class MarketTips extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Icon(Icons.trending_up, size: 60, color: Colors.white.withOpacity(0.9)),
+          Icon(Icons.trending_up,
+              size: 60, color: Colors.white.withOpacity(0.9)),
           const SizedBox(height: 16),
           const Text(
             'Expand Your Business',
@@ -251,7 +252,8 @@ class MarketTips extends StatelessWidget {
     );
   }
 
-  Widget _buildTipCard(String title, String description, IconData icon, Color color) {
+  Widget _buildTipCard(
+      String title, String description, IconData icon, Color color) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
@@ -310,7 +312,8 @@ class MarketTips extends StatelessWidget {
     );
   }
 
-  Widget _buildRegionCard(String region, String tip, IconData icon, Color color) {
+  Widget _buildRegionCard(
+      String region, String tip, IconData icon, Color color) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(

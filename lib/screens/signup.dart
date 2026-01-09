@@ -15,9 +15,14 @@ class _SignupState extends State<Signup> {
   List<String> businessTypes = ['Foreign Business', 'Kenyan Business'];
   String? selectedBusinessType = 'Foreign Business';
 
-  List<String> companySizes = ['Company Size', 'less than 50', '50-100', '100-500', '500-1000+'];
+  List<String> companySizes = [
+    'Company Size',
+    'less than 50',
+    '50-100',
+    '100-500',
+    '500-1000+'
+  ];
   String? selectedCompanySize = 'Company Size';
-
 
   @override
   void dispose() {
@@ -34,8 +39,9 @@ class _SignupState extends State<Signup> {
         backgroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
-        child: Column(children: [
-             Container(
+        child: Column(
+          children: [
+            Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: const AssetImage("assets/images/background.jpg"),
@@ -48,337 +54,333 @@ class _SignupState extends State<Signup> {
               ),
               child: Column(
                 children: [
-               
-          
-          Container(
-            margin: const EdgeInsets.all(15.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  'Create Account',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 28,
-                    letterSpacing: 0.5,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 8),
-                const Text(
-                  'Join Prime Market Link',
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 16,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 30),
-                Row(
-                  children: [
-                    Flexible(
-                      child: CustomTextField(
-                        controller: _controller.nameController,
-                        hintText: "Enter your Name",
-                        prefixIcon: Icons.person,
-                        height: 45,
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Flexible(
-                      child: CustomTextField(
-                        controller: _controller.phoneController,
-                        hintText: "Phone Number",
-                        prefixIcon: Icons.phone,
-                        height: 45,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  children: [
-                    Flexible(
-                      child: CustomTextField(
-                        controller: _controller.emailController,
-                        hintText: "Enter Email",
-                        prefixIcon: Icons.email,
-                        height: 45,
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Flexible(
-                      child: CustomTextField(
-                        controller: _controller.professionController,
-                        hintText: "Profession",
-                        prefixIcon: Icons.work,
-                        height: 45,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20,),
-                Row(
-                  children: [
-                     Flexible(child: 
-                    CustomTextField(
-                      height: 45,
-                  controller: _controller.locationController,
-                  hintText: "Enter Location",
-                  prefixIcon: Icons.location_pin,
-                ),
-                    ),
-                     const SizedBox(width: 10),
-                     Flexible(child: 
-                    CustomTextField(
-                      height: 45,
-                  controller: _controller.companyNameController,
-                  hintText: "Company Name",
-                  prefixIcon: Icons.business,
-                ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  children: [
-                    Flexible(
-                      child: CustomTextField(
-                        controller: _controller.industryController,
-                        hintText: "Industry",
-                        prefixIcon: Icons.business,
-                        height: 45,
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Flexible(
-                      child: CustomTextField(
-                        controller: _controller.websiteController,
-                        hintText: "Company Website",
-                        prefixIcon: Icons.public,
-                        height: 45,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-               Column(
-  children: [
-    Container(
-      padding: const EdgeInsets.all(8.0),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: Column(
-        children: [
-          const Text(
-            'Company Size',
-            style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: Row(
-                  children: [
-                    Radio(
-                      value: "<50",
-                      groupValue: selectedCompanySize,
-                      onChanged: (value) {
-                        setState(() {
-                          selectedCompanySize = value;
-                        });
-                      },
-                    ),
-                    const Text("<50"),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Row(
-                  children: [
-                    Radio(
-                      value: "50-100",
-                      groupValue: selectedCompanySize,
-                      onChanged: (value) {
-                        setState(() {
-                          selectedCompanySize = value;
-                        });
-                      },
-                    ),
-                    const Text("50-100"),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: Row(
-                  children: [
-                    Radio(
-                      value: "100-500",
-                      groupValue: selectedCompanySize,
-                      onChanged: (value) {
-                        setState(() {
-                          selectedCompanySize = value;
-                        });
-                      },
-                    ),
-                    const Text("100-500"),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Row(
-                  children: [
-                    Radio(
-                      value: "500-1000",
-                      groupValue: selectedCompanySize,
-                      onChanged: (value) {
-                        setState(() {
-                          selectedCompanySize = value;
-                        });
-                      },
-                    ),
-                    const Text("500-1000+"),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    ),
-
-    const SizedBox(height: 20),
-    Container(
-      padding: const EdgeInsets.all(8.0),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: Column(
-        children: [
-          const Text(
-            'Business Type',
-            style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          Row(
-            children: businessTypes.map((type) {
-              return Expanded(
-                child: Row(
-                  children: [
-                    Radio(
-                      value: type,
-                      groupValue: selectedBusinessType,
-                      onChanged: (value) {
-                        setState(() {
-                          selectedBusinessType = value;
-                        });
-                      },
-                    ),
-                    Text(type),
-                  ],
-                ),
-              );
-            }).toList(),
-          ),
-        ],
-      ),
-    ),
-  ],
-),
-                const SizedBox(height: 20),
-                CustomTextField(
-                  controller: _controller.passwordController,
-                  hintText: "Enter Password",
-                  prefixIcon: Icons.lock,
-                  // obscureText: true,
-                  // suffixIcon: Icons.remove_red_eye,
-                  height: 45,
-                  isPassword: true,
-                ),
-                
-                const SizedBox(height: 20),
-                SizedBox(
-                  width: double.infinity,
-                  height: 56,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      _controller.signUp(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.teal,
-                      foregroundColor: Colors.white,
-                      elevation: 2,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16.0),
-                      ),
-                    ),
-                    child: const Text(
-                      'Sign Up',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 0.5,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 24),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Already have an account? ',
-                      style: TextStyle(
-                        color: Colors.white70,
-                        fontSize: 15,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        _controller.navigateToLogin(context);
-                      },
-                      style: TextButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                        minimumSize: const Size(0, 0),
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      ),
-                      child: const Text(
-                        'Sign In',
-                        style: TextStyle(
-                          color: Color(0xFF8FF2F7),
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600,
+                  Container(
+                    margin: const EdgeInsets.all(15.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Create Account',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 28,
+                            letterSpacing: 0.5,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                      ),
+                        const SizedBox(height: 8),
+                        const Text(
+                          'Join Prime Market Link',
+                          style: TextStyle(
+                            color: Colors.white70,
+                            fontSize: 16,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: 30),
+                        Row(
+                          children: [
+                            Flexible(
+                              child: CustomTextField(
+                                controller: _controller.nameController,
+                                hintText: "Enter your Name",
+                                prefixIcon: Icons.person,
+                                height: 45,
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Flexible(
+                              child: CustomTextField(
+                                controller: _controller.phoneController,
+                                hintText: "Phone Number",
+                                prefixIcon: Icons.phone,
+                                height: 45,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        Row(
+                          children: [
+                            Flexible(
+                              child: CustomTextField(
+                                controller: _controller.emailController,
+                                hintText: "Enter Email",
+                                prefixIcon: Icons.email,
+                                height: 45,
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Flexible(
+                              child: CustomTextField(
+                                controller: _controller.professionController,
+                                hintText: "Profession",
+                                prefixIcon: Icons.work,
+                                height: 45,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          children: [
+                            Flexible(
+                              child: CustomTextField(
+                                height: 45,
+                                controller: _controller.locationController,
+                                hintText: "Enter Location",
+                                prefixIcon: Icons.location_pin,
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Flexible(
+                              child: CustomTextField(
+                                height: 45,
+                                controller: _controller.companyNameController,
+                                hintText: "Company Name",
+                                prefixIcon: Icons.business,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        Row(
+                          children: [
+                            Flexible(
+                              child: CustomTextField(
+                                controller: _controller.industryController,
+                                hintText: "Industry",
+                                prefixIcon: Icons.business,
+                                height: 45,
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Flexible(
+                              child: CustomTextField(
+                                controller: _controller.websiteController,
+                                hintText: "Company Website",
+                                prefixIcon: Icons.public,
+                                height: 45,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        Column(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(8.0),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: Column(
+                                children: [
+                                  const Text(
+                                    'Company Size',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Row(
+                                          children: [
+                                            Radio(
+                                              value: "<50",
+                                              groupValue: selectedCompanySize,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  selectedCompanySize = value;
+                                                });
+                                              },
+                                            ),
+                                            const Text("<50"),
+                                          ],
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Row(
+                                          children: [
+                                            Radio(
+                                              value: "50-100",
+                                              groupValue: selectedCompanySize,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  selectedCompanySize = value;
+                                                });
+                                              },
+                                            ),
+                                            const Text("50-100"),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Row(
+                                          children: [
+                                            Radio(
+                                              value: "100-500",
+                                              groupValue: selectedCompanySize,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  selectedCompanySize = value;
+                                                });
+                                              },
+                                            ),
+                                            const Text("100-500"),
+                                          ],
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Row(
+                                          children: [
+                                            Radio(
+                                              value: "500-1000",
+                                              groupValue: selectedCompanySize,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  selectedCompanySize = value;
+                                                });
+                                              },
+                                            ),
+                                            const Text("500-1000+"),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            Container(
+                              padding: const EdgeInsets.all(8.0),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: Column(
+                                children: [
+                                  const Text(
+                                    'Business Type',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  Row(
+                                    children: businessTypes.map((type) {
+                                      return Expanded(
+                                        child: Row(
+                                          children: [
+                                            Radio(
+                                              value: type,
+                                              groupValue: selectedBusinessType,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  selectedBusinessType = value;
+                                                });
+                                              },
+                                            ),
+                                            Text(type),
+                                          ],
+                                        ),
+                                      );
+                                    }).toList(),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        CustomTextField(
+                          controller: _controller.passwordController,
+                          hintText: "Enter Password",
+                          prefixIcon: Icons.lock,
+                          // obscureText: true,
+                          // suffixIcon: Icons.remove_red_eye,
+                          height: 45,
+                          isPassword: true,
+                        ),
+                        const SizedBox(height: 20),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 56,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              _controller.signUp(context);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.teal,
+                              foregroundColor: Colors.white,
+                              elevation: 2,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16.0),
+                              ),
+                            ),
+                            child: const Text(
+                              'Sign Up',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 0.5,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              'Already have an account? ',
+                              style: TextStyle(
+                                color: Colors.white70,
+                                fontSize: 15,
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                _controller.navigateToLogin(context);
+                              },
+                              style: TextButton.styleFrom(
+                                padding: EdgeInsets.zero,
+                                minimumSize: const Size(0, 0),
+                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                              ),
+                              child: const Text(
+                                'Sign In',
+                                style: TextStyle(
+                                  color: Color(0xFF8FF2F7),
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          ],),
-      ),
-         
+                  ),
                 ],
               ),
             ),
-      
+          ],
+        ),
+      ),
     );
   }
 }
-
 
 class CustomTextField extends StatefulWidget {
   const CustomTextField({
@@ -387,7 +389,8 @@ class CustomTextField extends StatefulWidget {
     required this.hintText,
     required this.prefixIcon,
     this.height = 50,
-    this.isPassword = false, // New property to indicate if it's a password field
+    this.isPassword =
+        false, // New property to indicate if it's a password field
   });
 
   final TextEditingController controller;
@@ -415,7 +418,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
           suffixIcon: widget.isPassword
               ? IconButton(
                   icon: Icon(
-                    obscureText ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                    obscureText
+                        ? Icons.visibility_outlined
+                        : Icons.visibility_off_outlined,
                     color: Colors.grey,
                   ),
                   onPressed: () {
@@ -429,7 +434,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
           hintStyle: const TextStyle(color: Colors.grey, fontSize: 14),
           filled: true,
           fillColor: Colors.white,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12.0),
             borderSide: BorderSide.none,
@@ -439,8 +445,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
     );
   }
 }
-
-
 
 // class CustomTextField extends StatelessWidget {
 //   const CustomTextField({
